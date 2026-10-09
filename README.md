@@ -678,3 +678,23 @@ Units:
 
 - Position: km
 - Velocity: km/s
+- Delta-v (burn feasibility): m/s in fuel equation after conversion
+
+---
+
+## Operational Limits and Constraints
+
+- `POST /api/debug/seed`
+  - satellites: `1..200`
+  - debris: `1..20000`
+- `POST /api/debug/load_cdm_csv`
+  - max_rows: `1..20000`
+- `POST /api/sim/timewarp`
+  - allowed multipliers: `[1, 2, 10, 25, 100]`
+- Maneuvers are rejected if violating:
+  - line-of-sight upload requirement
+  - minimum command latency
+  - thermal cooldown
+  - per-burn and total fuel feasibility
+
+---
