@@ -138,3 +138,23 @@ def body(doc, text, bold_parts=None):
         if remaining:
             rb3 = p.add_run(remaining)
             rb3.font.size = Pt(11); rb3.font.color.rgb = BLACK
+    return p
+
+
+def bullet(doc, text, level=0, bold_lead=None):
+    """Bullet point with optional bold lead phrase."""
+    p = doc.add_paragraph(style="List Bullet")
+    p.paragraph_format.space_before = Pt(1)
+    p.paragraph_format.space_after  = Pt(2)
+    p.paragraph_format.left_indent = Inches(0.3 + 0.2 * level)
+
+    if bold_lead and text.startswith(bold_lead):
+        rb = p.add_run(bold_lead)
+        rb.bold = True; rb.font.size = Pt(11); rb.font.color.rgb = NAVY
+        rest = p.add_run(text[len(bold_lead):])
+        rest.font.size = Pt(11); rest.font.color.rgb = BLACK
+    else:
+        r = p.add_run(text)
+        r.font.size      = Pt(11)
+        r.font.color.rgb = BLACK
+
