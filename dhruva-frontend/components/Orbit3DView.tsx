@@ -38,3 +38,23 @@ export default function Orbit3DView({
   const satTrackPoints: [number, number, number][] = satTrail.map((p) => [
     p.x * SCALE,
     p.y * SCALE,
+    0,
+  ]);
+  const debTrackPoints: [number, number, number][] = debTrail.map((p) => [
+    p.x * SCALE,
+    p.y * SCALE,
+    0,
+  ]);
+
+  const conjSatPos: [number, number, number] | null = conjunction
+    ? [conjunction.satellite[0] * SCALE, conjunction.satellite[1] * SCALE, 0]
+    : null;
+  const conjDebPos: [number, number, number] | null = conjunction
+    ? [conjunction.debris[0] * SCALE, conjunction.debris[1] * SCALE, 0]
+    : null;
+
+  return (
+    <Canvas camera={{ position: [0, 0, 30], fov: 40 }}>
+      <color attach="background" args={["#020617"]} />
+      <ambientLight intensity={0.7} />
+      <directionalLight position={[20, 20, 10]} intensity={1.6} />
