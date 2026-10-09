@@ -198,3 +198,23 @@ export default function OrbitTracker3D({
             ),
         }),
         new Cesium.ProviderViewModel({
+          name: "OpenStreetMap",
+          iconUrl: Cesium.buildModuleUrl("Widgets/Images/ImageryProviders/openStreetMap.png"),
+          tooltip: "OpenStreetMap community-built map tiles.",
+          creationFunction: () =>
+            new Cesium.UrlTemplateImageryProvider({
+              url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+              subdomains: ["a", "b", "c"],
+              maximumLevel: 19,
+            }),
+        }),
+      ];
+
+      viewerRef.current = new Cesium.Viewer(containerRef.current, {
+        shouldAnimate: true,
+        selectionIndicator: false,
+        infoBox: false,
+        useDefaultRenderLoop: true,
+        baseLayerPicker: true,
+        imageryProviderViewModels: imageryModels,
+        selectedImageryProviderViewModel: imageryModels[0],
