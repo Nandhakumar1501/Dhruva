@@ -338,3 +338,23 @@ export default function OrbitalRecoveryPlot({ satellite, evaBurn, recBurn }: Pro
             </g>
           )}
 
+          {/* Nominal slot marker */}
+          <polygon
+            points={`${nomArcX},${nomArcY - 7} ${nomArcX + 6},${nomArcY} ${nomArcX},${nomArcY + 7} ${nomArcX - 6},${nomArcY}`}
+            fill="none" stroke="#22c55e" strokeWidth={1.5}
+          />
+
+          {/* Satellite marker */}
+          <circle cx={satArcX} cy={satArcY} r={5} fill="#22d3ee" />
+
+          {/* EVA burn arrow on orbital view */}
+          {evaRT && (
+            <Arrow
+              x1={satArcX} y1={satArcY}
+              x2={satArcX}
+              y2={satArcY - Math.abs(evaRT.R) * EVA_SCALE * ORB_SCALE * 0.01 - 20}
+              color="#f87171" label="EVA"
+            />
+          )}
+
+          {/* REC burn arrow on orbital view */}
