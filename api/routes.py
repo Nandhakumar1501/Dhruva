@@ -78,3 +78,23 @@ class CdmCsvLoadRequest(BaseModel):
 def _rtn_basis_from_state(state_vec: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray] | None:
     r = state_vec[:3]
     v = state_vec[3:6]
+    r_norm = float(np.linalg.norm(r))
+    if r_norm < 1e-10:
+        return None
+    r_hat = r / r_norm
+    h = np.cross(r, v)
+    h_norm = float(np.linalg.norm(h))
+    if h_norm < 1e-10:
+        return None
+    n_hat = h / h_norm
+    t_hat = np.cross(n_hat, r_hat)
+    t_norm = float(np.linalg.norm(t_hat))
+    if t_norm < 1e-10:
+        return None
+    t_hat = t_hat / t_norm
+    return r_hat, t_hat, n_hat
+
+
+def _safe_float(row: dict[str, str], key: str) -> float | None:
+    raw = row.get(key)
+    if raw is None or raw == "":
