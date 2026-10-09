@@ -78,3 +78,23 @@ export function SnapshotProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
+  const changeTimeWarp = useCallback(
+    async (direction: -1 | 1) => {
+      const idx = WARP_LEVELS.indexOf(timeWarpX);
+      const currentIdx = idx >= 0 ? idx : 0;
+      const nextIdx = Math.min(WARP_LEVELS.length - 1, Math.max(0, currentIdx + direction));
+      const target = WARP_LEVELS[nextIdx];
+      const applied = await setTimeWarp(target);
+      setTimeWarpX(applied);
+    },
+    [timeWarpX]
+  );
+
+  const decreaseTimeWarp = useCallback(async () => {
+    await changeTimeWarp(-1);
+  }, [changeTimeWarp]);
+
+  const increaseTimeWarp = useCallback(async () => {
+    await changeTimeWarp(1);
+  }, [changeTimeWarp]);
+
