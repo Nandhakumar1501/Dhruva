@@ -638,3 +638,23 @@ Use this for high-volume performance testing and warning pipeline validation.
 
 ### C) Maneuver validation test
 
+1. Submit future burn with `POST /api/maneuver/schedule`.
+2. Advance with `POST /api/simulate/step`.
+3. Verify in snapshot:
+   - Burn appears in `maneuvers` and/or `burn_logs`.
+   - Fuel decreases for target satellite.
+
+### D) High-volume debris stress test
+
+1. Seed baseline.
+2. `POST /api/debug/load_cdm_csv` with `max_rows=10000`.
+3. Verify snapshot counts and conjunction warnings.
+4. Observe frontend responsiveness and warning updates.
+
+### E) WebSocket stream test
+
+1. Connect to `WS /orbit`.
+2. Confirm timestamps and counts are updating.
+3. Confirm frontend bullseye/warning panels change live.
+
+---
