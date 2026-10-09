@@ -58,3 +58,23 @@ export function SnapshotProvider({ children }: { children: React.ReactNode }) {
       }
       return next;
     });
+
+    setMetricsHistory((prev) => {
+      const merged = [
+        ...prev,
+        {
+          timestamp: now,
+          fleetFuelPct: data.metrics.fleet_fuel_planned_pct ?? data.metrics.fleet_fuel_pct,
+          totalDeltaVMps: data.metrics.total_delta_v_mps,
+          collisionsAvoided: data.metrics.collisions_avoided,
+        },
+      ];
+      return merged.slice(-180);
+    });
+
+    if (data.satellites.length > 0) {
+      const firstId = data.satellites[0].id;
+      setSelectedSatelliteId((prev) => prev ?? firstId);
+    }
+  }, []);
+
