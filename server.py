@@ -38,3 +38,8 @@ async def orbit_stream(ws: WebSocket) -> None:
             step_seconds = 2.0 * warp
             state.stream_tick(step_seconds=step_seconds, reassess_every=20)
             await ws.send_json(state.snapshot())
+            await asyncio.sleep(0.10)
+    except WebSocketDisconnect:
+        return
+    except (AssertionError, Exception):
+        return
