@@ -258,3 +258,23 @@ export default function OrbitTracker3D({
         if (blackoutPrimitiveRef.current) {
           viewerRef.current.scene.primitives.remove(blackoutPrimitiveRef.current);
           blackoutPrimitiveRef.current = null;
+        }
+        viewerRef.current.destroy();
+        viewerRef.current = null;
+      }
+    };
+  }, [cesiumLoaded]);
+
+  // Update entities when data changes
+  useEffect(() => {
+    if (!viewerRef.current || !cesiumLoaded) return;
+    const Cesium = (window as any).Cesium;
+    const viewer = viewerRef.current;
+
+    // Advance Cesium clock to match simulation timestamp so SampledPositionProperty
+    // interpolation works correctly between snapshot updates.
+    const simDate = new Date(timestamp);
+    const simJulian = Cesium.JulianDate.fromDate(simDate);
+    viewer.clock.currentTime = simJulian.clone();
+    viewer.clock.shouldAnimate = false;
+
