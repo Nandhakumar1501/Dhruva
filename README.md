@@ -98,3 +98,23 @@ Full worldwide 3D globe view of the entire constellation with all satellite posi
 
 Enlarged conjunction bullseye radar plot for a selected satellite (SAT-Alpha-07). Displays the predicted closest approach point relative to the satellite's reference frame, with colour-coded risk zones (Dhruva 1 km, Warning 2 km, Outer 5 km) and a conjunction list with miss distances.
 
+---
+
+### 7. Fleet Fuel & ΔV Analysis
+![Fleet Fuel and DeltaV Analysis](screenshots/7.png)
+
+Fleet-wide fuel and delta-V analytics page. Shows per-satellite propellant budget bars, total ΔV consumed (124.11 m/s), collision avoidance score, and a rolling history chart comparing ΔV consumed against collisions avoided over the simulation window.
+
+---
+
+### 8. Reports — Burn Logs
+![Burn Logs Report](screenshots/8.png)
+
+Reports section listing the full burn log for the current simulation stream. Each entry shows the burn ID, satellite, time (UTC), delta-V in m/s, and execution status (Executed / Rejected), providing a complete audit trail of all maneuver decisions.
+
+---
+
+### 9. Graveyard Orbit Monitor
+![Graveyard Orbit Monitor](screenshots/9.png)
+
+Graveyard orbit monitor that automatically tracks satellites moved to graveyard mode when their fuel falls below the critical threshold. Displays satellite ID and the trigger condition, ensuring decommissioned assets are flagged and tracked.
