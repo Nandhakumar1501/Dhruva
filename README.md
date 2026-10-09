@@ -558,3 +558,23 @@ Allowed multipliers:
 
 - `1`, `2`, `10`, `25`, `100`
 
+Response:
+
+```json
+{
+  "status": "UPDATED",
+  "time_warp_x": 10
+}
+```
+
+---
+
+## WebSocket Stream
+
+Endpoint:
+
+- `WS /orbit`
+
+Behavior:
+
+- Opens persistent connection.
