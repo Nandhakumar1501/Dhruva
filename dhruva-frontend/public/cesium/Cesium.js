@@ -1138,3 +1138,23 @@ const float czm_passTranslucent = 9.0;
  * The automatic GLSL constant for {@link Pass#VOXELS}
  *
  * @name czm_passVoxels
+ * @glslConstant
+ *
+ * @see czm_pass
+ */
+const float czm_passVoxels = 10.0;
+`;var fHt=y(x(),1),WV=`/**
+ * A built-in GLSL floating-point constant for <code>Math.PI</code>.
+ *
+ * @alias czm_pi
+ * @glslConstant
+ *
+ * @see CesiumMath.PI
+ *
+ * @example
+ * // GLSL declaration
+ * const float czm_pi = ...;
+ *
+ * // Example
+ * float twoPi = 2.0 * czm_pi;
+ */
