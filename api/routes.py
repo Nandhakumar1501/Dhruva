@@ -138,3 +138,23 @@ def build_router(state: SimulationState) -> APIRouter:
         last_ts: datetime | None = None
         for obj in payload.objects:
             try:
+                epoch_iso = obj.timestamp.isoformat()
+                state_vec = tle_to_gcrs_state_km_kms(obj.tle_line1, obj.tle_line2, epoch_iso)
+                state_vec = np.asarray(state_vec, dtype=float)
+                state.ingest_object(obj.id, obj.object_type, state_vec)
+                processed += 1
+                last_ts = obj.timestamp
+            except Exception:
+                continue
+
+        if last_ts is not None:
+            state.current_time = last_ts
+
+        return {
+            "status": "ACK",
+            "processed_count": processed,
+            "active_cdm_warnings": len(state.conjunctions),
+            "last_timestamp": last_ts.isoformat() if last_ts else None,
+        }
+
+    @router.post("/maneuver/schedule", status_code=202)
