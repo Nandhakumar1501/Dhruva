@@ -978,3 +978,23 @@ const float czm_epsilon6 = 0.000001;
  */
 const float czm_epsilon7 = 0.0000001;
 `;var Fzt=y(x(),1),pV=`/**
+ * DOC_TBA
+ *
+ * @name czm_infinity
+ * @glslConstant
+ */
+const float czm_infinity = 5906376272000.0;  // Distance from the Sun to Pluto in meters.  TODO: What is best given lowp, mediump, and highp?
+`;var Nzt=y(x(),1),AV=`/**
+ * A built-in GLSL floating-point constant for <code>1/pi</code>.
+ *
+ * @alias czm_oneOverPi
+ * @glslConstant
+ *
+ * @see CesiumMath.ONE_OVER_PI
+ *
+ * @example
+ * // GLSL declaration
+ * const float czm_oneOverPi = ...;
+ *
+ * // Example
+ * float pi = 1.0 / czm_oneOverPi;
