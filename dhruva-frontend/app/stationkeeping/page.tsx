@@ -118,3 +118,23 @@ export default function StationKeepingPage() {
             <table className="w-full text-[10px]">
               <thead>
                 <tr className="text-slate-500 border-b border-slate-800">
+                  <th className="text-left py-1 px-1 font-medium">Burn ID</th>
+                  <th className="text-left py-1 px-1 font-medium">Satellite</th>
+                  <th className="text-right py-1 px-1 font-medium">Time (UTC)</th>
+                  <th className="text-right py-1 px-1 font-medium">ΔV (m/s)</th>
+                  <th className="text-center py-1 px-1 font-medium">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {recoveryBurns.map((m, idx) => (
+                  <tr key={`${m.burn_id}-${idx}`} className="border-b border-slate-800/50 hover:bg-slate-900/50">
+                    <td className="py-1 px-1 font-mono text-slate-400">{m.burn_id}</td>
+                    <td className="py-1 px-1 text-slate-300">{m.satellite_id}</td>
+                    <td className="py-1 px-1 text-right font-mono text-slate-400">
+                      {new Date(m.burn_time).toUTCString()}
+                    </td>
+                    <td className="py-1 px-1 text-right font-mono text-cyan-300">
+                      {(Math.sqrt(
+                        m.delta_v_kmps.x ** 2 +
+                        m.delta_v_kmps.y ** 2 +
+                        m.delta_v_kmps.z ** 2
