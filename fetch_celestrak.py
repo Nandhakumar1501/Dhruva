@@ -138,3 +138,23 @@ def ingest_feed(session: requests.Session, key: str, limit: int) -> int:
     print(f"  Querying Space-Track...")
 
     try:
+        resp = session.get(url, timeout=30)
+        resp.raise_for_status()
+    except requests.RequestException as e:
+        print(f"  Fetch failed: {e}")
+        return 0
+
+    tles = parse_tles(resp.text)
+    if not tles:
+        print("  No TLEs returned.")
+        return 0
+
+    print(f"  Got {len(tles)} TLE sets")
+
+    # Only keep TLEs with recent epochs — old ones have re-entered and their
+    # positions won't align with the current simulation time.
+    fresh = [(n, l1, l2) for n, l1, l2 in tles if is_fresh(l1)]
+    stale = len(tles) - len(fresh)
+    if stale:
+        print(f"  Skipped {stale} stale TLEs (epoch > 30 days old)")
+    tles = fresh
