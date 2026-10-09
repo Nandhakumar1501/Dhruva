@@ -118,3 +118,23 @@ def body(doc, text, bold_parts=None):
     p.paragraph_format.space_after  = Pt(3)
     p.paragraph_format.left_indent  = Inches(0)
     if not bold_parts:
+        r = p.add_run(text)
+        r.font.size      = Pt(11)
+        r.font.color.rgb = BLACK
+    else:
+        # naive inline bold: split on bold_parts
+        remaining = text
+        for bp in bold_parts:
+            idx = remaining.find(bp)
+            if idx == -1:
+                continue
+            before = remaining[:idx]
+            if before:
+                rb = p.add_run(before)
+                rb.font.size = Pt(11); rb.font.color.rgb = BLACK
+            rb2 = p.add_run(bp)
+            rb2.bold = True; rb2.font.size = Pt(11); rb2.font.color.rgb = NAVY
+            remaining = remaining[idx + len(bp):]
+        if remaining:
+            rb3 = p.add_run(remaining)
+            rb3.font.size = Pt(11); rb3.font.color.rgb = BLACK
