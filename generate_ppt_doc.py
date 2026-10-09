@@ -98,3 +98,23 @@ def slide_label(doc, number: int, title: str):
     rt.bold           = True
     rt.font.size      = Pt(16)
     rt.font.color.rgb = GOLD
+    add_hr(doc)
+
+
+def section_heading(doc, text):
+    p  = doc.add_paragraph()
+    p.paragraph_format.space_before = Pt(10)
+    p.paragraph_format.space_after  = Pt(3)
+    r  = p.add_run(text)
+    r.bold           = True
+    r.font.size      = Pt(12)
+    r.font.color.rgb = BLUE
+
+
+def body(doc, text, bold_parts=None):
+    """Plain body paragraph. Pass bold_parts list of substrings to bold inline."""
+    p = doc.add_paragraph()
+    p.paragraph_format.space_before = Pt(1)
+    p.paragraph_format.space_after  = Pt(3)
+    p.paragraph_format.left_indent  = Inches(0)
+    if not bold_parts:
