@@ -58,3 +58,23 @@ class ManeuverRequest(BaseModel):
 class StepRequest(BaseModel):
     step_seconds: int = Field(gt=0)
 
+
+class SeedRequest(BaseModel):
+    satellite_count: int = Field(default=50, ge=1, le=200)
+    debris_count: int = Field(default=20, ge=1, le=20000)
+
+
+class TimeWarpRequest(BaseModel):
+    multiplier: int
+
+
+class CdmCsvLoadRequest(BaseModel):
+    csv_path: str = "test_data/debris_data.csv"
+    max_rows: int = Field(default=1000, ge=1, le=20000)
+    replace_existing: bool = False
+    id_prefix: str = "CDM-DEB"
+
+
+def _rtn_basis_from_state(state_vec: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray] | None:
+    r = state_vec[:3]
+    v = state_vec[3:6]
