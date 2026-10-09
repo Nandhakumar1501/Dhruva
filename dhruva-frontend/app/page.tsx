@@ -98,3 +98,23 @@ function Dashboard() {
             </div>
             <div className="h-40 xl:h-36 shrink-0">
               <BlackoutPanel
+                blackoutStatus={snapshot?.blackout_status ?? []}
+                selectedSatelliteId={selectedSatelliteId}
+                onSelectSatellite={setSelectedSatelliteId}
+              />
+            </div>
+            <div className="flex-1 min-h-0">
+              <SatelliteDetail satellite={selectedSat} />
+            </div>
+          </div>
+        </div>
+
+        <div className="h-32 xl:h-36 shrink-0 min-w-0">
+          <ManeuverTimeline maneuvers={snapshot?.maneuvers ?? []} nowIso={snapshot?.timestamp ?? new Date().toISOString()} />
+        </div>
+      </div>
+    </AppShell>
+  );
+}
+
+export default function Home() {
