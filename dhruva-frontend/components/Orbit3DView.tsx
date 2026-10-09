@@ -78,3 +78,23 @@ export default function Orbit3DView({
         />
       )}
 
+      <mesh position={satPos}>
+        <coneGeometry args={[0.25, 0.8, 16]} />
+        <meshStandardMaterial color="#22c55e" />
+      </mesh>
+
+      <mesh position={debPos}>
+        <sphereGeometry args={[0.25, 16, 16]} />
+        <meshStandardMaterial color="#ef4444" />
+      </mesh>
+
+      {conjSatPos && conjDebPos && (
+        <>
+          {/* Predicted TCA marker */}
+          <mesh position={conjSatPos}>
+            <sphereGeometry args={[0.3, 16, 16]} />
+            <meshStandardMaterial color="#eab308" emissive="#451a03" emissiveIntensity={0.9} />
+          </mesh>
+
+          {showEncounter && (
+            <>
