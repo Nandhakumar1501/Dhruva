@@ -58,3 +58,23 @@ function drawBullseye(
     ctx.font = `${Math.max(9, w * 0.018)}px sans-serif`;
     ctx.fillText(ringLabels[idx], cx + maxR * k + 3, cy - 3);
   });
+
+  ctx.strokeStyle = "#334155";
+  ctx.lineWidth = 0.5;
+  for (let a = 0; a < 360; a += 30) {
+    const rad = (a * Math.PI) / 180;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + Math.cos(rad) * maxR, cy + Math.sin(rad) * maxR);
+    ctx.stroke();
+  }
+
+  ctx.fillStyle = "#f8fafc";
+  ctx.beginPath();
+  ctx.arc(cx, cy, Math.max(4, w * 0.008), 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = "#94a3b8";
+  ctx.font = `${Math.max(9, w * 0.018)}px sans-serif`;
+  ctx.fillText(selectedSatelliteId ?? "SAT", cx + 7, cy + 3);
+
+  const zones: typeof hitZonesRef.current = [];
