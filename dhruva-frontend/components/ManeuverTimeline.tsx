@@ -78,3 +78,23 @@ export default function ManeuverTimeline({ maneuvers, nowIso }: TimelineProps) {
           const burnWidth = Math.max(1, (30 * 1000 / (windowEnd - windowStart)) * 100);
 
           const burnColor = m.executed ? "bg-emerald-500" : m.rejected ? "bg-red-500" : "bg-blue-500";
+          const coolColor = m.executed ? "bg-emerald-500/20" : m.rejected ? "bg-red-500/10" : "bg-amber-500/25";
+
+          return (
+            <div key={`${m.burn_id}-${idx}`} className="flex items-center h-5">
+              <div className="w-20 shrink-0 truncate text-slate-400 font-mono pr-1" title={`${m.satellite_id} / ${m.burn_id}`}>
+                {m.satellite_id.replace("SAT-Alpha-", "A-")} <span className="text-slate-600">{m.burn_id.includes("EVA") ? "E" : m.burn_id.includes("REC") ? "R" : "B"}</span>
+              </div>
+
+              <div className="flex-1 relative h-3 bg-slate-900/50">
+                <div className={`absolute top-0 bottom-0 ${burnColor}`} style={{ left: `${burnP}%`, width: `${burnWidth}%` }} />
+                {!m.rejected && (
+                  <div className={`absolute top-0 bottom-0 ${coolColor}`} style={{ left: `${burnP + burnWidth}%`, width: `${Math.min(coolP, 100 - burnP - burnWidth)}%` }} />
+                )}
+                {(m.conflict || m.blackout_overlap) && (
+                  <div className="absolute top-0 bottom-0 border border-red-500/50 bg-red-500/10" style={{ left: `${burnP}%`, width: `${burnWidth + coolP}%` }} />
+                )}
+              </div>
+
+              <div className="w-14 shrink-0 text-right">
+                <span className={m.executed ? "text-emerald-400" : m.rejected ? "text-red-400" : "text-blue-400"}>
