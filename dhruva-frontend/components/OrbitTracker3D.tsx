@@ -78,3 +78,23 @@ function computeOrbitEllipseCesium(
 
   let P: number[];
   if (e > 1e-8) {
+    P = eVec.map((x) => x / e);
+  } else {
+    P = r.map((x) => x / rMag);
+  }
+
+  const hHat = h.map((x) => x / hMag);
+  const Q = cross(hHat, P);
+
+  const gmst = gmstRadians(timestamp);
+  const cosG = Math.cos(gmst);
+  const sinG = Math.sin(gmst);
+
+  const p = a * (1 - e * e);
+  const points: { x: number; y: number; z: number }[] = [];
+
+  for (let i = 0; i <= numPoints; i++) {
+    const theta = (2 * Math.PI * i) / numPoints;
+    const radius = p / (1 + e * Math.cos(theta));
+    const xPeri = radius * Math.cos(theta);
+    const yPeri = radius * Math.sin(theta);
