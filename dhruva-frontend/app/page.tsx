@@ -78,3 +78,23 @@ function Dashboard() {
                 <OrbitTracker3D
                   satellites={satellites}
                   selectedSatelliteId={selectedSatelliteId}
+                  onSelectSatellite={setSelectedSatelliteId}
+                  timestamp={snapshot?.timestamp ?? new Date().toISOString()}
+                  debrisCloud={snapshot?.debris_cloud ?? []}
+                  conjunctions={snapshot?.conjunctions ?? []}
+                  blackoutStatus={snapshot?.blackout_status ?? []}
+                />
+              )}
+            </div>
+          </div>
+
+          <div className="w-full xl:w-60 xl:shrink-0 flex flex-col gap-2 min-h-[22rem] xl:min-h-0">
+            <div className="h-40 xl:h-36 shrink-0">
+              <ConstellationList
+                satellites={satellites}
+                selectedSatelliteId={selectedSatelliteId}
+                onSelectSatellite={setSelectedSatelliteId}
+              />
+            </div>
+            <div className="h-40 xl:h-36 shrink-0">
+              <BlackoutPanel
