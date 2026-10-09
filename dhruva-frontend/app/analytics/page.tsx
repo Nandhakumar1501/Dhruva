@@ -98,3 +98,23 @@ export default function AnalyticsPage() {
                               c.risk_level === "CRITICAL"
                                 ? "text-red-400"
                                 : c.risk_level === "WARNING"
+                                  ? "text-amber-400"
+                                  : "text-emerald-400"
+                            }
+                          >
+                            {c.risk_level}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-4 gap-2">
+          <div className="border border-slate-800 bg-slate-950 p-2">
+            <div className="text-[10px] text-slate-500">Uptime %</div>
+            <div className="text-lg font-semibold text-emerald-300">{(metrics?.uptime_pct ?? 100).toFixed(2)}%</div>
