@@ -38,3 +38,23 @@ export interface ConjunctionItem {
   risk_level: RiskLevel;
 }
 
+export interface ManeuverItem {
+  burn_id: string;
+  satellite_id: string;
+  burn_time: string;
+  delta_v_kmps: {
+    x: number;
+    y: number;
+    z: number;
+  };
+  executed: boolean;
+  rejected: boolean;
+  blackout_overlap: boolean;
+  conflict: boolean;
+}
+
+export interface SnapshotPayload {
+  timestamp: string;
+  satellites: SatelliteSnapshot[];
+  debris_cloud: DebrisTuple[];
+  conjunctions: ConjunctionItem[];
