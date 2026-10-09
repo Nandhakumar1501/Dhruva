@@ -398,3 +398,23 @@ czm_material czm_getMaterial(czm_materialInput materialInput)
     float dyc = abs(dFdy(materialInput.height));
     float dF = max(dxc, dyc) * czm_pixelRatio * width;
     float alpha = (distanceToContour < dF) ? 1.0 : 0.0;
+#else
+    // If no derivatives available (IE 10?), use pixel ratio
+    float alpha = (distanceToContour < (czm_pixelRatio * width)) ? 1.0 : 0.0;
+#endif
+
+    vec4 outColor = czm_gammaCorrect(vec4(color.rgb, alpha * color.a));
+    material.diffuse = outColor.rgb;
+    material.alpha = outColor.a;
+
+    return material;
+}
+`;var mQt=y(x(),1),XR=`uniform sampler2D image;
+uniform float minimumHeight;
+uniform float maximumHeight;
+
+czm_material czm_getMaterial(czm_materialInput materialInput)
+{
+    czm_material material = czm_getDefaultMaterial(materialInput);
+    float scaledHeight = clamp((materialInput.height - minimumHeight) / (maximumHeight - minimumHeight), 0.0, 1.0);
+    vec4 rampColor = texture(image, vec2(scaledHeight, 0.5));
