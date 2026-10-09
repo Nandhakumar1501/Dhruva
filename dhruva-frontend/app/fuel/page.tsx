@@ -78,3 +78,23 @@ export default function FuelPage() {
                       <div
                         className={`h-full transition-all duration-500 ${sat.in_graveyard_orbit ? "bg-slate-600" : fuelColor(pct)}`}
                         style={{ width: `${pct}%` }}
+                      />
+                    </div>
+                    <div className={`w-12 text-right text-[10px] font-mono shrink-0 ${sat.in_graveyard_orbit ? "text-slate-600" : fuelTextColor(pct)}`}>
+                      {fuelKg.toFixed(1)} kg
+                    </div>
+                    <div className={`w-8 text-right text-[9px] shrink-0 ${sat.in_graveyard_orbit ? "text-slate-600" : fuelTextColor(pct)}`}>
+                      {pct.toFixed(0)}%
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Efficiency chart */}
+          <div className="flex-1 border border-slate-800 bg-slate-950 p-3 flex flex-col gap-3 min-h-0">
+            <div className="flex items-center justify-between shrink-0">
+              <div className="text-[10px] text-slate-300 font-semibold uppercase tracking-wide">∆v Consumed vs Collisions Avoided (rolling history)</div>
+              <div className="flex gap-3 text-[9px] text-slate-500">
+                <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-cyan-400 inline-block" />∆v (m/s)</span>
