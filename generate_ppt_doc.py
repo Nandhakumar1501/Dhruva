@@ -598,3 +598,23 @@ body(doc,
      "This is not a failure — it is proof that the system is safe-by-default. A burn that would violate "
      "an operational constraint is rejected with a reason code, not silently ignored. That is production-grade behaviour.")
 doc.add_page_break()
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  SLIDE 12
+# ══════════════════════════════════════════════════════════════════════════════
+slide_label(doc, 12, "Roadmap & Vision")
+punchline(doc, '"Dhruva CDM v2.0 — The Path to Operational Readiness"')
+
+section_heading(doc, "Immediate Extensions (3–6 months)")
+bullet(doc, "Live NORAD TLE ingestion (CelesTrak / Space-Track.org) — automated SGP4 seeding from real orbital catalog; real objects, real risk assessments.", bold_lead="Live NORAD TLE ingestion")
+bullet(doc, "Probabilistic collision avoidance (Pc) — replace threshold-based labelling with full covariance Foster/Alfano 2D projection method, matching the NASA CARA Pc > 10⁻⁴ operational threshold standard.", bold_lead="Probabilistic collision avoidance (Pc)")
+
+section_heading(doc, "Medium-Term Research Track (6–18 months)")
+bullet(doc, "Higher-fidelity propagation — J3–J6 zonal harmonics, NRLMSISE-00 atmospheric drag, solar radiation pressure → extends accurate propagation from hours to days; critical for VLEO objects.", bold_lead="Higher-fidelity propagation")
+bullet(doc, "Reinforcement Learning maneuver planner — policy trained on simulated conjunction scenarios, minimising fleet-wide ΔV while maximising uptime and respecting thermal cooldown constraints (Gao et al., arXiv:2009.04050).", bold_lead="Reinforcement Learning maneuver planner")
+
+section_heading(doc, "Long-Term Vision")
+bullet(doc, "CCSDS CDM standard API — interoperability with NASA, ESA, JAXA, ISRO data exchange frameworks → Dhruva as a node in federated Space Traffic Management.", bold_lead="CCSDS CDM standard API")
+bullet(doc, "Onboard autonomy migration — evasion planner packaged as a radiation-tolerant flight software module with deterministic WCET guarantees → fully autonomous onboard avoidance for satellites in prolonged blackout.", bold_lead="Onboard autonomy migration")
+
+add_hr(doc)
