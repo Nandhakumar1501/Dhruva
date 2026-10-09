@@ -138,3 +138,23 @@ export default function BullseyePlot({ selectedSatelliteId, conjunctions }: Bull
   }, [filtered, selectedSatelliteId, expanded]);
 
   const handleCanvasClick = useCallback(
+    (evt: React.MouseEvent<HTMLCanvasElement>, zones: typeof hitZonesRef.current) => {
+      const canvas = evt.currentTarget;
+      const rect = canvas.getBoundingClientRect();
+      const mx = ((evt.clientX - rect.left) / rect.width) * canvas.width;
+      const my = ((evt.clientY - rect.top) / rect.height) * canvas.height;
+
+      for (const zone of zones) {
+        if (Math.hypot(mx - zone.cx, my - zone.cy) <= zone.r) {
+          setTooltip({ x: evt.clientX - rect.left, y: evt.clientY - rect.top, item: zone.item });
+          return;
+        }
+      }
+      setTooltip(null);
+    },
+    [],
+  );
+
+  const tooltipEl = tooltip && (
+    <div
+      className="absolute z-30 bg-slate-900 border border-slate-700 p-2.5 text-[11px] text-slate-200 shadow-xl"
