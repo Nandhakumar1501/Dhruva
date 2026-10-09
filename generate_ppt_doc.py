@@ -298,3 +298,23 @@ code_block(doc, "docker build -t dhruva-cdm . && docker run --rm -p 8000:8000 -p
 body(doc, "One command. Running in under 60 seconds. Open source under MIT License.")
 
 section_heading(doc, "Quick Links")
+bullet(doc, "Demo Video: https://youtu.be/fs9eEaVNgIA")
+bullet(doc, "Repository: github.com/jeevankumar-m/project-dhruva")
+doc.add_page_break()
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  SLIDE 3
+# ══════════════════════════════════════════════════════════════════════════════
+slide_label(doc, 3, "Our USP — What Makes Dhruva Different")
+punchline(doc, "Six Differentiators That No Existing Open Tool Combines")
+
+add_table(doc,
+    ["Dhruva USP", "Why It Matters"],
+    [
+        ["Physics-first propagation from scratch",
+         "Two-body + J2 + RK4 — not SGP4 table lookups. J2 changes RAAN by ~7°/day; ignoring it means wrong conjunction geometry hours later."],
+        ["Dual-mode conjunction pipeline",
+         "Spatial Grid (O(1)/tick, UI-safe) + custom hand-built KD-Tree (sub-linear, stress-tested to 20,000 debris). No existing free tool does both."],
+        ["Closed-loop autonomous avoidance",
+         "CRITICAL events auto-generate evasion + paired recovery burns. No human in the loop required."],
+        ["Full operational constraint model",
