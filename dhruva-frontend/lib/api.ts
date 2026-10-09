@@ -18,3 +18,22 @@ export async function setTimeWarp(multiplier: number): Promise<number> {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ multiplier }),
+  });
+  if (!res.ok) {
+    throw new Error(`Set time warp failed: ${res.status}`);
+  }
+  const data = (await res.json()) as { time_warp_x: number };
+  return data.time_warp_x;
+}
+
+export function createOrbitSocket(onData: (data: SnapshotPayload) => void): WebSocket {
+  const ws = new WebSocket(`${WS_BASE}/orbit`);
+  ws.onmessage = (event) => {
+    try {
+      onData(JSON.parse(event.data) as SnapshotPayload);
+    } catch {
+      // ignore malformed frames
+    }
+  };
+  return ws;
+}
