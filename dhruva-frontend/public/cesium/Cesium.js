@@ -1478,3 +1478,23 @@ struct czm_ray
     vec3 direction;
 };
 `;var eKt=y(x(),1),qV=`/**
+ * DOC_TBA
+ *
+ * @name czm_raySegment
+ * @glslStruct
+ */
+struct czm_raySegment
+{
+    float start;
+    float stop;
+};
+
+/**
+ * DOC_TBA
+ *
+ * @name czm_emptyRaySegment
+ * @glslConstant 
+ */
+const czm_raySegment czm_emptyRaySegment = czm_raySegment(-czm_infinity, -czm_infinity);
+
+/**
