@@ -458,3 +458,23 @@ add_table(doc,
         ["server.py",           "FastAPI bootstrap, CORS, SimulationState instantiation, WebSocket /orbit endpoint"],
         ["api/routes.py",       "All REST endpoints: telemetry ingest, TLE ingest, maneuver scheduling, step, snapshot, seed, time-warp, CDM CSV loader"],
         ["engine/sim_state.py", "Operational core: sim time, state vectors, maneuver queues, conjunction warnings, blackout tracking, graveyard logic, objective metrics"],
+        ["engine/conjunction.py","Conjunction pipeline: grid + KD-tree pre-filter, TCA evaluation, SAFE/WARNING/CRITICAL classification"],
+        ["physics.py",          "Astrodynamics: two-body + J2, RK4 integration, state propagation, Tsiolkovsky propellant model, orbital period"],
+        ["dhruva-frontend/",    "React SPA: 2D map, 3D Cesium globe, Bullseye radar, analytics dashboard, maneuver workflow, burn logs"],
+    ],
+    col_widths=[Inches(1.8), Inches(4.6)]
+)
+doc.add_page_break()
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  SLIDE 8
+# ══════════════════════════════════════════════════════════════════════════════
+slide_label(doc, 8, "Operator Dashboard — Orbital Insight")
+punchline(doc, '"Six Views. One Ground Truth. Zero Polling Lag."')
+
+add_table(doc,
+    ["Dashboard View", "What It Delivers"],
+    [
+        ["2D Mercator Ground Track",
+         "Real-time satellite positions (cyan), debris cloud (red), 90-min historical trail + 90-min predicted trajectory (dashed), solar terminator line, ground station overlays (IIT Delhi Node, ISTRAC, Goldstone)"],
+        ["3D Cesium Globe",
