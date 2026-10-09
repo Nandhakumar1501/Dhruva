@@ -2218,3 +2218,23 @@ void czm_computeScattering(
     vec2 heightScale = vec2(czm_atmosphereRayleighScaleHeight, czm_atmosphereMieScaleHeight);
 
     // Sample positions on the primary ray.
+    for (int i = 0; i < PRIMARY_STEPS_MAX; ++i) {
+
+        // The loop should be: for (int i = 0; i < PRIMARY_STEPS; ++i) {...} but WebGL1 cannot
+        // loop with non-constant condition, so it has to break early instead
+        if (i >= PRIMARY_STEPS) {
+            break;
+        }
+
+        // Calculate sample position along viewpoint ray.
+        vec3 samplePosition = primaryRay.origin + primaryRay.direction * (rayPositionLength + rayStepLength);
+
+        // Calculate height of sample position above ellipsoid.
+        float sampleHeight = length(samplePosition) - atmosphereInnerRadius;
+
+        // Calculate and accumulate density of particles at the sample position.
+        vec2 sampleDensity = exp(-sampleHeight / heightScale) * rayStepLength;
+        opticalDepth += sampleDensity;
+
+        // Generate ray from the sample position segment to the light source, up to the outer ring of the atmosphere.
+        czm_ray lightRay = czm_ray(samplePosition, lightDirection);
