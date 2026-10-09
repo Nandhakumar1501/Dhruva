@@ -38,3 +38,23 @@ export default function BlackoutPanel({
       </div>
 
       <div className="overflow-auto pr-1 space-y-1">
+        {active.length === 0 && (
+          <div className="text-xs text-slate-500 border border-slate-800 bg-slate-900 px-2 py-2">
+            No satellites in blackout right now.
+          </div>
+        )}
+        {active.map((item) => (
+          <button
+            key={item.satellite_id}
+            onClick={() => onSelectSatellite(item.satellite_id)}
+            className={`w-full text-left px-2 py-1 border ${
+              selectedSatelliteId === item.satellite_id ? "border-red-400 bg-red-500/10" : "border-slate-800 bg-slate-900"
+            }`}
+          >
+            <div className="flex items-center justify-between text-xs">
+              <span className="text-slate-200">{item.satellite_id}</span>
+              <span className="text-red-300">{formatEta(item.estimated_recovery_seconds)}</span>
+            </div>
+            <div className="text-[10px] text-slate-500">
+              LOS restore ETA: {item.estimated_recovery_timestamp ? new Date(item.estimated_recovery_timestamp).toUTCString() : "unknown"}
+            </div>
