@@ -318,3 +318,23 @@ export default function OrbitalRecoveryPlot({ satellite, evaBurn, recBurn }: Pro
             fill="none" stroke="#22d3ee" strokeWidth={1.5} opacity={0.85}
           />
           <text x={ORB_W - 4} y={satArcY + 3}
+            fill="#22d3ee" fontSize={8} textAnchor="end">Actual</text>
+
+          {/* Altitude delta line */}
+          {Math.abs(altDelta) > 0.1 && (
+            <g>
+              <line
+                x1={ORB_CX + 20} y1={satArcY}
+                x2={ORB_CX + 20} y2={nomArcY}
+                stroke="#f59e0b" strokeWidth={1} strokeDasharray="3,2"
+              />
+              <text
+                x={ORB_CX + 24}
+                y={(satArcY + nomArcY) / 2 + 3}
+                fill="#f59e0b" fontSize={8}
+              >
+                {Math.abs(altDelta).toFixed(1)} km
+              </text>
+            </g>
+          )}
+
