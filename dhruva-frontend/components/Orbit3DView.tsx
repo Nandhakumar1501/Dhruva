@@ -58,3 +58,23 @@ export default function Orbit3DView({
       <color attach="background" args={["#020617"]} />
       <ambientLight intensity={0.7} />
       <directionalLight position={[20, 20, 10]} intensity={1.6} />
+
+      <Earth />
+
+      {satTrackPoints.length > 1 && (
+        <Line
+          points={satTrackPoints}
+          color="#38bdf8"
+          lineWidth={2}
+          dashed={false}
+        />
+      )}
+      {debTrackPoints.length > 1 && (
+        <Line
+          points={debTrackPoints}
+          color="#f97373"
+          lineWidth={2}
+          dashed={false}
+        />
+      )}
+
