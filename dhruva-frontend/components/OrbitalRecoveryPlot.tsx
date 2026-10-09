@@ -138,3 +138,23 @@ export default function OrbitalRecoveryPlot({ satellite, evaBurn, recBurn }: Pro
     : null;
   const recRT = recBurn && rtn
     ? toRTN(recBurn.delta_v_kmps, rtn.r_hat, rtn.t_hat, rtn.n_hat)
+    : null;
+
+  // ── Orbital ring panel constants ─────────────────────────────────────────
+  const ORB_W = 260;
+  const ORB_H = 260;
+  const ORB_CX = ORB_W / 2;
+  const ORB_CY = ORB_H / 2 + 30; // push center down so orbit arc is visible
+
+  const actualRadius = RE + satellite.altitude_km;
+  const nominalRadius = RE + (satellite.nominal?.altitude_km ?? satellite.altitude_km);
+
+  // Scale: fit both orbits in the panel — show from 0.88*RE to 1.12*RE
+  const VIEW_KM = 0.12 * RE; // km from Earth surface we show
+  const ORB_SCALE = (ORB_H * 0.42) / VIEW_KM; // px / km
+
+  // In this view: distance from panel-bottom-center to Earth surface
+  const EARTH_PX = ORB_CY; // Earth center is ORB_CY px below top of panel
+
+  function orbitY(radius_km: number) {
+    return ORB_CY - (radius_km - RE) * ORB_SCALE;
