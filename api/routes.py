@@ -98,3 +98,23 @@ def _rtn_basis_from_state(state_vec: np.ndarray) -> tuple[np.ndarray, np.ndarray
 def _safe_float(row: dict[str, str], key: str) -> float | None:
     raw = row.get(key)
     if raw is None or raw == "":
+        return None
+    try:
+        return float(raw)
+    except ValueError:
+        return None
+
+
+def build_router(state: SimulationState) -> APIRouter:
+    router = APIRouter(prefix="/api")
+
+    @router.post("/telemetry")
+    async def telemetry(payload: TelemetryRequest) -> dict[str, Any]:
+        processed = 0
+        for obj in payload.objects:
+            obj_type = "SATELLITE" if obj.type.upper() in {"SAT", "SATELLITE"} else "DEBRIS"
+            state_vec = np.array([obj.r.x, obj.r.y, obj.r.z, obj.v.x, obj.v.y, obj.v.z], dtype=float)
+            state.ingest_object(obj.id, obj_type, state_vec)
+            processed += 1
+
+        state.current_time = payload.timestamp
