@@ -58,3 +58,8 @@ export default function Header({
 
         <div className="px-2 py-0.5 border border-slate-700/60 bg-slate-900/60 text-[10px] text-slate-400 tracking-wide hidden sm:block">
           NSH 2026
+        </div>
+      </div>
+    </header>
+  );
+}
