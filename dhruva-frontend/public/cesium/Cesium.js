@@ -2138,3 +2138,23 @@ void czm_computeGroundAtmosphereScattering(vec3 positionWC, vec3 lightDirection,
 vec4 czm_computePosition();
 `;var JKt=y(x(),1),TG=`/**
  * This function computes the colors contributed by Rayliegh and Mie scattering on a given ray, as well as
+ * the transmittance value for the ray. This function uses automatic uniforms
+ * so the atmosphere settings are always synced with the current scene.
+ *
+ * @name czm_computeScattering
+ * @glslfunction
+ *
+ * @param {czm_ray} primaryRay The ray from the camera to the position.
+ * @param {float} primaryRayLength The length of the primary ray.
+ * @param {vec3} lightDirection The direction of the light to calculate the scattering from.
+ * @param {vec3} rayleighColor The variable the Rayleigh scattering will be written to.
+ * @param {vec3} mieColor The variable the Mie scattering will be written to.
+ * @param {float} opacity The variable the transmittance will be written to.
+ */
+void czm_computeScattering(
+    czm_ray primaryRay,
+    float primaryRayLength,
+    vec3 lightDirection,
+    float atmosphereInnerRadius,
+    out vec3 rayleighColor,
+    out vec3 mieColor,
