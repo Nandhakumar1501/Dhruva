@@ -238,3 +238,23 @@ def build_router(state: SimulationState) -> APIRouter:
                 if loaded >= payload.max_rows:
                     break
 
+                rr = _safe_float(row, "relative_position_r")
+                rt = _safe_float(row, "relative_position_t")
+                rn = _safe_float(row, "relative_position_n")
+                vr = _safe_float(row, "relative_velocity_r")
+                vt = _safe_float(row, "relative_velocity_t")
+                vn = _safe_float(row, "relative_velocity_n")
+                if None in {rr, rt, rn, vr, vt, vn}:
+                    skipped += 1
+                    continue
+
+                mission = _safe_float(row, "mission_id")
+                if mission is None:
+                    mission_idx = row_idx
+                else:
+                    mission_idx = int(abs(mission))
+                anchor = sat_list[mission_idx % len(sat_list)]
+                basis = _rtn_basis_from_state(anchor.state)
+                if basis is None:
+                    skipped += 1
+                    continue
