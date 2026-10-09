@@ -1438,3 +1438,23 @@ struct czm_modelMaterial {
 #ifdef USE_SPECULAR
     float specularWeight;
 #endif
+#ifdef USE_ANISOTROPY
+    vec3 anisotropicT;
+    vec3 anisotropicB;
+    float anisotropyStrength;
+#endif
+#ifdef USE_CLEARCOAT
+    float clearcoatFactor;
+    float clearcoatRoughness;
+    vec3 clearcoatNormal;
+    // Add clearcoatF0 when KHR_materials_ior is implemented
+#endif
+};
+`;var JHt=y(x(),1),JV=`/**
+ * Struct for representing the output of a custom vertex shader.
+ * 
+ * @name czm_modelVertexOutput
+ * @glslStruct
+ *
+ * @see {@link CustomShader}
+ * @see {@link Model}
