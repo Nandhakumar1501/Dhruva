@@ -218,3 +218,23 @@ export default function OrbitTracker3D({
         baseLayerPicker: true,
         imageryProviderViewModels: imageryModels,
         selectedImageryProviderViewModel: imageryModels[0],
+        terrainProvider: new Cesium.EllipsoidTerrainProvider(),
+        terrainProviderViewModels: [],
+      });
+
+      const viewer = viewerRef.current;
+
+      // Disable lighting to eliminate sun-position jitter when clock updates
+      viewer.scene.globe.enableLighting = false;
+      viewer.scene.screenSpaceCameraController.enableZoom = true;
+      viewer.scene.screenSpaceCameraController.minimumZoomDistance = 10.0;
+      viewer.scene.screenSpaceCameraController.maximumZoomDistance = 1.0e9;
+      viewer.scene.screenSpaceCameraController.enableRotate = true;
+      viewer.scene.screenSpaceCameraController.enableTranslate = true;
+      viewer.scene.screenSpaceCameraController.enableTilt = true;
+      
+      const creditContainer = viewer.bottomContainer;
+      if (creditContainer) creditContainer.style.display = "none";
+      // Keep Cesium responsive to wheel/mouse input.
+      viewer.scene.requestRenderMode = false;
+
