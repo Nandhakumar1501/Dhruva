@@ -358,3 +358,23 @@ Request body:
 {
   "satelliteId": "SAT-Alpha-01",
   "maneuver_sequence": [
+    {
+      "burn_id": "TEST-EVA-001",
+      "burnTime": "2026-03-21T05:40:00Z",
+      "deltaV_vector": { "x": 0.0, "y": 0.003, "z": 0.0 }
+    }
+  ]
+}
+```
+
+Response (202):
+
+```json
+{
+  "status": "SCHEDULED",
+  "validation": {
+    "ground_station_los": true,
+    "sufficient_fuel": true,
+    "projected_mass_remaining_kg": 544.82
+  }
+}
