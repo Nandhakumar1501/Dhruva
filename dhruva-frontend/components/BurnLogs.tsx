@@ -38,3 +38,23 @@ export default function BurnLogs({ logs }: BurnLogsProps) {
                 <td className="py-1.5 px-1 font-mono text-slate-300">{log.burn_id}</td>
                 <td className="py-1.5 px-1 text-slate-400">{log.satellite_id}</td>
                 <td className="py-1.5 px-1 font-mono text-slate-400">{new Date(log.burn_time).toISOString().slice(11, 19)}</td>
+                <td className="py-1.5 px-1 text-right font-mono text-cyan-300">{log.delta_v_mps.toFixed(2)}</td>
+                <td className="py-1.5 px-1 text-center">
+                  {log.executed ? (
+                    <span className="text-emerald-400">Executed</span>
+                  ) : (
+                    <span className="text-red-400">Rejected</span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="px-4 py-2 border-t border-slate-800 text-[9px] text-slate-500 flex gap-4">
+        <span>Total burns: {logs.length}</span>
+        <span>Total delta-v: {executed.reduce((s, l) => s + l.delta_v_mps, 0).toFixed(2)} m/s</span>
+      </div>
+    </div>
+  );
