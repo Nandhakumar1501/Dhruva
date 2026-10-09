@@ -198,3 +198,23 @@ def build_router(state: SimulationState) -> APIRouter:
     @router.get("/visualization/snapshot")
     async def visualization_snapshot() -> dict[str, Any]:
         # Snapshot should be read-only and fast. Simulation advancement is
+        # handled by the stream loop.
+        return state.snapshot()
+
+    @router.post("/debug/seed")
+    async def debug_seed(payload: SeedRequest) -> dict[str, Any]:
+        state.seed_default_scenario(
+            satellite_count=payload.satellite_count,
+            debris_count=payload.debris_count,
+        )
+        return {
+            "status": "SEEDED",
+            "satellites": len(state.satellites),
+            "debris": len(state.debris),
+            "active_cdm_warnings": len(state.conjunctions),
+        }
+
+    @router.post("/debug/load_cdm_csv")
+    async def debug_load_cdm_csv(payload: CdmCsvLoadRequest) -> dict[str, Any]:
+        csv_file = Path(payload.csv_path)
+        if not csv_file.is_absolute():
