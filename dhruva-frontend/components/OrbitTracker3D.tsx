@@ -238,3 +238,23 @@ export default function OrbitTracker3D({
       // Keep Cesium responsive to wheel/mouse input.
       viewer.scene.requestRenderMode = false;
 
+      const handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+      handler.setInputAction((click: any) => {
+        const pickedObject = viewer.scene.pick(click.position);
+        if (Cesium.defined(pickedObject) && pickedObject.id && pickedObject.id.properties) {
+          const id = pickedObject.id.properties.id?.getValue();
+          if (id && pickedObject.id.properties.type?.getValue() === "satellite") {
+            onSelectRef.current(id);
+          }
+        }
+      }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+      // Do not add custom camera interaction handlers here.
+      // Cesium's default mouse/touch controls should remain stable.
+    }
+    
+    return () => {
+      if (viewerRef.current && !container.isConnected) {
+        if (blackoutPrimitiveRef.current) {
+          viewerRef.current.scene.primitives.remove(blackoutPrimitiveRef.current);
+          blackoutPrimitiveRef.current = null;
