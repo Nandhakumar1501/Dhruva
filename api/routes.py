@@ -178,3 +178,23 @@ def build_router(state: SimulationState) -> APIRouter:
 
         return {
             "status": status,
+            "validation": {
+                "ground_station_los": los_ok,
+                "sufficient_fuel": fuel_ok,
+                "projected_mass_remaining_kg": projected_mass,
+            },
+        }
+
+    @router.post("/simulate/step")
+    async def simulate_step(payload: StepRequest) -> dict[str, Any]:
+        summary = state.step(payload.step_seconds)
+        return {
+            "status": "STEP_COMPLETE",
+            "new_timestamp": state.current_time.isoformat(),
+            "collisions_detected": summary.collisions_detected,
+            "maneuvers_executed": summary.maneuvers_executed,
+        }
+
+    @router.get("/visualization/snapshot")
+    async def visualization_snapshot() -> dict[str, Any]:
+        # Snapshot should be read-only and fast. Simulation advancement is
