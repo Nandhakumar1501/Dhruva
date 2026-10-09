@@ -2258,3 +2258,23 @@ void czm_computeScattering(
             vec3 lightPosition = samplePosition + lightDirection * (lightPositionLength + lightStepLength * 0.5);
 
             // Calculate height of the light sample position above ellipsoid.
+            float lightHeight = length(lightPosition) - atmosphereInnerRadius;
+
+            // Calculate density of photons at the light sample position.
+            lightOpticalDepth += exp(-lightHeight / heightScale) * lightStepLength;
+
+            // Increment distance on light ray.
+            lightPositionLength += lightStepLength;
+        }
+
+        // Compute attenuation via the primary ray and the light ray.
+        vec3 attenuation = exp(-((czm_atmosphereMieCoefficient * (opticalDepth.y + lightOpticalDepth.y)) + (czm_atmosphereRayleighCoefficient * (opticalDepth.x + lightOpticalDepth.x))));
+
+        // Accumulate the scattering.
+        rayleighAccumulation += sampleDensity.x * attenuation;
+        mieAccumulation += sampleDensity.y * attenuation;
+
+        // Increment distance on primary ray.
+        rayPositionLength += (rayStepLength += rayStepLengthIncrease);
+    }
+
