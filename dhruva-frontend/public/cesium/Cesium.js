@@ -1278,3 +1278,23 @@ const float czm_sceneModeColumbusView = 1.0;
  * @name czm_sceneModeMorphing
  * @glslConstant
  * @see czm_sceneMode
+ * @see czm_sceneMode2D
+ * @see czm_sceneModeColumbusView
+ * @see czm_sceneMode3D
+ */
+const float czm_sceneModeMorphing = 0.0;
+`;var FHt=y(x(),1),vV=`/**
+ * A built-in GLSL floating-point constant for one solar radius.
+ *
+ * @alias czm_solarRadius
+ * @glslConstant
+ *
+ * @see CesiumMath.SOLAR_RADIUS
+ *
+ * @example
+ * // GLSL declaration
+ * const float czm_solarRadius = ...;
+ */
+const float czm_solarRadius = 695500000.0;
+`;var NHt=y(x(),1),UV=`/**
+ * A built-in GLSL floating-point constant for <code>3pi/2</code>.
