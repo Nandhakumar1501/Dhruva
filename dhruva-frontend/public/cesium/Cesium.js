@@ -2338,3 +2338,23 @@ vec2 cordic(float angle)
     factor = sense * 1.5625e-2;  // 2^-6
     rotation[0][1] = factor;
     rotation[1][0] = -factor;
+    vector = rotation * vector;
+    angle -= sense * 1.5623728620476831e-2;  // atan(2^-6)
+// Iteration 8
+    sense = (angle < 0.0) ? -1.0 : 1.0;
+    factor = sense * 7.8125e-3;  // 2^-7
+    rotation[0][1] = factor;
+    rotation[1][0] = -factor;
+    vector = rotation * vector;
+    angle -= sense * 7.8123410601011111e-3;  // atan(2^-7)
+// Iteration 9
+    sense = (angle < 0.0) ? -1.0 : 1.0;
+    factor = sense * 3.90625e-3;  // 2^-8
+    rotation[0][1] = factor;
+    rotation[1][0] = -factor;
+    vector = rotation * vector;
+    angle -= sense * 3.9062301319669718e-3;  // atan(2^-8)
+// Iteration 10
+    sense = (angle < 0.0) ? -1.0 : 1.0;
+    factor = sense * 1.953125e-3;  // 2^-9
+    rotation[0][1] = factor;
