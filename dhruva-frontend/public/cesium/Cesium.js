@@ -578,3 +578,23 @@ czm_material czm_getMaterial(czm_materialInput materialInput)
         float d2 = abs(st.t - (0.5 + halfWidth));
         dist = min(d1, d2);
     }
+    else
+    {
+        float d1 = czm_infinity;
+        if (st.t < 0.5 - halfWidth && st.t > 0.5 + halfWidth)
+        {
+            d1 = abs(st.s - base);
+        }
+        float d2 = abs(st.t - ptOnUpperLine);
+        float d3 = abs(st.t - ptOnLowerLine);
+        dist = min(min(d1, d2), d3);
+    }
+
+    vec4 outsideColor = vec4(0.0);
+    vec4 currentColor = mix(outsideColor, color, clamp(s + t, 0.0, 1.0));
+    vec4 outColor = czm_antialias(outsideColor, color, currentColor, dist);
+
+    outColor = czm_gammaCorrect(outColor);
+    material.diffuse = outColor.rgb;
+    material.alpha = outColor.a;
+    return material;
