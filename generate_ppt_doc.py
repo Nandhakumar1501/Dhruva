@@ -58,3 +58,23 @@ def doc_title(doc, text):
     run = p.add_run(text)
     run.bold      = True
     run.font.size = Pt(26)
+    run.font.color.rgb = NAVY
+
+
+def doc_subtitle(doc, text):
+    p  = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p.paragraph_format.space_before = Pt(0)
+    p.paragraph_format.space_after  = Pt(6)
+    run = p.add_run(text)
+    run.font.size      = Pt(13)
+    run.font.color.rgb = BLUE
+    run.italic = True
+
+
+def slide_label(doc, number: int, title: str):
+    """Slide number banner + slide title."""
+    # Banner paragraph
+    p  = doc.add_paragraph()
+    p.paragraph_format.space_before = Pt(18)
+    p.paragraph_format.space_after  = Pt(0)
