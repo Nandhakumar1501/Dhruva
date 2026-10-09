@@ -98,3 +98,23 @@ export default function StationKeepingPage() {
                           ? "text-amber-400"
                           : "text-emerald-400"
                       }>
+                        {sat.status}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Recovery Burns */}
+        <div className="border border-slate-800 bg-slate-950 p-3 max-h-44 overflow-auto">
+          <div className="text-[10px] text-slate-500 mb-2 font-medium uppercase tracking-wider">
+            Auto-Scheduled Recovery Burns
+          </div>
+          {recoveryBurns.length === 0 ? (
+            <div className="text-xs text-slate-600">No recovery burns scheduled — all satellites within nominal slots.</div>
+          ) : (
+            <table className="w-full text-[10px]">
+              <thead>
+                <tr className="text-slate-500 border-b border-slate-800">
