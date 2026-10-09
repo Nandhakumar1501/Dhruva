@@ -238,3 +238,23 @@ export default function BullseyePlot({ selectedSatelliteId, conjunctions }: Bull
                     >
                       <div className="flex items-center justify-between">
                         <span className="text-slate-200 font-mono">{c.debris_id}</span>
+                        <span className={riskTextClass(c.risk_level)}>{c.risk_level}</span>
+                      </div>
+                      <div className="text-slate-500 mt-0.5">
+                        {c.miss_distance_km.toFixed(2)} km | {(c.tca_seconds / 60).toFixed(0)}m
+                      </div>
+                    </button>
+                  ))}
+                </div>
+
+                <div className="mt-4 pt-3 border-t border-slate-800">
+                  <div className="text-[10px] text-slate-500 mb-1.5 font-semibold uppercase tracking-wide">Legend</div>
+                  <div className="space-y-1 text-[10px]">
+                    <div className="flex items-center gap-2"><span className="w-2.5 h-2.5 bg-red-500 inline-block" /> Critical (&lt; 1 km)</div>
+                    <div className="flex items-center gap-2"><span className="w-2.5 h-2.5 bg-amber-500 inline-block" /> Warning (&lt; 5 km)</div>
+                    <div className="flex items-center gap-2"><span className="w-2.5 h-2.5 bg-emerald-500 inline-block" /> Safe (&gt; 5 km)</div>
+                  </div>
+                  <div className="mt-2 text-[9px] text-slate-600">
+                    Center = selected satellite. Radial distance = Time to Closest Approach. Angle = relative approach vector.
+                  </div>
+                </div>
