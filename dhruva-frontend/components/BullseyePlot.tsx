@@ -218,3 +218,23 @@ export default function BullseyePlot({ selectedSatelliteId, conjunctions }: Bull
               <div className="flex-1 p-3 relative">
                 <canvas
                   ref={expandedCanvasRef}
+                  width={560}
+                  height={480}
+                  className="w-full h-full cursor-pointer"
+                  onClick={(e) => handleCanvasClick(e, expandedHitZonesRef.current)}
+                />
+                {tooltipEl}
+              </div>
+
+              <div className="w-52 border-l border-slate-800 p-3 overflow-auto">
+                <div className="text-[10px] text-slate-500 mb-2 font-semibold uppercase tracking-wide">Threat List</div>
+                <div className="space-y-1.5">
+                  {filtered.length === 0 && <div className="text-[11px] text-slate-600">No conjunctions</div>}
+                  {filtered.map((c) => (
+                    <button
+                      key={c.debris_id}
+                      className="w-full text-left p-1.5 border border-slate-800 bg-slate-900 hover:bg-slate-800 text-[10px]"
+                      onClick={() => setTooltip({ x: 200, y: 200, item: c })}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-slate-200 font-mono">{c.debris_id}</span>
