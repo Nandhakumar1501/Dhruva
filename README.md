@@ -18,3 +18,23 @@
 - [System Architecture](#system-architecture)
 - [Repository Structure](#repository-structure)
 - [Prerequisites](#prerequisites)
+- [Quick Start](#quick-start)
+- [Backend Setup](#backend-setup)
+- [Frontend Setup](#frontend-setup)
+- [API Reference](#api-reference)
+- [WebSocket Stream](#websocket-stream)
+- [How to Add Satellite and Debris Data](#how-to-add-satellite-and-debris-data)
+- [Testing Guide](#testing-guide)
+- [Physics Model Summary](#physics-model-summary)
+- [Operational Limits and Constraints](#operational-limits-and-constraints)
+- [Troubleshooting](#troubleshooting)
+
+---
+
+## Overview
+
+Dhruva CDM simulates satellite and debris motion in Earth orbit, evaluates close-approach risk, and supports maneuver scheduling with operational constraints such as communication blackout windows, command latency, cooldown constraints, and fuel feasibility.
+
+The platform has two primary execution modes:
+
+- `Live Stream Mode`: optimized for UI smoothness, uses WebSocket snapshots and grid-based conjunction prefiltering.
