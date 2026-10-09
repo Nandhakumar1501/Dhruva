@@ -78,3 +78,23 @@ def login(session: requests.Session) -> bool:
             return True
         print(f"Space-Track login failed. Check credentials.")
         return False
+    except requests.RequestException as e:
+        print(f"Space-Track login error: {e}")
+        return False
+
+
+def parse_tles(text: str) -> list[tuple[str, str, str]]:
+    """Handles both 2-line (Space-Track) and 3-line (CelesTrak) TLE formats."""
+    lines = [l.strip() for l in text.strip().splitlines() if l.strip()]
+    tles = []
+    i = 0
+    while i < len(lines):
+        # 3-line format: name, line1, line2
+        if i + 2 < len(lines) and lines[i + 1].startswith("1 ") and lines[i + 2].startswith("2 "):
+            tles.append((lines[i], lines[i + 1], lines[i + 2]))
+            i += 3
+        # 2-line format (Space-Track): line1, line2 — derive name from NORAD ID
+        elif lines[i].startswith("1 ") and i + 1 < len(lines) and lines[i + 1].startswith("2 "):
+            norad_id = lines[i][2:7].strip()
+            tles.append((f"OBJECT-{norad_id}", lines[i], lines[i + 1]))
+            i += 2
