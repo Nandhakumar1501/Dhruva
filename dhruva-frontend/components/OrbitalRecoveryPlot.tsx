@@ -398,3 +398,9 @@ export default function OrbitalRecoveryPlot({ satellite, evaBurn, recBurn }: Pro
           )}
           {!evaBurn && !recBurn && (
             <span className="text-emerald-500">No active maneuvers — satellite in nominal slot</span>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
