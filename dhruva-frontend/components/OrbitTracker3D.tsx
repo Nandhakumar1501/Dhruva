@@ -298,3 +298,23 @@ export default function OrbitTracker3D({
       if (entitiesRef.current[entityId]) {
         const entity = entitiesRef.current[entityId];
         // Add new sample to the existing SampledPositionProperty
+        entity.position.addSample(simJulian, pos);
+        if (entity.billboard) {
+          entity.billboard.color = color;
+          entity.billboard.scale = isSelected ? 2.5 : 1.5;
+        }
+      } else {
+        const sampledPos = new Cesium.SampledPositionProperty();
+        sampledPos.addSample(simJulian, pos);
+        sampledPos.setInterpolationOptions({
+          interpolationAlgorithm: Cesium.LinearApproximation,
+          interpolationDegree: 1,
+        });
+        const entity = viewer.entities.add({
+          id: entityId,
+          position: sampledPos,
+          billboard: {
+            image: "/satellite.png",
+            scale: isSelected ? 2.5 : 1.5,
+            color: color,
+          },
