@@ -198,3 +198,23 @@ def punchline(doc, text):
 
 def note(doc, text):
     p = doc.add_paragraph()
+    p.paragraph_format.space_before = Pt(2)
+    p.paragraph_format.space_after  = Pt(2)
+    r = p.add_run(text)
+    r.italic         = True
+    r.font.size      = Pt(10)
+    r.font.color.rgb = GREY
+
+
+def add_table(doc, headers, rows, col_widths=None):
+    t = doc.add_table(rows=1 + len(rows), cols=len(headers))
+    t.style = "Table Grid"
+    # header row
+    hrow = t.rows[0]
+    for i, h in enumerate(headers):
+        cell = hrow.cells[i]
+        set_cell_bg(cell, "0A1F44")
+        p  = cell.paragraphs[0]
+        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r  = p.add_run(h)
+        r.bold           = True
