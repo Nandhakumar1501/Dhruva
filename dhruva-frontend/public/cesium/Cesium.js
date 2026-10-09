@@ -458,3 +458,23 @@ czm_material czm_getMaterial(czm_materialInput materialInput)
     material.emission = color.rgb;
     material.alpha = color.a;
 
+    return material;
+}
+`;var AQt=y(x(),1),MR=`uniform vec4 color;
+uniform float cellAlpha;
+uniform vec2 lineCount;
+uniform vec2 lineThickness;
+uniform vec2 lineOffset;
+
+czm_material czm_getMaterial(czm_materialInput materialInput)
+{
+    czm_material material = czm_getDefaultMaterial(materialInput);
+
+    vec2 st = materialInput.st;
+
+    float scaledWidth = fract(lineCount.s * st.s - lineOffset.s);
+    scaledWidth = abs(scaledWidth - floor(scaledWidth + 0.5));
+    float scaledHeight = fract(lineCount.t * st.t - lineOffset.t);
+    scaledHeight = abs(scaledHeight - floor(scaledHeight + 0.5));
+
+    float value;
