@@ -58,3 +58,23 @@ export default function StationKeepingPage() {
           </div>
           <table className="w-full text-[10px]">
             <thead>
+              <tr className="text-slate-500 border-b border-slate-800">
+                <th className="text-left py-1.5 px-1 font-medium">Satellite</th>
+                <th className="text-right py-1.5 px-1 font-medium">Drift (km)</th>
+                <th className="text-right py-1.5 px-1 font-medium">Actual Alt (km)</th>
+                <th className="text-right py-1.5 px-1 font-medium">Nominal Alt (km)</th>
+                <th className="text-right py-1.5 px-1 font-medium">Actual Lat</th>
+                <th className="text-right py-1.5 px-1 font-medium">Nominal Lat</th>
+                <th className="text-center py-1.5 px-1 font-medium">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {satellites
+                .filter((s) => s.status !== "GRAVEYARD")
+                .sort((a, b) => b.drift_km - a.drift_km)
+                .map((sat) => (
+                  <tr key={sat.id} className="border-b border-slate-800/50 hover:bg-slate-900/50">
+                    <td className="py-1.5 px-1 text-slate-300">{sat.id}</td>
+                    <td className={`py-1.5 px-1 text-right font-mono ${
+                      sat.drift_km > 10 ? "text-amber-400" : "text-emerald-400"
+                    }`}>
