@@ -418,3 +418,23 @@ export default function OrbitTracker3D({
     if (blackoutKey !== blackoutPrimitiveKeyRef.current) {
       if (blackoutPrimitiveRef.current) {
         viewer.scene.primitives.remove(blackoutPrimitiveRef.current);
+        blackoutPrimitiveRef.current = null;
+      }
+      blackoutPrimitiveKeyRef.current = blackoutKey;
+      if (blackoutSatIds.length > 0) {
+        const satMap = new Map(satellites.map((s) => [s.id, s]));
+        const instances = blackoutSatIds
+          .map((id) => satMap.get(id))
+          .filter((s): s is SatelliteSnapshot => Boolean(s))
+          .map((sat) => new Cesium.GeometryInstance({
+            geometry: new Cesium.CircleGeometry({
+              center: Cesium.Cartesian3.fromDegrees(sat.lon, sat.lat, 0),
+              radius: 450000.0,
+              height: 0.0,
+              vertexFormat: Cesium.PerInstanceColorAppearance.VERTEX_FORMAT,
+            }),
+            attributes: {
+              color: Cesium.ColorGeometryInstanceAttribute.fromColor(
+                Cesium.Color.fromCssColorString("#ef4444").withAlpha(0.22)
+              ),
+            },
