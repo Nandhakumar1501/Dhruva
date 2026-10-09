@@ -118,3 +118,23 @@ export default function OrbitTracker3D({
   selectedSatelliteId,
   onSelectSatellite,
   timestamp,
+  debrisCloud,
+  conjunctions,
+  blackoutStatus,
+}: OrbitTracker3DProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const viewerRef = useRef<any>(null);
+  const entitiesRef = useRef<{ [key: string]: any }>({});
+  const previousSelectedIdRef = useRef<string | null>(null);
+  const selectedOrbitEntityRef = useRef<any>(null);
+  const blackoutPrimitiveRef = useRef<any>(null);
+  const blackoutPrimitiveKeyRef = useRef<string>("");
+  const orbitCacheRef = useRef<{
+    satId: string | null;
+    bucket: number;
+    positions: any[] | null;
+  }>({ satId: null, bucket: -1, positions: null });
+  const [cesiumLoaded, setCesiumLoaded] = useState(false);
+  const onSelectRef = useRef(onSelectSatellite);
+
+  useEffect(() => {
