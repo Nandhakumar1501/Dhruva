@@ -1258,3 +1258,23 @@ const float czm_sceneMode2D = 2.0;
  * @see czm_sceneMode
  * @see czm_sceneMode2D
  * @see czm_sceneModeColumbusView
+ * @see czm_sceneModeMorphing
+ */
+const float czm_sceneMode3D = 3.0;
+`;var GHt=y(x(),1),MV=`/**
+ * The constant identifier for the Columbus View {@link SceneMode}
+ *
+ * @name czm_sceneModeColumbusView
+ * @glslConstant
+ * @see czm_sceneMode
+ * @see czm_sceneMode2D
+ * @see czm_sceneMode3D
+ * @see czm_sceneModeMorphing
+ */
+const float czm_sceneModeColumbusView = 1.0;
+`;var WHt=y(x(),1),DV=`/**
+ * The constant identifier for the Morphing {@link SceneMode}
+ *
+ * @name czm_sceneModeMorphing
+ * @glslConstant
+ * @see czm_sceneMode
