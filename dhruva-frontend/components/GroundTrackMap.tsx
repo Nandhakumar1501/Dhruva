@@ -338,3 +338,23 @@ export default function GroundTrackMap({
       const prev = prevPositionsRef.current[sat.id];
       const curr = currPositionsRef.current[sat.id];
       const interpLat = prev && curr ? lerp(prev.lat, curr.lat, t) : sat.lat;
+      const interpLon = prev && curr ? lerpAngle(prev.lon, curr.lon, t) : sat.lon;
+
+      const { x, y } = mercatorXY(interpLat, interpLon, width, height);
+      const isSelected = sat.id === selectedSatelliteId;
+      const r = (isSelected ? 5 : 2) / z;
+      ctx.fillStyle = isSelected ? "#34d399" : "#60a5fa";
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fill();
+
+      if (isSelected) {
+        ctx.fillStyle = "#d1fae5";
+        ctx.font = `${Math.max(8, 10 / z)}px sans-serif`;
+        ctx.fillText(sat.id, x + 7 / z, y - 7 / z);
+      }
+    }
+
+    ctx.restore();
+  }, [satellites, selectedSatelliteId, timestamp, groundStations, debrisCloud, conjunctions, tracks]);
+
