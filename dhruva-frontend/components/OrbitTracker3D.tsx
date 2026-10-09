@@ -458,3 +458,23 @@ export default function OrbitTracker3D({
         viewer.entities.remove(entitiesRef.current[key]);
         delete entitiesRef.current[key];
       }
+    });
+
+    // Synchronize selection & tracking only when selection actually changes
+    if (selectedSatelliteId !== previousSelectedIdRef.current) {
+      if (selectedSatelliteId && entitiesRef.current[`sat_${selectedSatelliteId}`]) {
+        viewer.selectedEntity = undefined;
+        // Important: do NOT use trackedEntity; Cesium's tracking overrides wheel zoom.
+        viewer.trackedEntity = undefined;
+
+        // Re-orient the camera once so the selected satellite is centered,
+        // while preserving the current camera distance (zoom).
+        const selSat = satellites.find((s) => s.id === selectedSatelliteId);
+        if (selSat) {
+          const target = Cesium.Cartesian3.fromDegrees(selSat.lon, selSat.lat, selSat.altitude_km * 1000);
+          const offset = Cesium.Cartesian3.subtract(viewer.camera.position, target, new Cesium.Cartesian3());
+          viewer.camera.lookAt(target, offset);
+          viewer.scene.requestRender();
+        }
+      } else if (!selectedSatelliteId) {
+        viewer.selectedEntity = undefined;
