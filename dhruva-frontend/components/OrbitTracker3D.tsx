@@ -438,3 +438,23 @@ export default function OrbitTracker3D({
                 Cesium.Color.fromCssColorString("#ef4444").withAlpha(0.22)
               ),
             },
+          }));
+        if (instances.length > 0) {
+          blackoutPrimitiveRef.current = viewer.scene.primitives.add(new Cesium.Primitive({
+            geometryInstances: instances,
+            appearance: new Cesium.PerInstanceColorAppearance({
+              translucent: true,
+              closed: false,
+            }),
+            asynchronous: false,
+          }));
+        }
+      }
+    }
+
+    // Remove old entities
+    Object.keys(entitiesRef.current).forEach((key) => {
+      if (!activeIds.has(key)) {
+        viewer.entities.remove(entitiesRef.current[key]);
+        delete entitiesRef.current[key];
+      }
