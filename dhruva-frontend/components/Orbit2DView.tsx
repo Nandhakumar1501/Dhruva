@@ -98,3 +98,8 @@ export default function Orbit2DView({ sat, deb, satTrail, debTrail }: Props) {
 
     drawBody(sat, "#22c55e", true);
     drawBody(deb, "#ef4444", false);
+  }, [sat, deb, satTrail, debTrail]);
+
+  return <canvas ref={canvasRef} width={900} height={480} className="w-full h-full" />;
+}
+
