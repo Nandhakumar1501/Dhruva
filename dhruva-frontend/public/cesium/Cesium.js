@@ -938,3 +938,23 @@ const float czm_epsilon1 = 0.1;
 `;var Ezt=y(x(),1),lV=`/**
  * 0.01
  *
+ * @name czm_epsilon2
+ * @glslConstant
+ */
+const float czm_epsilon2 = 0.01;
+`;var Szt=y(x(),1),dV=`/**
+ * 0.001
+ *
+ * @name czm_epsilon3
+ * @glslConstant
+ */
+const float czm_epsilon3 = 0.001;
+`;var _zt=y(x(),1),uV=`/**
+ * 0.0001
+ *
+ * @name czm_epsilon4
+ * @glslConstant
+ */
+const float czm_epsilon4 = 0.0001;
+`;var Rzt=y(x(),1),mV=`/**
+ * 0.00001
