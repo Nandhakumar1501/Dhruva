@@ -198,3 +198,23 @@ def main():
     parser = argparse.ArgumentParser(description="Ingest Space-Track TLE data into Dhruva CDM")
     parser.add_argument("--satellites-only", action="store_true")
     parser.add_argument("--debris-only", action="store_true")
+    parser.add_argument("--limit", type=int, default=100, help="Max objects per feed (default 100)")
+    args = parser.parse_args()
+
+    print("=" * 52)
+    print("  Dhruva CDM — Space-Track TLE Ingestion")
+    print("=" * 52)
+
+    if not check_backend():
+        print(f"\nBackend not reachable at {BACKEND_URL}")
+        print("Start Dhruva CDM first, then run this script.")
+        sys.exit(1)
+
+    print("Backend: OK")
+
+    session = requests.Session()
+    if not login(session):
+        sys.exit(1)
+
+    total = 0
+
