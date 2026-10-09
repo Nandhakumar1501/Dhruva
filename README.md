@@ -438,3 +438,23 @@ Response shape (trimmed):
       "debris_id": "DEB-0001",
       "tca_seconds": 420.0,
       "miss_distance_km": 2.4,
+      "relative_angle_deg": -23.8,
+      "risk_level": "WARNING"
+    }
+  ],
+  "metrics": {
+    "fleet_fuel_pct": 97.2,
+    "collisions_avoided": 12,
+    "uptime_pct": 99.1,
+    "uptime_score": 97.4,
+    "avoidance_per_delta_v": 0.08,
+    "time_warp_x": 1
+  },
+  "counts": {
+    "satellites": 50,
+    "debris": 10020,
+    "conjunction_warnings": 9,
+    "graveyard": 0
+  },
+  "blackout_status": [
+    {
