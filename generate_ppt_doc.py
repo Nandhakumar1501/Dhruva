@@ -358,3 +358,23 @@ bullet(doc, "Hoots & Roehrich, Spacetrack Report No. 3, 1980 (SGP4)")
 bullet(doc, "NASA CARA, NPR 8715.6A, Debris Avoidance Maneuver Planning, 2017")
 bullet(doc, "Alfano, Satellite Conjunction Monte Carlo Analysis, AAS 09-233, 2009")
 doc.add_page_break()
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  SLIDE 5
+# ══════════════════════════════════════════════════════════════════════════════
+slide_label(doc, 5, "Conjunction Assessment Pipeline")
+punchline(doc, '"From 20,000 Debris Objects to a Ranked Risk List — in One Tick"')
+
+body(doc,
+     "Naïve all-pairs assessment is O(N²). With 200 satellites × 20,000 debris = 4 million pairs per tick. "
+     "Dhruva solves this with a two-stage, dual-mode pipeline.")
+
+section_heading(doc, "Stage 1 — Candidate Pre-filter (two modes)")
+bullet(doc, "Spatial Grid (live stream mode): Debris bucketed into 500 km³ cells. Each satellite checks only adjacent cells — bounded O(1) per-tick cost regardless of debris count. Protects UI responsiveness at 50+ Hz update rate.", bold_lead="Spatial Grid (live stream mode):")
+bullet(doc, "Custom KD-Tree (batch / stress mode): Hand-built 3D KD-tree (zero scipy dependency). Radius query per satellite — sub-linear O(log N + k) scaling. Validated at 20,000 debris objects.", bold_lead="Custom KD-Tree (batch / stress mode):")
+
+section_heading(doc, "Stage 2 — TCA Prediction")
+bullet(doc, "Both objects propagated forward over a 2-hour look-ahead horizon at 30-second RK4 samples.", bold_lead="Both objects propagated forward")
+bullet(doc, "Minimum separation recorded → Time of Closest Approach (TCA) and miss distance computed per pair.", bold_lead="Minimum separation recorded")
+
+section_heading(doc, "Stage 3 — Risk Labelling")
