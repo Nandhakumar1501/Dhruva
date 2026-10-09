@@ -218,3 +218,23 @@ export default function GroundTrackMap({
       const T = (jd - 2451545.0) / 36525.0;
       const M_rad = (((357.52911 + 35999.05029 * T) % 360 + 360) % 360) * Math.PI / 180;
       const L0 = ((280.46646 + 36000.76983 * T) % 360 + 360) % 360;
+      const C = 1.9146 * Math.sin(M_rad) + 0.020 * Math.sin(2 * M_rad);
+      const sunEclLon = ((L0 + C) % 360 + 360) % 360 * Math.PI / 180;
+      const obliq = (23.4393 - 0.013 * T) * Math.PI / 180;
+      const sunDecl = Math.asin(Math.sin(obliq) * Math.sin(sunEclLon));
+      const sunRA = Math.atan2(Math.cos(obliq) * Math.sin(sunEclLon), Math.cos(sunEclLon));
+      let sunLonRad = sunRA - gmstRad(timestamp);
+      sunLonRad = ((sunLonRad % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+      if (sunLonRad > Math.PI) sunLonRad -= 2 * Math.PI;
+      const sunLonDeg = sunLonRad * 180 / Math.PI;
+
+      // Draw terminator: fill night region using lat-varying terminator
+      ctx.globalAlpha = 0.38;
+      ctx.fillStyle = "#0a1628";
+      for (let side = -1; side <= 1; side += 2) {
+        const pts: Array<[number, number]> = [];
+        for (let latDeg = 89 * side; Math.abs(latDeg) >= 1; latDeg -= side) {
+          const latRad = latDeg * Math.PI / 180;
+          const cosH = -Math.tan(latRad) * Math.tan(sunDecl);
+          let lonT = cosH <= -1 ? sunLonDeg + side * 180 : cosH >= 1 ? sunLonDeg : sunLonDeg + side * Math.acos(cosH) * 180 / Math.PI;
+          lonT = ((lonT + 180) % 360 + 360) % 360 - 180;
