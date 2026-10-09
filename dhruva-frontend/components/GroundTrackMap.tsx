@@ -378,3 +378,23 @@ export default function GroundTrackMap({
   }, []);
 
   const handleWheel = useCallback((evt: React.WheelEvent) => {
+    // Avoid calling preventDefault on a passive wheel listener, which
+    // causes noisy console warnings in modern browsers.
+    setZoom((prev) => Math.max(1, Math.min(12, prev * (evt.deltaY < 0 ? 1.15 : 0.87))));
+  }, []);
+
+  const handleMouseDown = useCallback((evt: React.MouseEvent) => {
+    if (evt.button === 2 || evt.ctrlKey || evt.shiftKey) {
+      isDraggingRef.current = true;
+      dragStartRef.current = { x: evt.clientX, y: evt.clientY };
+      panStartRef.current = { x: panXRef.current, y: panYRef.current };
+      evt.preventDefault();
+    }
+  }, []);
+
+  const handleMouseMove = useCallback((evt: React.MouseEvent) => {
+    if (!isDraggingRef.current) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
