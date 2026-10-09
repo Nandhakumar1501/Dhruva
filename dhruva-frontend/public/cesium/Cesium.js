@@ -1338,3 +1338,23 @@ const float czm_twoPi = 6.283185307179586;
  * square.  That is, the rectangle is equal in the X and Y directions.
  *
  * The constant value is computed as follows:
+ *   czm_pi * 0.5 - (2.0 * atan(exp(-czm_pi)))
+ *
+ * @name czm_webMercatorMaxLatitude
+ * @glslConstant
+ */
+const float czm_webMercatorMaxLatitude = 1.4844222297453324;
+`;var vHt=y(x(),1),OV=`/**
+ * @name czm_depthRangeStruct
+ * @glslStruct
+ */
+struct czm_depthRangeStruct
+{
+    float near;
+    float far;
+};
+`;var kHt=y(x(),1),zV=`/**
+ * Holds material information that can be used for lighting. Returned by all czm_getMaterial functions.
+ *
+ * @name czm_material
+ * @glslStruct
