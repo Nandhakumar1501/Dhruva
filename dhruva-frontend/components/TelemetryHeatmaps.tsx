@@ -18,3 +18,23 @@ export default function TelemetryHeatmaps({ satellites, metricsHistory }: Teleme
       <div className="flex items-center justify-between shrink-0">
         <h3 className="text-xs font-semibold tracking-wide text-slate-200 uppercase">Telemetry</h3>
         <div className="flex gap-2 text-[9px] text-slate-500">
+          <span className="flex items-center gap-1"><span className="w-2 h-0.5 bg-cyan-400 inline-block" />∆v</span>
+          <span className="flex items-center gap-1"><span className="w-2 h-0.5 bg-emerald-400 inline-block" />Avoided</span>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-1.5 shrink-0">
+        <div className="bg-slate-900/80 border border-slate-800 p-1.5">
+          <div className="text-slate-500 text-[9px] uppercase tracking-wide">Fleet Fuel</div>
+          <div className="text-base font-bold text-emerald-300">{latest ? latest.fleetFuelPct.toFixed(1) : "--"}%</div>
+        </div>
+        <div className="bg-slate-900/80 border border-slate-800 p-1.5">
+          <div className="text-slate-500 text-[9px] uppercase tracking-wide">Active SATs</div>
+          <div className="text-base font-bold text-sky-300">{satellites.length}</div>
+        </div>
+        <div className="bg-slate-900/80 border border-slate-800 p-1.5">
+          <div className="text-slate-500 text-[9px] uppercase tracking-wide">Total ∆v</div>
+          <div className="text-sm font-bold text-cyan-300">{(latest?.totalDeltaVMps ?? 0).toFixed(1)} m/s</div>
+        </div>
+        <div className="bg-slate-900/80 border border-slate-800 p-1.5">
+          <div className="text-slate-500 text-[9px] uppercase tracking-wide">Avoided</div>
