@@ -698,3 +698,23 @@ Units:
   - per-burn and total fuel feasibility
 
 ---
+
+## Troubleshooting
+
+### Docker startup issues on Windows
+
+- Ensure Docker Desktop is running.
+- Ensure WSL2 and virtualization are enabled.
+- Check:
+  - `wsl --status`
+  - `docker info`
+
+### WebSocket warning in backend logs
+
+If you see unsupported WebSocket library warnings, ensure backend uses `uvicorn[standard]`.
+
+### Frontend cannot reach backend
+
+- Ensure backend is on `http://localhost:8000`.
+- Ensure frontend is on `http://localhost:3000`.
+- Check CORS settings in `server.py`.
