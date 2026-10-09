@@ -18,3 +18,23 @@ app.add_middleware(
     ],
     allow_credentials=True,
     allow_methods=["*"],
+    allow_headers=["*"],
+)
+state = SimulationState(Path(__file__).resolve().parent)
+app.include_router(build_router(state))
+
+
+@app.get("/")
+async def health() -> dict:
+    return {"status": "ok", "service": "dhruva-cdm"}
+
+
+@app.websocket("/orbit")
+async def orbit_stream(ws: WebSocket) -> None:
+    await ws.accept()
+    try:
+        while True:
+            warp = max(1, state.time_warp_multiplier)
+            step_seconds = 2.0 * warp
+            state.stream_tick(step_seconds=step_seconds, reassess_every=20)
+            await ws.send_json(state.snapshot())
