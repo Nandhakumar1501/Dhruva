@@ -158,3 +158,23 @@ export default function BullseyePlot({ selectedSatelliteId, conjunctions }: Bull
   const tooltipEl = tooltip && (
     <div
       className="absolute z-30 bg-slate-900 border border-slate-700 p-2.5 text-[11px] text-slate-200 shadow-xl"
+      style={{ left: Math.min(tooltip.x, 260), top: Math.max(tooltip.y - 90, 4) }}
+    >
+      <div className="font-semibold text-slate-100 mb-1">{tooltip.item.debris_id}</div>
+      <div>Risk: <span className={riskTextClass(tooltip.item.risk_level)}>{tooltip.item.risk_level}</span></div>
+      <div>Miss distance: {tooltip.item.miss_distance_km.toFixed(3)} km</div>
+      <div>TCA: {(tooltip.item.tca_seconds / 60).toFixed(1)} min ({tooltip.item.tca_seconds.toFixed(0)}s)</div>
+      <div>Approach angle: {tooltip.item.relative_angle_deg.toFixed(1)}&deg;</div>
+      <button className="mt-1.5 text-[10px] text-slate-400 hover:text-slate-200 underline" onClick={() => setTooltip(null)}>dismiss</button>
+    </div>
+  );
+
+  return (
+    <>
+      <div className="h-full border border-slate-800 bg-slate-950 p-3 flex flex-col relative">
+        <div className="flex items-center justify-between mb-1">
+          <div className="text-sm font-semibold text-slate-200">Conjunction Bullseye</div>
+          <button
+            className="text-[10px] text-cyan-400 hover:text-cyan-300 border border-slate-700 px-2 py-0.5 bg-slate-900 hover:bg-slate-800"
+            onClick={() => { setExpanded(true); setTooltip(null); }}
+          >
