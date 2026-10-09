@@ -2278,3 +2278,23 @@ void czm_computeScattering(
         rayPositionLength += (rayStepLength += rayStepLengthIncrease);
     }
 
+    // Compute the scattering amount.
+    rayleighColor = czm_atmosphereRayleighCoefficient * rayleighAccumulation;
+    mieColor = czm_atmosphereMieCoefficient * mieAccumulation;
+
+    // Compute the transmittance i.e. how much light is passing through the atmosphere.
+    opacity = length(exp(-((czm_atmosphereMieCoefficient * opticalDepth.y) + (czm_atmosphereRayleighCoefficient * opticalDepth.x))));
+}
+`;var qKt=y(x(),1),SG=`/**
+ * @private
+ */
+vec2 cordic(float angle)
+{
+// Scale the vector by the appropriate factor for the 24 iterations to follow.
+    vec2 vector = vec2(6.0725293500888267e-1, 0.0);
+// Iteration 1
+    float sense = (angle < 0.0) ? -1.0 : 1.0;
+ //   float factor = sense * 1.0;  // 2^-0
+    mat2 rotation = mat2(1.0, sense, -sense, 1.0);
+    vector = rotation * vector;
+    angle -= sense * 7.8539816339744828e-1;  // atan(2^-0)
