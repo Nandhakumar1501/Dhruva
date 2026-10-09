@@ -618,3 +618,23 @@ bullet(doc, "CCSDS CDM standard API — interoperability with NASA, ESA, JAXA, I
 bullet(doc, "Onboard autonomy migration — evasion planner packaged as a radiation-tolerant flight software module with deterministic WCET guarantees → fully autonomous onboard avoidance for satellites in prolonged blackout.", bold_lead="Onboard autonomy migration")
 
 add_hr(doc)
+p = doc.add_paragraph()
+p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+p.paragraph_format.space_before = Pt(14)
+r = p.add_run("The star Dhruva does not move. Everything else navigates around it.")
+r.bold = True; r.italic = True
+r.font.size = Pt(13); r.font.color.rgb = NAVY
+
+p2 = doc.add_paragraph()
+p2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+r2 = p2.add_run("Our goal: build the fixed reference point for India's space safety infrastructure.")
+r2.italic = True; r2.font.size = Pt(11); r2.font.color.rgb = BLUE
+doc.add_page_break()
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  DELIVERY NOTES PAGE
+# ══════════════════════════════════════════════════════════════════════════════
+p = doc.add_paragraph()
+r = p.add_run("PRESENTER DELIVERY NOTES")
+r.bold = True; r.font.size = Pt(14); r.font.color.rgb = NAVY
+add_hr(doc)
