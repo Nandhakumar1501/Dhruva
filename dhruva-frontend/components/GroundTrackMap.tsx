@@ -318,3 +318,23 @@ export default function GroundTrackMap({
         const predictedPts = computeForwardTrack(selSat.eci, timestamp, 90, 120);
         if (predictedPts.length > 1) {
           ctx.strokeStyle = "#22d3ee";
+          ctx.lineWidth = 1.5 / z;
+          ctx.setLineDash([6 / z, 5 / z]);
+          ctx.beginPath();
+          let penDown = false;
+          for (let i = 0; i < predictedPts.length; i++) {
+            const pt = mercatorXY(predictedPts[i].lat, predictedPts[i].lon, width, height);
+            const wrapBreak = i > 0 && Math.abs(predictedPts[i].lon - predictedPts[i - 1].lon) > 180;
+            if (!penDown || wrapBreak) { ctx.moveTo(pt.x, pt.y); penDown = true; }
+            else ctx.lineTo(pt.x, pt.y);
+          }
+          ctx.stroke();
+          ctx.setLineDash([]);
+        }
+      }
+    }
+
+    for (const sat of satellites) {
+      const prev = prevPositionsRef.current[sat.id];
+      const curr = currPositionsRef.current[sat.id];
+      const interpLat = prev && curr ? lerp(prev.lat, curr.lat, t) : sat.lat;
