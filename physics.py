@@ -58,3 +58,22 @@ def propagate(state, duration, dt = 10):
 
 def tsiolkovsky(mass_current, delta_v):
     return mass_current * (1 - np.exp(-np.abs(delta_v) / (ISP * G0)))
+
+#Orbital Period in seconds
+
+def orbital_period(altitude_km):
+    a = RE + altitude_km
+    T = 2 * np.pi * np.sqrt(a ** 3 / MU)
+    return T 
+
+
+### TESTING AREA
+# function testing
+if __name__ == "__main__":
+    print(j2_acceleration([2, 3, 4]))
+    print(derivatives([2, 3, 4, 2, 3, 4]))
+    state = np.array([6778.0, 0.0, 0.0, 0.0, 7.6, 0.0])
+    print(rk4_step(state, 10))
+    result = propagate(state, 5700, 10)
+    print(np.linalg.norm(result[:3]))
+    print(orbital_period(400))
