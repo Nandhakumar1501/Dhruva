@@ -338,3 +338,23 @@ Request body:
 ```
 
 Response:
+
+```json
+{
+  "status": "ACK",
+  "processed_count": 1,
+  "active_cdm_warnings": 3,
+  "last_timestamp": "2026-03-21T05:34:37+00:00"
+}
+```
+
+### 3) `POST /api/maneuver/schedule`
+
+Submit one or more burns for a satellite.
+
+Request body:
+
+```json
+{
+  "satelliteId": "SAT-Alpha-01",
+  "maneuver_sequence": [
