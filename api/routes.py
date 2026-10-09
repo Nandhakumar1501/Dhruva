@@ -158,3 +158,23 @@ def build_router(state: SimulationState) -> APIRouter:
         }
 
     @router.post("/maneuver/schedule", status_code=202)
+    async def schedule_maneuver(payload: ManeuverRequest) -> dict[str, Any]:
+        sat = state.satellites.get(payload.satelliteId)
+        if sat is None:
+            raise HTTPException(status_code=404, detail=f"Unknown satellite: {payload.satelliteId}")
+
+        commands = [
+            ManeuverCommand(
+                burn_id=item.burn_id,
+                satellite_id=payload.satelliteId,
+                burn_time=item.burnTime,
+                delta_v_eci_kmps=np.array([item.deltaV_vector.x, item.deltaV_vector.y, item.deltaV_vector.z], dtype=float),
+            )
+            for item in payload.maneuver_sequence
+        ]
+
+        los_ok, fuel_ok, projected_mass = state.schedule_maneuvers(payload.satelliteId, commands)
+        status = "SCHEDULED" if (los_ok and fuel_ok) else "REJECTED"
+
+        return {
+            "status": status,
