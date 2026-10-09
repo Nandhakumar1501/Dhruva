@@ -58,3 +58,23 @@ function propagateStep(r: number[], v: number[], dt: number): [number[], number[
 }
 
 function computeForwardTrack(
+  eci: { x: number; y: number; z: number; vx: number; vy: number; vz: number },
+  timestamp: string,
+  durationMinutes: number = 90,
+  stepSeconds: number = 120,
+): Array<{ lat: number; lon: number }> {
+  let r = [eci.x, eci.y, eci.z];
+  let v = [eci.vx, eci.vy, eci.vz];
+  const gmst0 = gmstRad(timestamp);
+  const pts: Array<{ lat: number; lon: number }> = [];
+  const totalSteps = Math.floor((durationMinutes * 60) / stepSeconds);
+  for (let i = 0; i <= totalSteps; i++) {
+    const t = i * stepSeconds;
+    const gmst = gmst0 + OMEGA_EARTH * t;
+    const cosG = Math.cos(gmst);
+    const sinG = Math.sin(gmst);
+    const xe = r[0] * cosG + r[1] * sinG;
+    const ye = -r[0] * sinG + r[1] * cosG;
+    const ze = r[2];
+    const rr = Math.sqrt(xe * xe + ye * ye + ze * ze);
+    pts.push({
