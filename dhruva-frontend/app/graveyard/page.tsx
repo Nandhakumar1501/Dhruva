@@ -38,3 +38,23 @@ export default function GraveyardPage() {
                   <th className="text-left py-1.5 px-1 font-medium">Entered Graveyard (UTC)</th>
                   <th className="text-center py-1.5 px-1 font-medium">Status</th>
                 </tr>
+              </thead>
+              <tbody>
+                {inGraveyard.map((sat) => (
+                  <tr key={sat.id} className="border-b border-slate-800/50 hover:bg-slate-900/50">
+                    <td className="py-1.5 px-1 text-slate-300">{sat.id}</td>
+                    <td className="py-1.5 px-1 text-right font-mono text-amber-300">{sat.fuel_kg.toFixed(2)}</td>
+                    <td className="py-1.5 px-1 text-right font-mono text-sky-300">{sat.altitude_km.toFixed(2)}</td>
+                    <td className="py-1.5 px-1 font-mono text-slate-400">
+                      {sat.graveyard_entry_time ? new Date(sat.graveyard_entry_time).toUTCString() : "pending"}
+                    </td>
+                    <td className="py-1.5 px-1 text-center">
+                      <span className="text-violet-300">GRAVEYARD</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+      </div>
