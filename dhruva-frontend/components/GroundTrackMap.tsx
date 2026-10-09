@@ -138,3 +138,23 @@ export default function GroundTrackMap({
 
   const zoomRef = useRef(zoom);
   const panXRef = useRef(panX);
+  const panYRef = useRef(panY);
+  useEffect(() => { zoomRef.current = zoom; }, [zoom]);
+  useEffect(() => { panXRef.current = panX; }, [panX]);
+  useEffect(() => { panYRef.current = panY; }, [panY]);
+
+  const satById = useMemo(() => new Map(satellites.map((s) => [s.id, s])), [satellites]);
+
+  useEffect(() => {
+    const prev: Record<string, SatPos> = {};
+    const curr: Record<string, SatPos> = {};
+    for (const sat of satellites) {
+      const old = currPositionsRef.current[sat.id];
+      prev[sat.id] = old ?? { lat: sat.lat, lon: sat.lon };
+      curr[sat.id] = { lat: sat.lat, lon: sat.lon };
+    }
+    prevPositionsRef.current = prev;
+    currPositionsRef.current = curr;
+    snapshotTimeRef.current = performance.now();
+  }, [satellites]);
+
