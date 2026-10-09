@@ -118,3 +118,23 @@ export default function BullseyePlot({ selectedSatelliteId, conjunctions }: Bull
   const expandedCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const [tooltip, setTooltip] = useState<HitInfo | null>(null);
   const [expanded, setExpanded] = useState(false);
+  const hitZonesRef = useRef<Array<{ cx: number; cy: number; r: number; item: ConjunctionItem }>>([]);
+  const expandedHitZonesRef = useRef<Array<{ cx: number; cy: number; r: number; item: ConjunctionItem }>>([]);
+
+  const filtered = useMemo(
+    () => conjunctions.filter((c) => c.satellite_id === selectedSatelliteId).slice(0, 200),
+    [conjunctions, selectedSatelliteId],
+  );
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (canvas) drawBullseye(canvas, filtered, selectedSatelliteId, hitZonesRef);
+  }, [filtered, selectedSatelliteId]);
+
+  useEffect(() => {
+    if (!expanded) return;
+    const canvas = expandedCanvasRef.current;
+    if (canvas) drawBullseye(canvas, filtered, selectedSatelliteId, expandedHitZonesRef);
+  }, [filtered, selectedSatelliteId, expanded]);
+
+  const handleCanvasClick = useCallback(
