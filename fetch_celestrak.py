@@ -58,3 +58,23 @@ FEEDS = {
         "object_type": "DEBRIS",
         "label": "Fengyun-1C Debris",
     },
+    "iridium_debris": {
+        "url": f"{ST_QUERY}/class/gp/OBJECT_NAME/IRIDIUM 33 DEB/OBJECT_TYPE/DEBRIS/orderby/NORAD_CAT_ID/limit/{{limit}}/format/tle",
+        "object_type": "DEBRIS",
+        "label": "Iridium-33 Debris",
+    },
+}
+
+
+def login(session: requests.Session) -> bool:
+    if ST_USER == "your_email@example.com":
+        print("\nSet ST_USER and ST_PASS in the script first.")
+        print("Register free at: https://www.space-track.org")
+        return False
+    try:
+        resp = session.post(ST_LOGIN, data={"identity": ST_USER, "password": ST_PASS}, timeout=15)
+        if resp.status_code == 200 and "Login" not in resp.text:
+            print(f"Space-Track: Logged in as {ST_USER}")
+            return True
+        print(f"Space-Track login failed. Check credentials.")
+        return False
