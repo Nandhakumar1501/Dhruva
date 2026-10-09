@@ -198,3 +198,23 @@ Project-dhruva/
 - Node.js 18+ and npm for frontend.
 - Optional local backend: Python 3.11+ with pip.
 
+---
+
+## Quick Start
+
+Run both backend and frontend with a single command:
+
+```bash
+docker build -t dhruva-cdm . && docker run --rm -p 8000:8000 -p 3000:3000 dhruva-cdm
+```
+
+Open:
+
+- Backend health: `http://localhost:8000/`
+- Frontend: `http://localhost:3000`
+
+---
+
+## Backend Setup
+
+### Option A: Docker (recommended)
