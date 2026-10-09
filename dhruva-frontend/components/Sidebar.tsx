@@ -78,3 +78,13 @@ export default function Sidebar() {
           className={`h-10 w-10 flex items-center justify-center border ${
             pathname === item.href
               ? "bg-cyan-500/15 border-cyan-500/40 text-cyan-300"
+              : "bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-600"
+          }`}
+          title={item.label}
+        >
+          {icons[item.icon]}
+        </Link>
+      ))}
+    </aside>
+  );
+}
