@@ -278,3 +278,22 @@ def build_router(state: SimulationState) -> APIRouter:
             "status": "LOADED",
             "source_csv": str(csv_file),
             "loaded": loaded,
+            "skipped": skipped,
+            "debris_total": len(state.debris),
+            "active_cdm_warnings": len(state.conjunctions),
+            "note": "CDM relative RTN fields were converted to ECI-like states using mission-anchored satellites.",
+        }
+
+    @router.get("/sim/timewarp")
+    async def get_time_warp() -> dict[str, Any]:
+        return {"time_warp_x": state.time_warp_multiplier}
+
+    @router.post("/sim/timewarp")
+    async def set_time_warp(payload: TimeWarpRequest) -> dict[str, Any]:
+        try:
+            current = state.set_time_warp(payload.multiplier)
+        except ValueError as exc:
+            raise HTTPException(status_code=422, detail=str(exc)) from exc
+        return {"status": "UPDATED", "time_warp_x": current}
+
+    return router
