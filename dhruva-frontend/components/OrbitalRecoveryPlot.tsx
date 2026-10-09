@@ -378,3 +378,23 @@ export default function OrbitalRecoveryPlot({ satellite, evaBurn, recBurn }: Pro
 
         {/* Burn status summary */}
         <div className="flex gap-4 text-[8px] text-slate-500 mt-1">
+          {evaBurn && (
+            <span>
+              EVA:{" "}
+              <span className={evaBurn.executed ? "text-emerald-400" : evaBurn.rejected ? "text-red-400" : "text-amber-300"}>
+                {evaBurn.executed ? "Executed" : evaBurn.rejected ? "Rejected" : "Pending"}
+              </span>
+              {" · "}{(mag3(evaBurn.delta_v_kmps) * 1000).toFixed(2)} m/s
+            </span>
+          )}
+          {recBurn && (
+            <span>
+              REC:{" "}
+              <span className={recBurn.executed ? "text-emerald-400" : recBurn.rejected ? "text-red-400" : "text-amber-300"}>
+                {recBurn.executed ? "Executed" : recBurn.rejected ? "Rejected" : "Pending"}
+              </span>
+              {" · "}{(mag3(recBurn.delta_v_kmps) * 1000).toFixed(2)} m/s
+            </span>
+          )}
+          {!evaBurn && !recBurn && (
+            <span className="text-emerald-500">No active maneuvers — satellite in nominal slot</span>
