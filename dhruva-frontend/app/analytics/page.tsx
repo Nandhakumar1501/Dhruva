@@ -118,3 +118,22 @@ export default function AnalyticsPage() {
           <div className="border border-slate-800 bg-slate-950 p-2">
             <div className="text-[10px] text-slate-500">Uptime %</div>
             <div className="text-lg font-semibold text-emerald-300">{(metrics?.uptime_pct ?? 100).toFixed(2)}%</div>
+          </div>
+          <div className="border border-slate-800 bg-slate-950 p-2">
+            <div className="text-[10px] text-slate-500">Uptime Score (exp)</div>
+            <div className="text-lg font-semibold text-cyan-300">{(metrics?.uptime_score ?? 100).toFixed(2)}</div>
+          </div>
+          <div className="border border-slate-800 bg-slate-950 p-2">
+            <div className="text-[10px] text-slate-500">Outage Sat-Seconds</div>
+            <div className="text-lg font-semibold text-amber-300">{(metrics?.outage_sat_seconds ?? 0).toFixed(0)}</div>
+          </div>
+          <div className="border border-slate-800 bg-slate-950 p-2">
+            <div className="text-[10px] text-slate-500">Avoided per Δv</div>
+            <div className="text-lg font-semibold text-violet-300">{(metrics?.avoidance_per_delta_v ?? 0).toFixed(4)}</div>
+          </div>
+        </div>
+      </div>
+    </AppShell>
+  );
+}
+
