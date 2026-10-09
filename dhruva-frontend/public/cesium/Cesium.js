@@ -758,3 +758,23 @@ czm_material czm_getMaterial(czm_materialInput materialInput)
     vec4 outColor = mix(landColor, waterColor, materialInput.waterMask);
     outColor = czm_gammaCorrect(outColor);
 
+    material.diffuse = outColor.rgb;
+    material.alpha = outColor.a;
+
+    return material;
+}
+`;var NQt=y(x(),1),JR=`// Thanks for the contribution Jonas
+// http://29a.ch/2012/7/19/webgl-terrain-rendering-water-fog
+
+uniform sampler2D specularMap;
+uniform sampler2D normalMap;
+uniform vec4 baseWaterColor;
+uniform vec4 blendColor;
+uniform float frequency;
+uniform float animationSpeed;
+uniform float amplitude;
+uniform float specularIntensity;
+uniform float fadeFactor;
+
+czm_material czm_getMaterial(czm_materialInput materialInput)
+{
