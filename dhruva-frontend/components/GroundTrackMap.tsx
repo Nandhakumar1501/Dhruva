@@ -298,3 +298,23 @@ export default function GroundTrackMap({
 
       // Historical 90-min trail (solid)
       const trail = tracks?.[selectedSatelliteId];
+      if (trail && trail.length > 1) {
+        ctx.strokeStyle = "rgba(34,211,238,0.55)";
+        ctx.lineWidth = 1.5 / z;
+        ctx.setLineDash([]);
+        ctx.beginPath();
+        let penDown = false;
+        for (let i = 0; i < trail.length; i++) {
+          const pt = mercatorXY(trail[i].lat, trail[i].lon, width, height);
+          const wrapBreak = i > 0 && Math.abs(trail[i].lon - trail[i - 1].lon) > 180;
+          if (!penDown || wrapBreak) { ctx.moveTo(pt.x, pt.y); penDown = true; }
+          else ctx.lineTo(pt.x, pt.y);
+        }
+        ctx.stroke();
+      }
+
+      // Predicted 90-min trajectory (dashed)
+      if (selSat?.eci) {
+        const predictedPts = computeForwardTrack(selSat.eci, timestamp, 90, 120);
+        if (predictedPts.length > 1) {
+          ctx.strokeStyle = "#22d3ee";
