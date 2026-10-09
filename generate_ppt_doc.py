@@ -158,3 +158,23 @@ def bullet(doc, text, level=0, bold_lead=None):
         r.font.size      = Pt(11)
         r.font.color.rgb = BLACK
 
+
+def code_block(doc, text):
+    p = doc.add_paragraph()
+    p.paragraph_format.space_before = Pt(4)
+    p.paragraph_format.space_after  = Pt(4)
+    p.paragraph_format.left_indent  = Inches(0.3)
+    r = p.add_run(text)
+    r.font.name       = "Courier New"
+    r.font.size       = Pt(9)
+    r.font.color.rgb  = RGBColor(0x10, 0x60, 0x20)
+    # light grey shading
+    pPr = p._p.get_or_add_pPr()
+    shd = OxmlElement("w:shd")
+    shd.set(qn("w:val"),   "clear")
+    shd.set(qn("w:color"), "auto")
+    shd.set(qn("w:fill"),  "F0F4F8")
+    pPr.append(shd)
+
+
+def punchline(doc, text):
