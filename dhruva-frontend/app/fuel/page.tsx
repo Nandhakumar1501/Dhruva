@@ -118,3 +118,23 @@ export default function FuelPage() {
                     fill="none"
                     stroke="#22c55e"
                     strokeWidth="2"
+                    points={points.map((p, i) => `${(i / (points.length - 1)) * 570 + 10},${170 - (p.collisionsAvoided / maxAvoided) * 155}`).join(" ")}
+                  />
+                )}
+                {points.length === 0 && (
+                  <text x="300" y="100" textAnchor="middle" fill="#475569" fontSize="12">Collecting data...</text>
+                )}
+              </svg>
+            </div>
+
+            <div className="grid grid-cols-3 gap-2 shrink-0">
+              {[
+                { label: "Uptime %", value: `${(metrics?.uptime_pct ?? 100).toFixed(2)}%`, color: "text-emerald-300" },
+                { label: "Uptime Score", value: (metrics?.uptime_score ?? 100).toFixed(2), color: "text-cyan-300" },
+                { label: "Outage Sat-sec", value: (metrics?.outage_sat_seconds ?? 0).toFixed(0), color: "text-amber-300" },
+              ].map(({ label, value, color }) => (
+                <div key={label} className="border border-slate-800 bg-slate-900/60 p-2">
+                  <div className="text-[9px] text-slate-500 uppercase tracking-wide">{label}</div>
+                  <div className={`text-base font-bold ${color}`}>{value}</div>
+                </div>
+              ))}
