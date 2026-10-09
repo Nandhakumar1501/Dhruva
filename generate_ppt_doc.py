@@ -258,3 +258,23 @@ note(doc, "Version 1.0.0  |  © 2026 Dhruva CDM Project")
 doc.add_page_break()
 
 # ══════════════════════════════════════════════════════════════════════════════
+#  SLIDE 1
+# ══════════════════════════════════════════════════════════════════════════════
+slide_label(doc, 1, "The Problem: Earth's Orbit Is Becoming a Minefield")
+body(doc, "Suggested Slide Title (on PPT):", ["Suggested Slide Title (on PPT):"])
+punchline(doc, '"The Kessler Syndrome Is Not a Theory — It\'s a Timeline"')
+
+section_heading(doc, "Key Points")
+bullet(doc, "Over 27,000 tracked debris objects currently orbit Earth — estimates suggest 500,000+ fragments above 1 cm, each carrying enough kinetic energy to destroy a satellite.", bold_lead="Over 27,000 tracked debris objects")
+bullet(doc, "A single hypervelocity collision at LEO (7–8 km/s) generates thousands of new fragments, triggering a cascade — Kessler Syndrome — that can render entire orbital shells permanently unusable.", bold_lead="A single hypervelocity collision")
+bullet(doc, "India's stakes are high: ISRO operates NavIC, Cartosat, RISAT, and emerging private constellations. Each is exposed every orbit.", bold_lead="India's stakes are high:")
+bullet(doc, "Current global SSA tools — NASA CARA, ESA SST, LeoLabs — are siloed, expensive, and inaccessible to academic / startup operators.", bold_lead="Current global SSA tools")
+bullet(doc, "No open-source, full-stack, physics-accurate CDM platform exists that a university lab, ISRO spinoff, or NewSpace company can deploy today.", bold_lead="No open-source, full-stack, physics-accurate CDM platform exists")
+
+section_heading(doc, "Visual Suggestion")
+note(doc, "A timeline graphic showing debris growth from 1957 → 2024, or the Iridium-Cosmos 2009 collision visualization. Numbers should dominate the slide visually.")
+doc.add_page_break()
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  SLIDE 2
+# ══════════════════════════════════════════════════════════════════════════════
