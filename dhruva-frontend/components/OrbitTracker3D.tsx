@@ -478,3 +478,19 @@ export default function OrbitTracker3D({
         }
       } else if (!selectedSatelliteId) {
         viewer.selectedEntity = undefined;
+        viewer.trackedEntity = undefined;
+      }
+      previousSelectedIdRef.current = selectedSatelliteId;
+    }
+
+  }, [satellites, selectedSatelliteId, debrisCloud, conjunctions, blackoutStatus, timestamp, cesiumLoaded]);
+
+  return (
+    <div className="h-full border border-slate-800 bg-slate-950 overflow-hidden relative">
+      <div className="absolute z-10 top-3 left-3 text-xs text-slate-200 bg-black/50 p-1 rounded">
+        Worldwide Perspective - 3D Orbit Tracker (Cesium)
+      </div>
+      <div ref={containerRef} className="w-full h-full" />
+    </div>
+  );
+}
