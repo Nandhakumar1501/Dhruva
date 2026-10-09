@@ -78,3 +78,23 @@ Extended dashboard view showing the ground track alongside the **Maneuver Timeli
 Worldwide 3D perspective of the constellation using the Cesium globe renderer, viewed from a polar angle. Satellites and their orbital trails are rendered on the Earth's surface, with constellation health and blackout status displayed on the right panel.
 
 ---
+
+### 4. 3D Orbit Tracker — Close Orbit View (Cesium)
+![3D Orbit Tracker Close View](screenshots/4.png)
+
+Close-up 3D orbit view showing a satellite's orbital ground track arcing over a landmass. Highlights individual satellite telemetry (SAT-Alpha-07) including fuel mass, dry mass, altitude, and longitude on the right panel. Blackout events for multiple satellites are also listed.
+
+---
+
+### 5. 3D Orbit Tracker — Full Constellation Globe View (Cesium)
+![3D Full Constellation Globe View](screenshots/5.png)
+
+Full worldwide 3D globe view of the entire constellation with all satellite positions and orbital tracks rendered simultaneously, giving an at-a-glance overview of fleet coverage and spacing.
+
+---
+
+### 6. Conjunction Bullseye — Extended View
+![Conjunction Bullseye Extended View](screenshots/6.png)
+
+Enlarged conjunction bullseye radar plot for a selected satellite (SAT-Alpha-07). Displays the predicted closest approach point relative to the satellite's reference frame, with colour-coded risk zones (Dhruva 1 km, Warning 2 km, Outer 5 km) and a conjunction list with miss distances.
+
