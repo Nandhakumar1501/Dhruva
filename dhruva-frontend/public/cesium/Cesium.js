@@ -1998,3 +1998,23 @@ vec4 czm_columbusViewMorph(vec4 position2D, vec4 position3D, float time)
 }
 `;var kKt=y(x(),1),xG=`/**
  * Compute the atmosphere color, applying Rayleigh and Mie scattering. This
+ * builtin uses automatic uniforms so the atmophere settings are synced with the
+ * state of the Scene, even in other contexts like Model.
+ *
+ * @name czm_computeAtmosphereColor
+ * @glslFunction
+ *
+ * @param {vec3} positionWC Position of the fragment in world coords (low precision)
+ * @param {vec3} lightDirection Light direction from the sun or other light source.
+ * @param {vec3} rayleighColor The Rayleigh scattering color computed by a scattering function
+ * @param {vec3} mieColor The Mie scattering color computed by a scattering function
+ * @param {float} opacity The opacity computed by a scattering function.
+ */
+vec4 czm_computeAtmosphereColor(
+    vec3 positionWC,
+    vec3 lightDirection,
+    vec3 rayleighColor,
+    vec3 mieColor,
+    float opacity
+) {
+    // Setup the primary ray: from the camera position to the vertex position.
