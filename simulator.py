@@ -58,3 +58,23 @@ def predict_closest_approach(state, debris_state):
     return min_distance, collision_point
 
 
+while(True):
+    state = rk4_step(state, dt)
+    debris_state = rk4_step(debris_state, dt)
+
+    predicted_distance, collision_point = predict_closest_approach(state, debris_state)
+    
+    if collision_point != None:
+        collision_marker.set_data([collision_point[0]], [collision_point[1]])
+
+    debris_x = debris_state[0]
+    debris_y = debris_state[1]
+    x = state[0]
+    y = state[1]
+
+    dx = x - debris_x
+    dy = y - debris_y
+
+    distance = np.sqrt(dx * dx + dy * dy) 
+    print(distance)
+
