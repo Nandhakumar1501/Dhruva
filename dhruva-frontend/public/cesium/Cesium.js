@@ -778,3 +778,23 @@ uniform float fadeFactor;
 
 czm_material czm_getMaterial(czm_materialInput materialInput)
 {
+    czm_material material = czm_getDefaultMaterial(materialInput);
+
+    float time = czm_frameNumber * animationSpeed;
+
+    // fade is a function of the distance from the fragment and the frequency of the waves
+    float fade = max(1.0, (length(materialInput.positionToEyeEC) / 10000000000.0) * frequency * fadeFactor);
+
+    float specularMapValue = texture(specularMap, materialInput.st).r;
+
+    // note: not using directional motion at this time, just set the angle to 0.0;
+    vec4 noise = czm_getWaterNoise(normalMap, materialInput.st * frequency, time, 0.0);
+    vec3 normalTangentSpace = noise.xyz * vec3(1.0, 1.0, (1.0 / amplitude));
+
+    // fade out the normal perturbation as we move further from the water surface
+    normalTangentSpace.xy /= fade;
+
+    // attempt to fade out the normal perturbation as we approach non water areas (low specular map value)
+    normalTangentSpace = mix(vec3(0.0, 0.0, 50.0), normalTangentSpace, specularMapValue);
+
+    normalTangentSpace = normalize(normalTangentSpace);
