@@ -258,3 +258,23 @@ def build_router(state: SimulationState) -> APIRouter:
                 if basis is None:
                     skipped += 1
                     continue
+                r_hat, t_hat, n_hat = basis
+                rot = np.column_stack((r_hat, t_hat, n_hat))
+
+                # Dataset values are in meters and meters/second.
+                rel_pos_km = np.array([rr, rt, rn], dtype=float) / 1000.0
+                rel_vel_kmps = np.array([vr, vt, vn], dtype=float) / 1000.0
+
+                obj_state = anchor.state.copy()
+                obj_state[:3] = anchor.state[:3] + rot @ rel_pos_km
+                obj_state[3:6] = anchor.state[3:6] + rot @ rel_vel_kmps
+
+                event_id = row.get("event_id", "0")
+                obj_id = f"{payload.id_prefix}-{event_id}-{row_idx:06d}"
+                state.ingest_object(obj_id, "DEBRIS", obj_state)
+                loaded += 1
+
+        return {
+            "status": "LOADED",
+            "source_csv": str(csv_file),
+            "loaded": loaded,
