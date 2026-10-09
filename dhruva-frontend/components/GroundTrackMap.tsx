@@ -458,3 +458,23 @@ export default function GroundTrackMap({
         <button
           className="h-7 px-2 rounded bg-slate-900 border border-slate-700 text-[10px] text-slate-200 hover:bg-slate-800"
           onClick={() => { setZoom(1); setPanX(0); setPanY(0); }}
+        >Reset</button>
+        <span className="text-[10px] text-slate-400 ml-1">{zoom.toFixed(1)}x</span>
+      </div>
+
+      <canvas
+        ref={canvasRef}
+        width={1000}
+        height={430}
+        className="h-full w-full"
+        onWheel={handleWheel}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+        onClick={handleClick}
+        onContextMenu={(e) => e.preventDefault()}
+      />
+
+      <div className="absolute bottom-3 left-3 z-10 text-[10px] text-slate-400">
+        Scroll to zoom | Right-click + drag to pan
