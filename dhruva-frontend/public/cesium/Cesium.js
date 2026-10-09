@@ -1398,3 +1398,23 @@ struct czm_materialInput
     vec2 st;
     vec3 str;
     vec3 normalEC;
+    mat3 tangentToEyeMatrix;
+    vec3 positionToEyeEC;
+    float height;
+    float slope;
+    float aspect;
+    float waterMask;
+};
+`;var HHt=y(x(),1),KV=`/**
+ * Struct for representing a material for a {@link Model}. The model
+ * rendering pipeline will pass this struct between material, custom shaders,
+ * and lighting stages. This is not to be confused with {@link czm_material}
+ * which is used by the older Fabric materials system, although they are similar.
+ * <p>
+ * All color values (diffuse, specular, emissive) are in linear color space.
+ * </p>
+ *
+ * @name czm_modelMaterial
+ * @glslStruct
+ *
+ * @property {vec4} baseColor The base color of the material.
