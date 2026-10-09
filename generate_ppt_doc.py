@@ -278,3 +278,23 @@ doc.add_page_break()
 # ══════════════════════════════════════════════════════════════════════════════
 #  SLIDE 2
 # ══════════════════════════════════════════════════════════════════════════════
+slide_label(doc, 2, "Introducing Dhruva CDM")
+punchline(doc, '"Dhruva — the North Star. The fixed point everything navigates by."')
+
+section_heading(doc, "What Is It?")
+body(doc,
+     "Dhruva CDM is a full-stack Orbital Conjunction Data Management system that autonomously "
+     "detects, assesses, and responds to satellite-debris close-approach events in real time. "
+     "Built from first principles — not a wrapper around someone else's propagator. "
+     "Every equation is implemented, validated, and running.")
+
+section_heading(doc, "Three Coordinated Capabilities")
+bullet(doc, "SENSE — Continuously propagate and track all objects in ECI (Earth-Centred Inertial) space.", bold_lead="SENSE")
+bullet(doc, "ASSESS — Predict Time of Closest Approach (TCA) and classify risk across SAFE / WARNING / CRITICAL thresholds.", bold_lead="ASSESS")
+bullet(doc, "ACT — Autonomously schedule and execute avoidance maneuvers with full operational constraint validation.", bold_lead="ACT")
+
+section_heading(doc, "Deployment")
+code_block(doc, "docker build -t dhruva-cdm . && docker run --rm -p 8000:8000 -p 3000:3000 dhruva-cdm")
+body(doc, "One command. Running in under 60 seconds. Open source under MIT License.")
+
+section_heading(doc, "Quick Links")
