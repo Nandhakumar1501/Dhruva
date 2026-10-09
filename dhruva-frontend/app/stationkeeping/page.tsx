@@ -38,3 +38,23 @@ export default function StationKeepingPage() {
             <div className="text-xl font-mono font-bold text-cyan-400">
               {metrics ? metrics.uptime_score.toFixed(1) : "—"}
             </div>
+          </div>
+          <div className="border border-slate-800 bg-slate-950 p-3">
+            <div className="text-[10px] text-slate-500 mb-1">Nominal</div>
+            <div className="text-xl font-mono font-bold text-emerald-300">{nominal.length}</div>
+          </div>
+          <div className="border border-slate-800 bg-slate-950 p-3">
+            <div className="text-[10px] text-slate-500 mb-1">Out of Box</div>
+            <div className={`text-xl font-mono font-bold ${outOfBox.length > 0 ? "text-amber-400" : "text-slate-500"}`}>
+              {outOfBox.length}
+            </div>
+          </div>
+        </div>
+
+        {/* Satellite Drift Table */}
+        <div className="flex-1 min-h-0 border border-slate-800 bg-slate-950 overflow-auto p-3">
+          <div className="text-[10px] text-slate-500 mb-2 font-medium uppercase tracking-wider">
+            Satellite Drift from Nominal Slot
+          </div>
+          <table className="w-full text-[10px]">
+            <thead>
