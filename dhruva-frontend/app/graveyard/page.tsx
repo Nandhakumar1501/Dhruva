@@ -58,3 +58,6 @@ export default function GraveyardPage() {
           )}
         </div>
       </div>
+    </AppShell>
+  );
+}
