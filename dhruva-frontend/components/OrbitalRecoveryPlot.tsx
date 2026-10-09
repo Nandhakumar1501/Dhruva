@@ -258,3 +258,23 @@ export default function OrbitalRecoveryPlot({ satellite, evaBurn, recBurn }: Pro
           {recRT && (
             <Arrow
               x1={RTN_CX} y1={RTN_CY}
+              x2={RTN_CX + recRT.T * EVA_SCALE * RTN_SCALE}
+              y2={RTN_CY - recRT.R * EVA_SCALE * RTN_SCALE}
+              color="#4ade80" label="REC"
+            />
+          )}
+
+          {/* Satellite dot */}
+          <circle cx={RTN_CX} cy={RTN_CY} r={5} fill="#22d3ee" />
+          <text x={RTN_CX + 8} y={RTN_CY - 6} fill="#22d3ee" fontSize={8}>
+            {satellite.id}
+          </text>
+
+          {/* Status badge */}
+          <rect x={4} y={RTN_H - 18} width={70} height={14} fill="#0f172a" rx={2} />
+          <text x={8} y={RTN_H - 7}
+            fill={satellite.status === "OUT_OF_BOX" ? "#fbbf24" : "#4ade80"}
+            fontSize={9} fontWeight="bold">
+            {satellite.status}
+          </text>
+        </svg>
