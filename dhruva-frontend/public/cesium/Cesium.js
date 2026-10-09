@@ -2238,3 +2238,23 @@ void czm_computeScattering(
 
         // Generate ray from the sample position segment to the light source, up to the outer ring of the atmosphere.
         czm_ray lightRay = czm_ray(samplePosition, lightDirection);
+        czm_raySegment lightRayAtmosphereIntersect = czm_raySphereIntersectionInterval(lightRay, origin, atmosphereOuterRadius);
+
+        float lightStepLength = lightRayAtmosphereIntersect.stop / float(LIGHT_STEPS);
+        float lightPositionLength = 0.0;
+
+        vec2 lightOpticalDepth = vec2(0.0);
+
+        // Sample positions along the light ray, to accumulate incidence of light on the latest sample segment.
+        for (int j = 0; j < LIGHT_STEPS_MAX; ++j) {
+
+            // The loop should be: for (int j = 0; i < LIGHT_STEPS; ++j) {...} but WebGL1 cannot
+            // loop with non-constant condition, so it has to break early instead
+            if (j >= LIGHT_STEPS) {
+                break;
+            }
+
+            // Calculate sample position along light ray.
+            vec3 lightPosition = samplePosition + lightDirection * (lightPositionLength + lightStepLength * 0.5);
+
+            // Calculate height of the light sample position above ellipsoid.
