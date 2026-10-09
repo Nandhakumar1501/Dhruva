@@ -558,3 +558,23 @@ section_heading(doc, "Alignment with National Priorities")
 bullet(doc, "India Space Policy 2023 mandates national SSA capability development — Dhruva CDM is a direct contribution.", bold_lead="India Space Policy 2023")
 bullet(doc, "ISRO's SSA Control Centre (Bengaluru) — Dhruva CDM's architecture maps directly to its operational mission.", bold_lead="ISRO's SSA Control Centre (Bengaluru)")
 bullet(doc, "IN-SPACe framework encourages open-source tooling for commercial space operators — Dhruva CDM is MIT-licensed.", bold_lead="IN-SPACe framework")
+bullet(doc, "IIT Delhi Ground Station is pre-configured as a named ground station node in Dhruva CDM.", bold_lead="IIT Delhi Ground Station")
+doc.add_page_break()
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  SLIDE 11
+# ══════════════════════════════════════════════════════════════════════════════
+slide_label(doc, 11, "Live Demo Highlights & Key Results")
+punchline(doc, '"The Numbers from a Live Simulation Run"')
+
+section_heading(doc, "Simulation Parameters")
+bullet(doc, "50 active satellites  |  20 seeded debris  +  10,000 CDM CSV debris loaded (20,020 total tracked objects)")
+bullet(doc, "Time-warp: variable (1× – 100×)  |  Look-ahead horizon: 2 hours  |  RK4 sample: 30 s")
+
+section_heading(doc, "Mission Metrics (from live run)")
+add_table(doc,
+    ["Metric", "Result"],
+    [
+        ["Total ΔV consumed (fleet)",        "124.11 m/s"],
+        ["Fleet uptime",                     "92.74%"],
+        ["Uptime score",                     "80.42"],
