@@ -178,3 +178,15 @@ export function SnapshotProvider({ children }: { children: React.ReactNode }) {
       increaseTimeWarp,
     }),
     [snapshot, status, selectedSatelliteId, tracks, metricsHistory, timeWarpX, decreaseTimeWarp, increaseTimeWarp]
+  );
+
+  return <SnapshotContext.Provider value={value}>{children}</SnapshotContext.Provider>;
+}
+
+export function useSnapshotContext() {
+  const ctx = useContext(SnapshotContext);
+  if (!ctx) {
+    throw new Error("useSnapshotContext must be used within SnapshotProvider");
+  }
+  return ctx;
+}
