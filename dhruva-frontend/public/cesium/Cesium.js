@@ -478,3 +478,23 @@ czm_material czm_getMaterial(czm_materialInput materialInput)
     scaledHeight = abs(scaledHeight - floor(scaledHeight + 0.5));
 
     float value;
+
+    // Fuzz Factor - Controls blurriness of lines
+#if (__VERSION__ == 300 || defined(GL_OES_standard_derivatives))
+    const float fuzz = 1.2;
+    vec2 thickness = (lineThickness * czm_pixelRatio) - 1.0;
+
+    // From "3D Engine Design for Virtual Globes" by Cozzi and Ring, Listing 4.13.
+    vec2 dx = abs(dFdx(st));
+    vec2 dy = abs(dFdy(st));
+    vec2 dF = vec2(max(dx.s, dy.s), max(dx.t, dy.t)) * lineCount;
+    value = min(
+        smoothstep(dF.s * thickness.s, dF.s * (fuzz + thickness.s), scaledWidth),
+        smoothstep(dF.t * thickness.t, dF.t * (fuzz + thickness.t), scaledHeight));
+#else
+    // If no derivatives available (IE 10?), revert to view-dependent fuzz
+    const float fuzz = 0.05;
+
+    vec2 range = 0.5 - (lineThickness * 0.05);
+    value = min(
+        1.0 - smoothstep(range.s, range.s + fuzz, scaledWidth),
