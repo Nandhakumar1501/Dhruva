@@ -98,3 +98,13 @@ export default function ManeuverTimeline({ maneuvers, nowIso }: TimelineProps) {
 
               <div className="w-14 shrink-0 text-right">
                 <span className={m.executed ? "text-emerald-400" : m.rejected ? "text-red-400" : "text-blue-400"}>
+                  {m.executed ? "Done" : m.rejected ? "Fail" : formatTime(new Date(burnMs))}
+                </span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
