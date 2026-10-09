@@ -418,3 +418,23 @@ Response shape (trimmed):
 {
   "timestamp": "2026-03-21T05:45:00+00:00",
   "satellites": [
+    {
+      "id": "SAT-Alpha-01",
+      "lat": 12.3,
+      "lon": 82.1,
+      "altitude_km": 512.4,
+      "fuel_kg": 49.8,
+      "status": "NOMINAL",
+      "drift_km": 2.1,
+      "eci": { "x": 6800.0, "y": 10.0, "z": 30.0, "vx": 0.0, "vy": 7.6, "vz": 0.1 }
+    }
+  ],
+  "debris_cloud": [
+    ["DEB-0001", 13.2, 83.0, 520.1]
+  ],
+  "conjunctions": [
+    {
+      "satellite_id": "SAT-Alpha-01",
+      "debris_id": "DEB-0001",
+      "tca_seconds": 420.0,
+      "miss_distance_km": 2.4,
