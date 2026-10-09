@@ -78,3 +78,23 @@ export interface SnapshotPayload {
     outage_sat_seconds?: number;
     avoidance_per_delta_v?: number;
     time_warp_x?: number;
+  };
+}
+
+export interface GroundStationSnapshot {
+  id: string;
+  name: string;
+  lat: number;
+  lon: number;
+  min_elevation_deg: number;
+}
+
+export interface TrackPoint {
+  lat: number;
+  lon: number;
+  timestamp: number;
+}
+
+export interface BurnLogEntry {
+  burn_id: string;
+  satellite_id: string;
