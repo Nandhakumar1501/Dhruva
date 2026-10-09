@@ -18,3 +18,7 @@ export default function ReportsPage() {
         <div className="flex-1 min-h-0">
           <BurnLogs logs={logs} />
         </div>
+      </div>
+    </AppShell>
+  );
+}
