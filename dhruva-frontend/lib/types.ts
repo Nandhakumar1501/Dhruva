@@ -18,3 +18,23 @@ export interface SatelliteSnapshot {
     altitude_km: number;
   };
   eci?: {
+    x: number;
+    y: number;
+    z: number;
+    vx: number;
+    vy: number;
+    vz: number;
+  };
+}
+
+export type DebrisTuple = [id: string, lat: number, lon: number, altitude_km: number];
+
+export interface ConjunctionItem {
+  satellite_id: string;
+  debris_id: string;
+  tca_seconds: number;
+  miss_distance_km: number;
+  relative_angle_deg: number;
+  risk_level: RiskLevel;
+}
+
