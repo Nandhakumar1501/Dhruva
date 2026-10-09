@@ -2158,3 +2158,23 @@ void czm_computeScattering(
     float atmosphereInnerRadius,
     out vec3 rayleighColor,
     out vec3 mieColor,
+    out float opacity
+) {
+    const float ATMOSPHERE_THICKNESS = 111e3; // The thickness of the atmosphere in meters.
+    const int PRIMARY_STEPS_MAX = 16; // Maximum number of times the ray from the camera to the world position (primary ray) is sampled.
+    const int LIGHT_STEPS_MAX = 4; // Maximum number of times the light is sampled from the light source's intersection with the atmosphere to a sample position on the primary ray.
+
+    // Initialize the default scattering amounts to 0.
+    rayleighColor = vec3(0.0);
+    mieColor = vec3(0.0);
+    opacity = 0.0;
+
+    float atmosphereOuterRadius = atmosphereInnerRadius + ATMOSPHERE_THICKNESS;
+
+    vec3 origin = vec3(0.0);
+
+    // Calculate intersection from the camera to the outer ring of the atmosphere.
+    czm_raySegment primaryRayAtmosphereIntersect = czm_raySphereIntersectionInterval(primaryRay, origin, atmosphereOuterRadius);
+
+    // Return empty colors if no intersection with the atmosphere geometry.
+    if (primaryRayAtmosphereIntersect == czm_emptyRaySegment) {
