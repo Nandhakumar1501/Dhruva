@@ -258,3 +258,23 @@ export default function GroundTrackMap({
       const p = mercatorXY(gs.lat, gs.lon, width, height);
       ctx.fillStyle = "#f59e0b";
       ctx.beginPath();
+      ctx.arc(p.x, p.y, 4 / z, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#fde68a";
+      ctx.font = `${Math.max(8, 10 / z)}px sans-serif`;
+      ctx.fillText(gs.name.replace(/_/g, " "), p.x + 6 / z, p.y - 6 / z);
+    }
+
+    const warningDebrisIds = new Set(
+      conjunctions
+        .filter((c) => c.risk_level === "CRITICAL" || c.risk_level === "WARNING")
+        .map((c) => c.debris_id)
+    );
+
+    for (const deb of debrisCloud) {
+      const [debId, debLat, debLon] = deb;
+      const dp = mercatorXY(debLat, debLon, width, height);
+      const isWarning = warningDebrisIds.has(debId);
+      ctx.fillStyle = isWarning ? "#ef4444" : "#f87171";
+      ctx.globalAlpha = isWarning ? 1.0 : 0.5;
+      ctx.beginPath();
