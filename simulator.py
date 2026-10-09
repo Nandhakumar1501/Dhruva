@@ -98,3 +98,14 @@ while(True):
     debris.set_data([debris_x], [debris_y])
 
     trail.set_data(x_list, y_list)
+    debris_trail.set_data(x_list_debris, y_list_debris)
+
+    if len(x_list) > max_trail:
+        x_list.pop(0)
+        y_list.pop(0)
+        x_list_debris.pop(0)
+        y_list_debris.pop(0)
+
+    plt.pause(0.1)
+
+plt.show()
