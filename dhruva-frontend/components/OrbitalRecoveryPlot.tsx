@@ -18,3 +18,23 @@ import { ManeuverItem, SatelliteSnapshot } from "@/lib/types";
 const RE = 6371; // km
 
 interface Props {
+  satellite: SatelliteSnapshot;
+  evaBurn: ManeuverItem | null;
+  recBurn: ManeuverItem | null;
+}
+
+function mag3(v: { x: number; y: number; z: number }) {
+  return Math.sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+}
+
+function cross3(
+  a: { x: number; y: number; z: number },
+  b: { x: number; y: number; z: number }
+) {
+  return {
+    x: a.y * b.z - a.z * b.y,
+    y: a.z * b.x - a.x * b.z,
+    z: a.x * b.y - a.y * b.x,
+  };
+}
+
