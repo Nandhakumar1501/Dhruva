@@ -258,3 +258,23 @@ uvicorn server:app --host 0.0.0.0 --port 8000 --reload
 
 ```bash
 cd dhruva-frontend
+npm install
+npm run dev
+```
+
+Default URL: `http://localhost:3000`
+
+### Frontend Pages
+
+| Route | Description |
+|---|---|
+| `/` | Main dashboard — ground track map (2D/3D), conjunction bullseye, maneuver timeline, satellite detail |
+| `/fuel` | Fleet fuel — per-satellite propellant gauges, ∆v vs collisions avoided chart, mission scoring |
+| `/reports` | Burn logs — full maneuver history |
+| `/graveyard` | Graveyard orbit — end-of-life satellites |
+| `/alerts` | CDM alerts — active conjunction warnings |
+| `/analytics` | Analytics — fleet-level trends and conjunction table |
+
+---
+
+## API Reference
