@@ -258,3 +258,11 @@ export default function BullseyePlot({ selectedSatelliteId, conjunctions }: Bull
                     Center = selected satellite. Radial distance = Time to Closest Approach. Angle = relative approach vector.
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
