@@ -1598,3 +1598,23 @@ vec3 czm_RGBToHSB(vec3 rgb)
     vec4 p = mix(vec4(rgb.bg, K_RGB2HSB.wz), vec4(rgb.gb, K_RGB2HSB.xy), step(rgb.b, rgb.g));
     vec4 q = mix(vec4(p.xyw, rgb.r), vec4(rgb.r, p.yzx), step(p.x, rgb.r));
 
+    float d = q.x - min(q.w, q.y);
+    return vec3(abs(q.z + (q.w - q.y) / (6.0 * d + czm_epsilon7)), d / (q.x + czm_epsilon7), q.x);
+}
+`;var dKt=y(x(),1),iG=`/**
+ * Converts an RGB color to HSL (hue, saturation, lightness)
+ * HSL <-> RGB conversion: {@link http://www.chilliant.com/rgb2hsv.html}
+ *
+ * @name czm_RGBToHSL
+ * @glslFunction
+ * 
+ * @param {vec3} rgb The color in RGB.
+ *
+ * @returns {vec3} The color in HSL.
+ *
+ * @example
+ * vec3 hsl = czm_RGBToHSL(rgb);
+ * hsl.z *= 0.1;
+ * rgb = czm_HSLToRGB(hsl);
+ */
+ 
