@@ -498,3 +498,23 @@ Response:
 
 ### 7) `POST /api/debug/load_cdm_csv`
 
+Load CDM-style debris features from CSV for stress testing.
+
+Request body:
+
+```json
+{
+  "csv_path": "test_data/debris_data.csv",
+  "max_rows": 10000,
+  "replace_existing": false,
+  "id_prefix": "CDM-DEB"
+}
+```
+
+Limits:
+
+- `max_rows`: `1..20000`
+
+Response:
+
+```json
