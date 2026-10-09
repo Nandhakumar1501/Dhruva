@@ -38,3 +38,23 @@ export default function AnalyticsPage() {
             </div>
             <div className="flex-1 min-h-0">
               <svg viewBox="0 0 360 120" className="w-full h-full">
+                {points.length > 1 && (
+                  <polyline
+                    fill="none"
+                    stroke="#22d3ee"
+                    strokeWidth="2"
+                    points={points
+                      .map((p, i) => `${(i / (points.length - 1)) * 340 + 10},${100 - (p.totalDeltaVMps / maxDeltaV) * 80}`)
+                      .join(" ")}
+                  />
+                )}
+                {points.length > 1 && (
+                  <polyline
+                    fill="none"
+                    stroke="#22c55e"
+                    strokeWidth="2"
+                    points={points
+                      .map((p, i) => `${(i / (points.length - 1)) * 340 + 10},${100 - (p.collisionsAvoided / maxAvoided) * 80}`)
+                      .join(" ")}
+                  />
+                )}
