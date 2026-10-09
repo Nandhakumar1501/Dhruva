@@ -138,3 +138,23 @@ export default function OrbitTracker3D({
   const onSelectRef = useRef(onSelectSatellite);
 
   useEffect(() => {
+    onSelectRef.current = onSelectSatellite;
+  }, [onSelectSatellite]);
+
+  useEffect(() => {
+    const checkCesium = setInterval(() => {
+      if (typeof window !== "undefined" && (window as any).Cesium) {
+        setCesiumLoaded(true);
+        clearInterval(checkCesium);
+      }
+    }, 100);
+
+    return () => clearInterval(checkCesium);
+  }, []);
+
+  useEffect(() => {
+    if (!cesiumLoaded || !containerRef.current) return;
+    const container = containerRef.current;
+
+    const Cesium = (window as any).Cesium;
+    (window as any).CESIUM_BASE_URL = "/cesium";
