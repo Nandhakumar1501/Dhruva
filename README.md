@@ -178,3 +178,23 @@ Project-dhruva/
 │   ├── sim_state.py             # Core simulation state and mission logic
 │   ├── conjunction.py           # Grid/KD-tree conjunction filtering and TCA prediction
 │   ├── tle_utils.py             # TLE -> state vector transformation
+│   ├── coordinates.py           # ECI/geodetic transforms
+│   ├── los.py                   # Ground-station LOS logic
+│   └── models.py                # Domain models
+├── physics.py                   # Orbital dynamics and fuel model
+├── simulator.py                 # Early Matplotlib prototype
+├── test_data/
+│   └── debris_data.csv          # CDM-style stress test data
+├── dhruva-frontend/             # Next.js frontend
+├── Dockerfile                   # Docker image (backend + frontend)
+└── README.md
+```
+
+---
+
+## Prerequisites
+
+- Docker Desktop (recommended) for backend.
+- Node.js 18+ and npm for frontend.
+- Optional local backend: Python 3.11+ with pip.
+
