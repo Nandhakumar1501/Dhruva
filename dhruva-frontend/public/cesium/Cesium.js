@@ -558,3 +558,23 @@ czm_material czm_getMaterial(czm_materialInput materialInput)
 #endif
 
     vec2 center = vec2(1.0, 0.5);
+    float ptOnUpperLine = getPointOnLine(vec2(base, 1.0), center, st.s);
+    float ptOnLowerLine = getPointOnLine(vec2(base, 0.0), center, st.s);
+
+    float halfWidth = 0.15;
+    float s = step(0.5 - halfWidth, st.t);
+    s *= 1.0 - step(0.5 + halfWidth, st.t);
+    s *= 1.0 - step(base, st.s);
+
+    float t = step(base, materialInput.st.s);
+    t *= 1.0 - step(ptOnUpperLine, st.t);
+    t *= step(ptOnLowerLine, st.t);
+
+    // Find the distance from the closest separator (region between two colors)
+    float dist;
+    if (st.s < base)
+    {
+        float d1 = abs(st.t - (0.5 - halfWidth));
+        float d2 = abs(st.t - (0.5 + halfWidth));
+        dist = min(d1, d2);
+    }
