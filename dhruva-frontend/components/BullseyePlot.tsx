@@ -178,3 +178,23 @@ export default function BullseyePlot({ selectedSatelliteId, conjunctions }: Bull
             className="text-[10px] text-cyan-400 hover:text-cyan-300 border border-slate-700 px-2 py-0.5 bg-slate-900 hover:bg-slate-800"
             onClick={() => { setExpanded(true); setTooltip(null); }}
           >
+            Expand
+          </button>
+        </div>
+        <p className="text-[10px] text-slate-400 mb-2">Click dots for info. Radial = TCA, Angle = approach</p>
+        <canvas
+          ref={canvasRef}
+          width={340}
+          height={270}
+          className="w-full flex-1 cursor-pointer"
+          onClick={(e) => handleCanvasClick(e, hitZonesRef.current)}
+        />
+        {!expanded && tooltipEl}
+      </div>
+
+      {expanded && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm" onClick={() => { setExpanded(false); setTooltip(null); }}>
+          <div
+            className="relative bg-slate-950 border border-slate-700 shadow-2xl flex flex-col"
+            style={{ width: "min(90vw, 700px)", height: "min(85vh, 660px)" }}
+            onClick={(e) => e.stopPropagation()}
