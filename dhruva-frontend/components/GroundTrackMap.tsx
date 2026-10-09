@@ -358,3 +358,23 @@ export default function GroundTrackMap({
     ctx.restore();
   }, [satellites, selectedSatelliteId, timestamp, groundStations, debrisCloud, conjunctions, tracks]);
 
+  const drawFrameRef = useRef(drawFrame);
+  useEffect(() => {
+    drawFrameRef.current = drawFrame;
+  }, [drawFrame]);
+
+  useEffect(() => {
+    let running = true;
+    const loop = () => {
+      if (!running) return;
+      drawFrameRef.current();
+      rafRef.current = requestAnimationFrame(loop);
+    };
+    rafRef.current = requestAnimationFrame(loop);
+    return () => {
+      running = false;
+      cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
+  const handleWheel = useCallback((evt: React.WheelEvent) => {
