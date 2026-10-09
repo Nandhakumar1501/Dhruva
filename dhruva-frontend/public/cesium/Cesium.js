@@ -2198,3 +2198,23 @@ void czm_computeScattering(
 
     // For the number of ray steps, distinguish inside or outside atmosphere (outer space)
     // (1) from outer space we have to use more ray steps to get a realistic rendering
+    // (2) within atmosphere we need fewer steps for faster rendering
+    float x_o_a = start_0 - ATMOSPHERE_THICKNESS; // ATMOSPHERE_THICKNESS used as an ad-hoc constant, no precise meaning here, only the order of magnitude matters
+    float w_inside_atmosphere = 1.0 - 0.5 * (1.0 + czm_approximateTanh(x_o_a));
+    int PRIMARY_STEPS = PRIMARY_STEPS_MAX - int(w_inside_atmosphere * 12.0); // Number of times the ray from the camera to the world position (primary ray) is sampled.
+    int LIGHT_STEPS = LIGHT_STEPS_MAX - int(w_inside_atmosphere * 2.0); // Number of times the light is sampled from the light source's intersection with the atmosphere to a sample position on the primary ray.
+
+    // Setup for sampling positions along the ray - starting from the intersection with the outer ring of the atmosphere.
+    float rayPositionLength = primaryRayAtmosphereIntersect.start;
+    // (1) Outside the atmosphere: constant rayStepLength
+    // (2) Inside atmosphere: variable rayStepLength to compensate the rough rendering of the smaller number of ray steps
+    float totalRayLength = primaryRayAtmosphereIntersect.stop - rayPositionLength;
+    float rayStepLengthIncrease = w_inside_atmosphere * ((1.0 - w_stop_gt_lprl) * totalRayLength / (float(PRIMARY_STEPS * (PRIMARY_STEPS + 1)) / 2.0));
+    float rayStepLength = max(1.0 - w_inside_atmosphere, w_stop_gt_lprl) * totalRayLength / max(7.0 * w_inside_atmosphere, float(PRIMARY_STEPS));
+
+    vec3 rayleighAccumulation = vec3(0.0);
+    vec3 mieAccumulation = vec3(0.0);
+    vec2 opticalDepth = vec2(0.0);
+    vec2 heightScale = vec2(czm_atmosphereRayleighScaleHeight, czm_atmosphereMieScaleHeight);
+
+    // Sample positions on the primary ray.
