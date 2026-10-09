@@ -478,3 +478,12 @@ export default function GroundTrackMap({
 
       <div className="absolute bottom-3 left-3 z-10 text-[10px] text-slate-400">
         Scroll to zoom | Right-click + drag to pan
+      </div>
+      <div className="absolute bottom-3 right-3 flex items-center gap-2 text-[10px] text-slate-400 bg-slate-900/80 px-2 py-1 border border-slate-700/60">
+        <span className="w-2 h-2 rounded-full bg-amber-400 inline-block" /> GS
+        <span className="w-2 h-2 rounded-full bg-blue-400 inline-block ml-1" /> SAT
+        <span className="w-2 h-2 rounded-full bg-red-500 inline-block ml-1" /> DEBRIS
+      </div>
+    </div>
+  );
+}
