@@ -1038,3 +1038,23 @@ const float czm_passCesium3DTileClassification = 6.0;
  * The automatic GLSL constant for {@link Pass#CESIUM_3D_TILE_CLASSIFICATION_IGNORE_SHOW}
  *
  * @name czm_passCesium3DTileClassificationIgnoreShow
+ * @glslConstant
+ *
+ * @see czm_pass
+ */
+const float czm_passCesium3DTileClassificationIgnoreShow = 7.0;
+`;var Ozt=y(x(),1),CV=`/**
+ * The automatic GLSL constant for {@link Pass#CESIUM_3D_TILE_EDGES}
+ *
+ * @name czm_passCesium3DTileEdges
+ * @glslConstant
+ *
+ * @see czm_pass
+ */
+const float czm_passCesium3DTileEdges = 4.0;
+
+`;var Hzt=y(x(),1),EV=`/**
+ * The automatic GLSL constant for {@link Pass#CLASSIFICATION}
+ *
+ * @name czm_passClassification
+ * @glslConstant
