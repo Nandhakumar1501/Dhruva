@@ -58,3 +58,4 @@ export default function TelemetryHeatmaps({ satellites, metricsHistory }: Teleme
       </div>
     </div>
   );
+}
