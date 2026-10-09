@@ -98,3 +98,23 @@ function drawBullseye(
       ctx.lineWidth = 1;
       ctx.globalAlpha = 0.3;
       ctx.beginPath();
+      ctx.arc(px, py, dotR + 5, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
+
+    ctx.fillStyle = "#cbd5e1";
+    ctx.font = `${Math.max(8, w * 0.016)}px sans-serif`;
+    ctx.fillText(c.debris_id, px + dotR + 4, py + 3);
+
+    zones.push({ cx: px, cy: py, r: dotR + 8, item: c });
+  }
+
+  hitZonesRef.current = zones;
+}
+
+export default function BullseyePlot({ selectedSatelliteId, conjunctions }: BullseyeProps) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const expandedCanvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [tooltip, setTooltip] = useState<HitInfo | null>(null);
+  const [expanded, setExpanded] = useState(false);
