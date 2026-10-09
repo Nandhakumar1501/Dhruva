@@ -98,3 +98,23 @@ function computeOrbitEllipseCesium(
     const radius = p / (1 + e * Math.cos(theta));
     const xPeri = radius * Math.cos(theta);
     const yPeri = radius * Math.sin(theta);
+
+    const xECI = xPeri * P[0] + yPeri * Q[0];
+    const yECI = xPeri * P[1] + yPeri * Q[1];
+    const zECI = xPeri * P[2] + yPeri * Q[2];
+
+    const xECEF = xECI * cosG + yECI * sinG;
+    const yECEF = -xECI * sinG + yECI * cosG;
+    const zECEF = zECI;
+
+    points.push({ x: xECEF * 1000, y: yECEF * 1000, z: zECEF * 1000 });
+  }
+
+  return points;
+}
+
+export default function OrbitTracker3D({
+  satellites,
+  selectedSatelliteId,
+  onSelectSatellite,
+  timestamp,
