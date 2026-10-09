@@ -398,3 +398,23 @@ export default function GroundTrackMap({
     if (!canvas) return;
     const rect = canvas.getBoundingClientRect();
     const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    const dx = (evt.clientX - dragStartRef.current.x) * scaleX / zoomRef.current;
+    const dy = (evt.clientY - dragStartRef.current.y) * scaleY / zoomRef.current;
+    setPanX(panStartRef.current.x + dx);
+    setPanY(panStartRef.current.y + dy);
+  }, []);
+
+  const handleMouseUp = useCallback(() => {
+    isDraggingRef.current = false;
+  }, []);
+
+  const handleClick = useCallback((evt: React.MouseEvent) => {
+    if (isDraggingRef.current) return;
+    const target = evt.currentTarget as HTMLCanvasElement;
+    const rect = target.getBoundingClientRect();
+    const rawX = ((evt.clientX - rect.left) / rect.width) * target.width;
+    const rawY = ((evt.clientY - rect.top) / rect.height) * target.height;
+
+    const z = zoomRef.current;
+    const ox = panXRef.current;
