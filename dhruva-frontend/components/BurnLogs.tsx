@@ -18,3 +18,23 @@ export default function BurnLogs({ logs }: BurnLogsProps) {
           {executed.length} executed, {rejected.length} rejected
         </div>
       </div>
+
+      <div className="flex-1 overflow-auto p-3">
+        {logs.length === 0 && <div className="text-xs text-slate-600 text-center py-6">No burns recorded yet</div>}
+
+        <table className="w-full text-[10px]">
+          <thead>
+            <tr className="text-slate-500 border-b border-slate-800">
+              <th className="text-left py-1.5 px-1 font-medium">Burn ID</th>
+              <th className="text-left py-1.5 px-1 font-medium">Satellite</th>
+              <th className="text-left py-1.5 px-1 font-medium">Time (UTC)</th>
+              <th className="text-right py-1.5 px-1 font-medium">Delta-v (m/s)</th>
+              <th className="text-center py-1.5 px-1 font-medium">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {logs.map((log, idx) => (
+              <tr key={`${log.burn_id}-${idx}`} className="border-b border-slate-800/50 hover:bg-slate-900/50">
+                <td className="py-1.5 px-1 font-mono text-slate-300">{log.burn_id}</td>
+                <td className="py-1.5 px-1 text-slate-400">{log.satellite_id}</td>
+                <td className="py-1.5 px-1 font-mono text-slate-400">{new Date(log.burn_time).toISOString().slice(11, 19)}</td>
