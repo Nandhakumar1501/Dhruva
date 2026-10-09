@@ -138,3 +138,23 @@ export function SnapshotProvider({ children }: { children: React.ReactNode }) {
         setStatus("error");
       };
 
+      wsRef.current = ws;
+    };
+
+    connectWebSocket();
+
+    const poll = window.setInterval(async () => {
+      if (statusRef.current === "live") return;
+      try {
+        const data = await fetchSnapshot();
+        if (!mounted) return;
+        ingestSnapshot(data);
+        setStatus("degraded");
+      } catch {
+        if (mounted && (statusRef.current as string) !== "live") setStatus("disconnected");
+      }
+    }, 400);
+
+    return () => {
+      mounted = false;
+      window.clearInterval(poll);
