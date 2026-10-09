@@ -358,3 +358,23 @@ export default function OrbitalRecoveryPlot({ satellite, evaBurn, recBurn }: Pro
           )}
 
           {/* REC burn arrow on orbital view */}
+          {recRT && (
+            <Arrow
+              x1={satArcX} y1={satArcY}
+              x2={satArcX}
+              y2={satArcY + Math.abs(recRT.R) * EVA_SCALE * ORB_SCALE * 0.01 + 15}
+              color="#4ade80" label="REC"
+            />
+          )}
+
+          {/* Altitude labels */}
+          <text x={6} y={satArcY + 3} fill="#22d3ee" fontSize={8}>
+            {satellite.altitude_km.toFixed(0)} km
+          </text>
+          <text x={6} y={nomArcY + 3} fill="#22c55e" fontSize={8}>
+            {(satellite.nominal?.altitude_km ?? satellite.altitude_km).toFixed(0)} km
+          </text>
+        </svg>
+
+        {/* Burn status summary */}
+        <div className="flex gap-4 text-[8px] text-slate-500 mt-1">
