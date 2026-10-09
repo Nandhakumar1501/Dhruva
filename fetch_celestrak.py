@@ -118,3 +118,23 @@ def is_fresh(line1: str, max_age_days: int = 30) -> bool:
         epoch = tle_epoch_to_datetime(line1)
         return (datetime.now(timezone.utc) - epoch).days <= max_age_days
     except Exception:
+        return False
+
+
+def post_batch(objects: list[dict]) -> bool:
+    try:
+        resp = requests.post(TLE_ENDPOINT, json={"objects": objects}, timeout=30)
+        resp.raise_for_status()
+        return True
+    except requests.RequestException as e:
+        print(f"  POST failed: {e}")
+        return False
+
+
+def ingest_feed(session: requests.Session, key: str, limit: int) -> int:
+    feed = FEEDS[key]
+    url = feed["url"].format(limit=limit)
+    print(f"\n[{feed['label']}]")
+    print(f"  Querying Space-Track...")
+
+    try:
