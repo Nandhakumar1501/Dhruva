@@ -1498,3 +1498,23 @@ struct czm_raySegment
 const czm_raySegment czm_emptyRaySegment = czm_raySegment(-czm_infinity, -czm_infinity);
 
 /**
+ * DOC_TBA
+ *
+ * @name czm_fullRaySegment
+ * @glslConstant 
+ */
+const czm_raySegment czm_fullRaySegment = czm_raySegment(0.0, czm_infinity);
+`;var nKt=y(x(),1),$V=`struct czm_shadowParameters
+{
+#ifdef USE_CUBE_MAP_SHADOW
+    vec3 texCoords;
+#else
+    vec2 texCoords;
+#endif
+
+    float depthBias;
+    float depth;
+    float nDotL;
+    vec2 texelStepSize;
+    float normalShadingSmooth;
+    float darkness;
