@@ -538,3 +538,23 @@ punchline(doc, '"Three Deployment Scenarios Where Dhruva CDM Fills a Real Gap"')
 
 section_heading(doc, "Scenario 1 — ISRO / NewSpace Operators")
 body(doc,
+     "ISRO's PSLV-C58 placed 10 satellites in a 650 km orbit — the exact LEO regime Dhruva CDM targets. "
+     "A Flight Dynamics Officer using Dhruva gets real-time CDM alerts, autonomous avoidance, and a full burn-log audit "
+     "without a $10M+ commercial SSA subscription. TLE ingestion from CelesTrak requires a single API call.")
+
+section_heading(doc, "Scenario 2 — University Constellation Labs")
+body(doc,
+     "IIT Delhi's Student Satellite Programme, IIST, BITS — student teams operating CubeSats have no CDM tooling available to them. "
+     "Dhruva CDM deploys in a Docker container on a laptop, runs on real TLE data, and gives students the same "
+     "situational awareness a Flight Dynamics Officer has — for free.")
+
+section_heading(doc, "Scenario 3 — Inter-Agency Space Traffic Management")
+body(doc,
+     "The CCSDS CDM message standard is the basis for NASA–ESA–JAXA data exchange. "
+     "Dhruva CDM's architecture is explicitly designed for extension to CCSDS format (roadmap), enabling it to become "
+     "a node in a federated, multi-agency STM network.")
+
+section_heading(doc, "Alignment with National Priorities")
+bullet(doc, "India Space Policy 2023 mandates national SSA capability development — Dhruva CDM is a direct contribution.", bold_lead="India Space Policy 2023")
+bullet(doc, "ISRO's SSA Control Centre (Bengaluru) — Dhruva CDM's architecture maps directly to its operational mission.", bold_lead="ISRO's SSA Control Centre (Bengaluru)")
+bullet(doc, "IN-SPACe framework encourages open-source tooling for commercial space operators — Dhruva CDM is MIT-licensed.", bold_lead="IN-SPACe framework")
