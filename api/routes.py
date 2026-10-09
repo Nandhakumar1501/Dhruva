@@ -18,3 +18,23 @@ class VecModel(BaseModel):
     x: float
     y: float
     z: float
+
+
+class TelemetryObject(BaseModel):
+    id: str
+    type: str
+    r: VecModel
+    v: VecModel
+
+
+class TelemetryRequest(BaseModel):
+    timestamp: datetime
+    objects: list[TelemetryObject]
+
+
+class TleObject(BaseModel):
+    id: str
+    object_type: Literal["SATELLITE", "DEBRIS"] = "SATELLITE"
+    tle_line1: str
+    tle_line2: str
+    timestamp: datetime
