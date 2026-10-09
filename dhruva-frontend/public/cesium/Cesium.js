@@ -378,3 +378,23 @@ czm_material czm_getMaterial(czm_materialInput materialInput)
     }
     
     color.rgb = czm_gammaCorrect(color.rgb);
+
+    material.diffuse = color.rgb;
+    material.alpha = color.a;
+    return material;
+}
+`;var dQt=y(x(),1),YR=`uniform vec4 color;
+uniform float spacing;
+uniform float width;
+
+czm_material czm_getMaterial(czm_materialInput materialInput)
+{
+    czm_material material = czm_getDefaultMaterial(materialInput);
+
+    float distanceToContour = mod(materialInput.height, spacing);
+
+#if (__VERSION__ == 300 || defined(GL_OES_standard_derivatives))
+    float dxc = abs(dFdx(materialInput.height));
+    float dyc = abs(dFdy(materialInput.height));
+    float dF = max(dxc, dyc) * czm_pixelRatio * width;
+    float alpha = (distanceToContour < dF) ? 1.0 : 0.0;
