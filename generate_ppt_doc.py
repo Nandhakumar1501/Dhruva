@@ -518,3 +518,23 @@ add_table(doc,
 )
 
 section_heading(doc, "Why the Custom KD-Tree Matters at Scale")
+bullet(doc, "Grid scan at 20,000 debris = large cell iteration count per satellite. Performance degrades linearly.", bold_lead="Grid scan at 20,000 debris")
+bullet(doc, "KD-tree radius query scales as O(log N + k) — dramatically faster for uniformly distributed populations.", bold_lead="KD-tree radius query scales as O(log N + k)")
+bullet(doc, "Custom implementation (zero scipy, zero external dependency) — portable to edge compute or onboard systems.", bold_lead="Custom implementation (zero scipy)")
+bullet(doc, "Rebuilt each conjunction assessment call — handles dynamic debris states correctly (no stale index).", bold_lead="Rebuilt each conjunction assessment call")
+
+section_heading(doc, "CDM CSV Stress Pipeline")
+body(doc,
+     "Loads RTN-relative state fields from CCSDS-style CDM CSV files, anchors them to in-simulation satellite primaries, "
+     "converts to ECI-like Cartesian state vectors, and injects seamlessly into the conjunction pipeline. "
+     "10,000 objects loaded, assessed, and warnings generated in a single API call.")
+doc.add_page_break()
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  SLIDE 10
+# ══════════════════════════════════════════════════════════════════════════════
+slide_label(doc, 10, "Real-World Applicability")
+punchline(doc, '"Three Deployment Scenarios Where Dhruva CDM Fills a Real Gap"')
+
+section_heading(doc, "Scenario 1 — ISRO / NewSpace Operators")
+body(doc,
