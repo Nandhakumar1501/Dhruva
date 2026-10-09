@@ -378,3 +378,23 @@ Response (202):
     "projected_mass_remaining_kg": 544.82
   }
 }
+```
+
+Possible statuses:
+
+- `SCHEDULED`
+- `REJECTED`
+
+### 4) `POST /api/simulate/step`
+
+Advance simulation in batch mode.
+
+Request body:
+
+```json
+{
+  "step_seconds": 300
+}
+```
+
+Response:
