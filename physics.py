@@ -38,3 +38,23 @@ def derivatives(state):
 
 #Range Kutta 4th order derivative to find out position with respect to the velocity and time forwarding
 
+def rk4_step(state, dt):
+    k1 = derivatives(state)
+    k2 = derivatives(state + 0.5 * k1 * dt) 
+    k3 = derivatives(state + 0.5 * k2 * dt)  
+    k4 = derivatives(state + k3 * dt) 
+    new_state = state + (dt / 6) * (k1 + 2*k2 + 2*k3 + k4)
+    return new_state
+
+#Propagation state, answers where is the satellite after x seconds 
+
+def propagate(state, duration, dt = 10):
+    state = np.array(state)
+    for i in range(0, int(duration / dt)):
+        state = rk4_step(state, dt)
+    return state
+
+#delta_v must be in m/s, not km/s tsiolkovsky equation helps us track the current mass of the rocket based on the depleting fuel resource
+
+def tsiolkovsky(mass_current, delta_v):
+    return mass_current * (1 - np.exp(-np.abs(delta_v) / (ISP * G0)))
