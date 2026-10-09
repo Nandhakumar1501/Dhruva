@@ -78,3 +78,23 @@ function Arrow({
   const ux = dx / len;
   const uy = dy / len;
   const hx = x2 - ux * 8;
+  const hy = y2 - uy * 8;
+  const px = -uy;
+  const py = ux;
+  return (
+    <g>
+      <line
+        x1={x1} y1={y1} x2={x2} y2={y2}
+        stroke={color} strokeWidth={1.5}
+        strokeDasharray={dashed ? "4,3" : undefined}
+        opacity={0.85}
+      />
+      <polygon
+        points={`${x2},${y2} ${hx + px * 4},${hy + py * 4} ${hx - px * 4},${hy - py * 4}`}
+        fill={color} opacity={0.85}
+      />
+      {label && (
+        <text x={x2 + ux * 6 + px * 8} y={y2 + uy * 6 + py * 8}
+          fill={color} fontSize={9} textAnchor="middle">{label}</text>
+      )}
+    </g>
