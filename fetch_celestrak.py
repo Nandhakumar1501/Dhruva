@@ -18,3 +18,23 @@ Usage:
 
 Requires: pip install requests
 """
+
+import argparse
+from datetime import datetime, timedelta, timezone
+import sys
+
+try:
+    import requests
+except ImportError:
+    print("Run: pip install requests")
+    sys.exit(1)
+
+# ── CONFIGURE YOUR SPACE-TRACK CREDENTIALS HERE ──────────────────────────────
+ST_USER = "jeevankumar06m@gmail.com"
+ST_PASS = "LrBT7SHj_3N!Yem"
+# ─────────────────────────────────────────────────────────────────────────────
+
+BACKEND_URL = "http://localhost:8000"
+TLE_ENDPOINT = f"{BACKEND_URL}/api/telemetry/tle"
+ST_BASE = "https://www.space-track.org"
+ST_LOGIN = f"{ST_BASE}/ajaxauth/login"
