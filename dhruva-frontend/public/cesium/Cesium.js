@@ -1238,3 +1238,23 @@ const float czm_piOverTwo = 1.5707963267948966;
  * // Example
  * float rad = czm_radiansPerDegree * deg;
  */
+const float czm_radiansPerDegree = 0.017453292519943295;
+`;var _Ht=y(x(),1),XV=`/**
+ * The constant identifier for the 2D {@link SceneMode}
+ *
+ * @name czm_sceneMode2D
+ * @glslConstant
+ * @see czm_sceneMode
+ * @see czm_sceneModeColumbusView
+ * @see czm_sceneMode3D
+ * @see czm_sceneModeMorphing
+ */
+const float czm_sceneMode2D = 2.0;
+`;var RHt=y(x(),1),PV=`/**
+ * The constant identifier for the 3D {@link SceneMode}
+ *
+ * @name czm_sceneMode3D
+ * @glslConstant
+ * @see czm_sceneMode
+ * @see czm_sceneMode2D
+ * @see czm_sceneModeColumbusView
