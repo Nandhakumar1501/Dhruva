@@ -218,3 +218,23 @@ def add_table(doc, headers, rows, col_widths=None):
         p.alignment = WD_ALIGN_PARAGRAPH.CENTER
         r  = p.add_run(h)
         r.bold           = True
+        r.font.size      = Pt(10)
+        r.font.color.rgb = WHITE
+    # data rows
+    for ri, row_data in enumerate(rows):
+        row = t.rows[ri + 1]
+        bg  = "F7FAFD" if ri % 2 == 0 else "FFFFFF"
+        for ci, cell_text in enumerate(row_data):
+            cell = row.cells[ci]
+            set_cell_bg(cell, bg)
+            p = cell.paragraphs[0]
+            # bold the first column entry
+            r = p.add_run(cell_text)
+            r.font.size = Pt(10)
+            if ci == 0:
+                r.bold           = True
+                r.font.color.rgb = NAVY
+            else:
+                r.font.color.rgb = BLACK
+    # column widths
+    if col_widths:
