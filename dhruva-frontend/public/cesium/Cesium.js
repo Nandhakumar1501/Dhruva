@@ -1158,3 +1158,23 @@ const float czm_passVoxels = 10.0;
  * // Example
  * float twoPi = 2.0 * czm_pi;
  */
+const float czm_pi = 3.141592653589793;
+`;var AHt=y(x(),1),BV=`/**
+ * A built-in GLSL floating-point constant for <code>pi/4</code>.
+ *
+ * @alias czm_piOverFour
+ * @glslConstant
+ *
+ * @see CesiumMath.PI_OVER_FOUR
+ *
+ * @example
+ * // GLSL declaration
+ * const float czm_piOverFour = ...;
+ *
+ * // Example
+ * float pi = 4.0 * czm_piOverFour;
+ */
+const float czm_piOverFour = 0.7853981633974483;
+`;var bHt=y(x(),1),FV=`/**
+ * A built-in GLSL floating-point constant for <code>pi/6</code>.
+ *
