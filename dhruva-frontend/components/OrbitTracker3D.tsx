@@ -158,3 +158,23 @@ export default function OrbitTracker3D({
 
     const Cesium = (window as any).Cesium;
     (window as any).CESIUM_BASE_URL = "/cesium";
+
+    if (!viewerRef.current) {
+      const imageryModels = [
+        new Cesium.ProviderViewModel({
+          name: "Natural Earth II",
+          iconUrl: Cesium.buildModuleUrl("Widgets/Images/ImageryProviders/naturalEarthII.png"),
+          tooltip: "Natural Earth II, without borders or labels.",
+          creationFunction: () =>
+            Cesium.TileMapServiceImageryProvider.fromUrl(
+              Cesium.buildModuleUrl("Assets/Textures/NaturalEarthII")
+            ),
+        }),
+        new Cesium.ProviderViewModel({
+          name: "Esri World Imagery",
+          iconUrl: Cesium.buildModuleUrl("Widgets/Images/ImageryProviders/ArcGisMapServiceWorldImagery.png"),
+          tooltip: "Esri World Imagery – high-resolution satellite and aerial photography.",
+          creationFunction: () =>
+            Cesium.ArcGisMapServerImageryProvider.fromUrl(
+              "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+            ),
