@@ -78,3 +78,23 @@ function drawBullseye(
   ctx.fillText(selectedSatelliteId ?? "SAT", cx + 7, cy + 3);
 
   const zones: typeof hitZonesRef.current = [];
+
+  for (const c of filtered) {
+    const norm = Math.min(1, c.tca_seconds / (24 * 3600));
+    const r = Math.max(12, norm * maxR);
+    const a = (c.relative_angle_deg * Math.PI) / 180;
+    const px = cx + Math.cos(a) * r;
+    const py = cy + Math.sin(a) * r;
+
+    const dotR = c.risk_level === "CRITICAL" ? 6 : c.risk_level === "WARNING" ? 5 : 3.5;
+
+    ctx.fillStyle = riskColor(c.risk_level);
+    ctx.beginPath();
+    ctx.arc(px, py, dotR, 0, Math.PI * 2);
+    ctx.fill();
+
+    if (c.risk_level !== "SAFE") {
+      ctx.strokeStyle = riskColor(c.risk_level);
+      ctx.lineWidth = 1;
+      ctx.globalAlpha = 0.3;
+      ctx.beginPath();
