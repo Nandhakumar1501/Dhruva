@@ -78,3 +78,23 @@ export default function StationKeepingPage() {
                     <td className={`py-1.5 px-1 text-right font-mono ${
                       sat.drift_km > 10 ? "text-amber-400" : "text-emerald-400"
                     }`}>
+                      {sat.drift_km.toFixed(2)}
+                    </td>
+                    <td className="py-1.5 px-1 text-right font-mono text-sky-300">
+                      {sat.altitude_km.toFixed(1)}
+                    </td>
+                    <td className="py-1.5 px-1 text-right font-mono text-slate-400">
+                      {sat.nominal?.altitude_km?.toFixed(1) ?? "—"}
+                    </td>
+                    <td className="py-1.5 px-1 text-right font-mono text-slate-300">
+                      {sat.lat.toFixed(2)}°
+                    </td>
+                    <td className="py-1.5 px-1 text-right font-mono text-slate-400">
+                      {sat.nominal?.lat?.toFixed(2) ?? "—"}°
+                    </td>
+                    <td className="py-1.5 px-1 text-center">
+                      <span className={
+                        sat.status === "OUT_OF_BOX"
+                          ? "text-amber-400"
+                          : "text-emerald-400"
+                      }>
