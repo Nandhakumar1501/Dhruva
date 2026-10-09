@@ -58,3 +58,23 @@ export default function SatelliteDetail({ satellite }: SatelliteDetailProps) {
           <div className="text-[10px] text-slate-300">{reservedFuelKg.toFixed(2)} kg</div>
         </div>
         <div className="text-slate-500 text-[10px] mb-1">Fuel gauge</div>
+        <div className="h-2 bg-slate-800 overflow-hidden">
+          <div
+            className={`h-full ${fuelPct > 40 ? "bg-emerald-500" : fuelPct > 20 ? "bg-amber-500" : "bg-red-500"}`}
+            style={{ width: `${fuelPct}%` }}
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-2 text-xs">
+        <div className="bg-slate-900 border border-slate-800 p-2">
+          <div className="text-slate-500 text-[10px]">Altitude</div>
+          <div className="text-sm font-mono text-sky-300">{satellite.altitude_km.toFixed(1)} km</div>
+        </div>
+        <div className="bg-slate-900 border border-slate-800 p-2">
+          <div className="text-slate-500 text-[10px]">Drift from slot</div>
+          <div className={`text-sm font-mono ${satellite.drift_km > 5 ? "text-amber-300" : "text-slate-300"}`}>{satellite.drift_km.toFixed(2)} km</div>
+        </div>
+        <div className="bg-slate-900 border border-slate-800 p-2">
+          <div className="text-slate-500 text-[10px]">Latitude</div>
+          <div className="text-sm font-mono text-slate-300">{satellite.lat.toFixed(3)}&deg;</div>
