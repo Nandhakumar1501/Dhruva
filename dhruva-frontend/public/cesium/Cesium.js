@@ -1818,3 +1818,23 @@ vec2 czm_approximateSphericalCoordinates(vec3 normal) {
  * @returns {float} An approximation for tanh(x)
 */
 float czm_approximateTanh(float x) {
+    float x2 = x * x;
+    return max(-1.0, min(1.0, x * (27.0 + x2) / (27.0 + 9.0 * x2)));
+}
+`;var RKt=y(x(),1),mG=`/**
+ * Determines if the fragment is back facing
+ *
+ * @name czm_backFacing
+ * @glslFunction 
+ * 
+ * @returns {bool} <code>true</code> if the fragment is back facing; otherwise, <code>false</code>.
+ */
+bool czm_backFacing()
+{
+    // !gl_FrontFacing doesn't work as expected on Mac/Intel so use the more verbose form instead. See https://github.com/CesiumGS/cesium/pull/8494.
+    return gl_FrontFacing == false;
+}
+`;var GKt=y(x(),1),hG=`/**
+ * Branchless ternary operator to be used when it's inexpensive to explicitly
+ * evaluate both possibilities for a float expression.
+ *
