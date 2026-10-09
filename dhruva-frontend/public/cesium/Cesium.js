@@ -418,3 +418,23 @@ czm_material czm_getMaterial(czm_materialInput materialInput)
     czm_material material = czm_getDefaultMaterial(materialInput);
     float scaledHeight = clamp((materialInput.height - minimumHeight) / (maximumHeight - minimumHeight), 0.0, 1.0);
     vec4 rampColor = texture(image, vec2(scaledHeight, 0.5));
+    rampColor = czm_gammaCorrect(rampColor);
+    material.diffuse = rampColor.rgb;
+    material.alpha = rampColor.a;
+    return material;
+}
+`;var fQt=y(x(),1),PR=`uniform vec4 fadeInColor;
+uniform vec4 fadeOutColor;
+uniform float maximumDistance;
+uniform bool repeat;
+uniform vec2 fadeDirection;
+uniform vec2 time;
+
+float getTime(float t, float coord)
+{
+    float scalar = 1.0 / maximumDistance;
+    float q  = distance(t, coord) * scalar;
+    if (repeat)
+    {
+        float r = distance(t, coord + 1.0) * scalar;
+        float s = distance(t, coord - 1.0) * scalar;
