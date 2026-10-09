@@ -118,3 +118,23 @@ Reports section listing the full burn log for the current simulation stream. Eac
 ![Graveyard Orbit Monitor](screenshots/9.png)
 
 Graveyard orbit monitor that automatically tracks satellites moved to graveyard mode when their fuel falls below the critical threshold. Displays satellite ID and the trigger condition, ensuring decommissioned assets are flagged and tracked.
+
+---
+
+### 10. CDM Alerts
+![CDM Alerts](screenshots/10.png)
+
+Conjunction Data Message (CDM) alerts dashboard showing current active conjunction warnings for the fleet. Entries are sorted by miss distance and time to closest approach, with columns for satellite, debris object, miss distance, time range, and alert level.
+
+---
+
+### 11. Genesis Engine — Collision Prediction (Pre-Maneuver)
+![Genesis Collision Prediction Pre-Maneuver](screenshots/genesis1.png)
+
+Orbital plot from the Genesis autonomous maneuver planning engine showing the predicted point of collision between a satellite (green marker) and debris (red marker) before any avoidance burn is executed. The predicted collision point is highlighted on the orbit circle.
+
+---
+
+### 12. Genesis Engine — Collision Prediction (Alternate Geometry)
+![Genesis Collision Prediction Alternate](screenshots/genesis2.png)
+
