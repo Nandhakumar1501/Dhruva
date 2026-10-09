@@ -1538,3 +1538,23 @@ const czm_raySegment czm_fullRaySegment = czm_raySegment(0.0, czm_infinity);
 
 const vec4 K_HSB2RGB = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
 
+vec3 czm_HSBToRGB(vec3 hsb)
+{
+    vec3 p = abs(fract(hsb.xxx + K_HSB2RGB.xyz) * 6.0 - K_HSB2RGB.www);
+    return hsb.z * mix(K_HSB2RGB.xxx, clamp(p - K_HSB2RGB.xxx, 0.0, 1.0), hsb.y);
+}
+`;var sKt=y(x(),1),tG=`/**
+ * Converts an HSL color (hue, saturation, lightness) to RGB
+ * HSL <-> RGB conversion: {@link http://www.chilliant.com/rgb2hsv.html}
+ *
+ * @name czm_HSLToRGB
+ * @glslFunction
+ * 
+ * @param {vec3} rgb The color in HSL.
+ *
+ * @returns {vec3} The color in RGB.
+ *
+ * @example
+ * vec3 hsl = czm_RGBToHSL(rgb);
+ * hsl.z *= 0.1;
+ * rgb = czm_HSLToRGB(hsl);
