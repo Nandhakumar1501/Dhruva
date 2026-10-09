@@ -598,3 +598,23 @@ czm_material czm_getMaterial(czm_materialInput materialInput)
     material.diffuse = outColor.rgb;
     material.alpha = outColor.a;
     return material;
+}
+`;var EQt=y(x(),1),UR=`uniform vec4 color;
+uniform vec4 gapColor;
+uniform float dashLength;
+uniform float dashPattern;
+in float v_polylineAngle;
+
+const float maskLength = 16.0;
+
+mat2 rotate(float rad) {
+    float c = cos(rad);
+    float s = sin(rad);
+    return mat2(
+        c, s,
+        -s, c
+    );
+}
+
+czm_material czm_getMaterial(czm_materialInput materialInput)
+{
