@@ -318,3 +318,23 @@ export default function OrbitTracker3D({
             scale: isSelected ? 2.5 : 1.5,
             color: color,
           },
+          label: {
+            text: sat.id,
+            font: "10px sans-serif",
+            style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+            outlineWidth: 2,
+            verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+            pixelOffset: new Cesium.Cartesian2(0, -20),
+            fillColor: Cesium.Color.WHITE,
+            showBackground: false,
+            show: false,
+          },
+          properties: {
+            id: sat.id,
+            type: "satellite",
+          },
+        });
+        entitiesRef.current[entityId] = entity;
+      }
+    });
+
