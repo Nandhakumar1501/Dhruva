@@ -378,3 +378,23 @@ bullet(doc, "Both objects propagated forward over a 2-hour look-ahead horizon at
 bullet(doc, "Minimum separation recorded → Time of Closest Approach (TCA) and miss distance computed per pair.", bold_lead="Minimum separation recorded")
 
 section_heading(doc, "Stage 3 — Risk Labelling")
+add_table(doc,
+    ["Risk Level", "Miss Distance", "System Response"],
+    [
+        ["CRITICAL", "< 1.0 km",  "Auto-evade burn triggered immediately + recovery burn queued"],
+        ["WARNING",  "< 5.0 km",  "Operator alerted; optional manual maneuver"],
+        ["SAFE",     "> 5.0 km",  "Continue monitoring; no action required"],
+    ],
+    col_widths=[Inches(1.3), Inches(1.5), Inches(3.6)]
+)
+
+body(doc, "Output: Up to 500 ranked conjunction warnings per snapshot, sorted by miss distance and TCA.")
+doc.add_page_break()
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  SLIDE 6
+# ══════════════════════════════════════════════════════════════════════════════
+slide_label(doc, 6, "Autonomous Maneuver Planning & Validation")
+punchline(doc, '"No Burn Flies Without Passing a 4-Gate Safety Gauntlet"')
+
+section_heading(doc, "Validation Gate Sequence")
