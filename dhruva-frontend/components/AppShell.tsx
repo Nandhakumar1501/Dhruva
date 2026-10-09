@@ -18,3 +18,12 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         }}
         onIncreaseTimeWarp={() => {
           void increaseTimeWarp();
+        }}
+      />
+      <div className="flex h-[calc(100dvh-3rem)] min-h-0">
+        <Sidebar />
+        <main className="flex-1 p-2 min-w-0 min-h-0 overflow-auto">{children}</main>
+      </div>
+    </div>
+  );
+}
