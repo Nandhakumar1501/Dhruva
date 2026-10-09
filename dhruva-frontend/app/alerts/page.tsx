@@ -38,3 +38,23 @@ export default function AlertsPage() {
                     <td className="py-1.5 px-1 text-right font-mono text-slate-300">{cdm.tca_seconds.toFixed(1)}</td>
                     <td className="py-1.5 px-1 text-right font-mono text-cyan-300">{cdm.miss_distance_km.toFixed(3)}</td>
                     <td className="py-1.5 px-1 text-right font-mono text-slate-400">{cdm.relative_angle_deg.toFixed(2)}</td>
+                    <td className="py-1.5 px-1 text-center">
+                      <span
+                        className={
+                          cdm.risk_level === "CRITICAL"
+                            ? "text-red-400"
+                            : cdm.risk_level === "WARNING"
+                              ? "text-amber-400"
+                              : "text-emerald-400"
+                        }
+                      >
+                        {cdm.risk_level}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+      </div>
