@@ -1018,3 +1018,23 @@ const float czm_oneOverPi = 0.3183098861837907;
 const float czm_oneOverTwoPi = 0.15915494309189535;
 `;var Mzt=y(x(),1),bV=`/**
  * The automatic GLSL constant for {@link Pass#CESIUM_3D_TILE}
+ *
+ * @name czm_passCesium3DTile
+ * @glslConstant
+ *
+ * @see czm_pass
+ */
+const float czm_passCesium3DTile = 5.0;
+`;var vzt=y(x(),1),yV=`/**
+ * The automatic GLSL constant for {@link Pass#CESIUM_3D_TILE_CLASSIFICATION}
+ *
+ * @name czm_passCesium3DTileClassification
+ * @glslConstant
+ *
+ * @see czm_pass
+ */
+const float czm_passCesium3DTileClassification = 6.0;
+`;var kzt=y(x(),1),xV=`/**
+ * The automatic GLSL constant for {@link Pass#CESIUM_3D_TILE_CLASSIFICATION_IGNORE_SHOW}
+ *
+ * @name czm_passCesium3DTileClassificationIgnoreShow
