@@ -178,3 +178,23 @@ export default function GroundTrackMap({
     const ox = panXRef.current;
     const oy = panYRef.current;
 
+    const elapsed = performance.now() - snapshotTimeRef.current;
+    const t = Math.min(1, elapsed / 1000);
+
+    ctx.clearRect(0, 0, width, height);
+    ctx.fillStyle = "#020617";
+    ctx.fillRect(0, 0, width, height);
+
+    ctx.save();
+    ctx.translate(width / 2, height / 2);
+    ctx.scale(z, z);
+    ctx.translate(-width / 2 + ox, -height / 2 + oy);
+
+    const mapImage = mapImageRef.current;
+    if (mapImage) {
+      ctx.drawImage(mapImage, 0, 0, width, height);
+    }
+
+    ctx.strokeStyle = "#0f1d3d";
+    ctx.lineWidth = 1 / z;
+    for (let lon = -180; lon <= 180; lon += 30) {
