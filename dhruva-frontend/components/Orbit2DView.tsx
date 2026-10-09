@@ -38,3 +38,23 @@ export default function Orbit2DView({ sat, deb, satTrail, debTrail }: Props) {
       cx,
       cy - baseRadius * 0.6,
       baseRadius * 0.1,
+      cx,
+      cy,
+      baseRadius * 1.2
+    );
+    grd.addColorStop(0, "#1e293b");
+    grd.addColorStop(1, "#020617");
+    ctx.fillStyle = grd;
+    ctx.beginPath();
+    ctx.arc(cx, cy, baseRadius * 1.1, Math.PI, 2 * Math.PI);
+    ctx.fill();
+    ctx.restore();
+
+    ctx.strokeStyle = "#0f172a";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(cx, cy, baseRadius, Math.PI, 2 * Math.PI);
+    ctx.stroke();
+
+    const drawTrail = (trail: Vec2[], color: string) => {
+      if (!trail.length) return;
