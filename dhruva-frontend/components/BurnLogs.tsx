@@ -58,3 +58,4 @@ export default function BurnLogs({ logs }: BurnLogsProps) {
       </div>
     </div>
   );
+}
