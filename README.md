@@ -138,3 +138,23 @@ Orbital plot from the Genesis autonomous maneuver planning engine showing the pr
 ### 12. Genesis Engine — Collision Prediction (Alternate Geometry)
 ![Genesis Collision Prediction Alternate](screenshots/genesis2.png)
 
+Another Genesis orbital plot showing a close-approach scenario where the satellite and debris tracks converge. The predicted collision point shifts depending on the relative geometry of the two objects' orbits.
+
+---
+
+### 13. Genesis Engine — Post-Maneuver Avoidance Visualization
+![Genesis Post-Maneuver Avoidance](screenshots/genesis3.png)
+
+Post-maneuver Genesis plot showing the **next predicted point of collision** after a burn has been executed. The previous burn point (magenta) is marked on the orbit, and the satellite's new orbital path (green) diverges from the debris track (red), confirming a successful avoidance trajectory.
+
+---
+
+## System Architecture
+
+- Backend: `FastAPI` application in `server.py` and `api/routes.py`.
+- State/physics core: `engine/sim_state.py`, `engine/conjunction.py`, `physics.py`.
+- Frontend: `Next.js` application in `dhruva-frontend/`.
+- Live transport: WebSocket endpoint at `WS /orbit`.
+- Snapshot endpoint: `GET /api/visualization/snapshot`.
+
+Data flow:
