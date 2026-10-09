@@ -158,3 +158,23 @@ def ingest_feed(session: requests.Session, key: str, limit: int) -> int:
     if stale:
         print(f"  Skipped {stale} stale TLEs (epoch > 30 days old)")
     tles = fresh
+
+    if not tles:
+        print("  No fresh TLEs available.")
+        return 0
+
+    now_iso = datetime.now(timezone.utc).isoformat()
+    total = 0
+
+    for i in range(0, len(tles), BATCH_SIZE):
+        batch = tles[i: i + BATCH_SIZE]
+        objects = [
+            {
+                "id": f"{key.upper()}-{name.strip().replace(' ', '-')[:30]}",
+                "object_type": feed["object_type"],
+                "tle_line1": line1,
+                "tle_line2": line2,
+                "timestamp": now_iso,
+            }
+            for name, line1, line2 in batch
+        ]
