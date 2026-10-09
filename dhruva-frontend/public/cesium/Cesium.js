@@ -1118,3 +1118,23 @@ const float czm_passOpaque = 8.0;
 const float czm_passOverlay = 12.0;
 `;var cHt=y(x(),1),VV=`/**
  * The automatic GLSL constant for {@link Pass#TERRAIN_CLASSIFICATION}
+ *
+ * @name czm_passTerrainClassification
+ * @glslConstant
+ *
+ * @see czm_pass
+ */
+const float czm_passTerrainClassification = 3.0;
+`;var dHt=y(x(),1),GV=`/**
+ * The automatic GLSL constant for {@link Pass#TRANSLUCENT}
+ *
+ * @name czm_passTranslucent
+ * @glslConstant
+ *
+ * @see czm_pass
+ */
+const float czm_passTranslucent = 9.0;
+`;var mHt=y(x(),1),LV=`/**
+ * The automatic GLSL constant for {@link Pass#VOXELS}
+ *
+ * @name czm_passVoxels
