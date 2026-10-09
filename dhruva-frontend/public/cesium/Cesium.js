@@ -1918,3 +1918,23 @@ uniform vec4 shadowMap_cascadeDistances;
 
 float czm_cascadeDistance(vec4 weights)
 {
+    return dot(shadowMap_cascadeDistances, weights);
+}
+`;var NKt=y(x(),1),AG=`
+uniform mat4 shadowMap_cascadeMatrices[4];
+
+mat4 czm_cascadeMatrix(vec4 weights)
+{
+    return shadowMap_cascadeMatrices[0] * weights.x +
+           shadowMap_cascadeMatrices[1] * weights.y +
+           shadowMap_cascadeMatrices[2] * weights.z +
+           shadowMap_cascadeMatrices[3] * weights.w;
+}
+`;var XKt=y(x(),1),gG=`
+uniform vec4 shadowMap_cascadeSplits[2];
+
+vec4 czm_cascadeWeights(float depthEye)
+{
+    // One component is set to 1.0 and all others set to 0.0.
+    vec4 near = step(shadowMap_cascadeSplits[0], vec4(depthEye));
+    vec4 far = step(depthEye, shadowMap_cascadeSplits[1]);
