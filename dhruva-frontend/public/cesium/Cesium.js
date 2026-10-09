@@ -1718,3 +1718,23 @@ float czm_alphaWeight(float a)
 {
     float z = (gl_FragCoord.z - czm_viewportTransformation[3][2]) / czm_viewportTransformation[2][2];
 
+    // See Weighted Blended Order-Independent Transparency for examples of different weighting functions:
+    // http://jcgt.org/published/0002/02/09/
+    return pow(a + 0.01, 4.0) + max(1e-2, min(3.0 * 1e3, 0.003 / (1e-5 + pow(abs(z) / 200.0, 4.0))));
+}
+`;var xKt=y(x(),1),cG=`/**
+ * Procedural anti-aliasing by blurring two colors that meet at a sharp edge.
+ *
+ * @name czm_antialias
+ * @glslFunction
+ *
+ * @param {vec4} color1 The color on one side of the edge.
+ * @param {vec4} color2 The color on the other side of the edge.
+ * @param {vec4} currentcolor The current color, either <code>color1</code> or <code>color2</code>.
+ * @param {float} dist The distance to the edge in texture coordinates.
+ * @param {float} [fuzzFactor=0.1] Controls the blurriness between the two colors.
+ * @returns {vec4} The anti-aliased color.
+ *
+ * @example
+ * // GLSL declarations
+ * vec4 czm_antialias(vec4 color1, vec4 color2, vec4 currentColor, float dist, float fuzzFactor);
