@@ -38,3 +38,23 @@ export default function TelemetryHeatmaps({ satellites, metricsHistory }: Teleme
         </div>
         <div className="bg-slate-900/80 border border-slate-800 p-1.5">
           <div className="text-slate-500 text-[9px] uppercase tracking-wide">Avoided</div>
+          <div className="text-sm font-bold text-violet-300">{latest?.collisionsAvoided ?? 0}</div>
+        </div>
+      </div>
+
+      <div className="flex-1 min-h-0 bg-slate-900/60 border border-slate-800 p-1.5">
+        <div className="text-[9px] text-slate-400 mb-1 font-semibold">∆v vs Collisions Avoided</div>
+        <svg viewBox="0 0 320 80" className="w-full h-full">
+          {points.length > 1 && (
+            <polyline fill="none" stroke="#22d3ee" strokeWidth="1.5"
+              points={points.map((p, i) => `${(i / (points.length - 1)) * 300 + 10},${70 - (p.totalDeltaVMps / maxDeltaV) * 58}`).join(" ")} />
+          )}
+          {points.length > 1 && (
+            <polyline fill="none" stroke="#22c55e" strokeWidth="1.5"
+              points={points.map((p, i) => `${(i / (points.length - 1)) * 300 + 10},${70 - (p.collisionsAvoided / maxAvoided) * 58}`).join(" ")} />
+          )}
+          {points.length === 0 && <text x="160" y="42" textAnchor="middle" fill="#475569" fontSize="10">Collecting...</text>}
+        </svg>
+      </div>
+    </div>
+  );
