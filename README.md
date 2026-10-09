@@ -238,3 +238,23 @@ curl http://localhost:8000/
 Expected response:
 
 ```json
+{
+  "status": "ok",
+  "service": "dhruva-cdm"
+}
+```
+
+### Option B: Local Python (alternative)
+
+```bash
+pip install -r requirements.txt
+pip install sgp4 astropy
+uvicorn server:app --host 0.0.0.0 --port 8000 --reload
+```
+
+---
+
+## Frontend Setup
+
+```bash
+cd dhruva-frontend
