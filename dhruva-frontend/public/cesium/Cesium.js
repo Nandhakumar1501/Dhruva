@@ -1058,3 +1058,23 @@ const float czm_passCesium3DTileEdges = 4.0;
  *
  * @name czm_passClassification
  * @glslConstant
+ *
+ * @see czm_pass
+ */
+const float czm_passClassification = 7.0;
+`;var Jzt=y(x(),1),TV=`/**
+ * The automatic GLSL constant for {@link Pass#COMPUTE}
+ *
+ * @name czm_passCompute
+ * @glslConstant
+ *
+ * @see czm_pass
+ */
+const float czm_passCompute = 1.0;
+`;var qzt=y(x(),1),SV=`/**
+ * The automatic GLSL constant for {@link Pass#ENVIRONMENT}
+ *
+ * @name czm_passEnvironment
+ * @glslConstant
+ *
+ * @see czm_pass
