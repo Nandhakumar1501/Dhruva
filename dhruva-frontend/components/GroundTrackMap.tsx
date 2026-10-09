@@ -278,3 +278,23 @@ export default function GroundTrackMap({
       ctx.fillStyle = isWarning ? "#ef4444" : "#f87171";
       ctx.globalAlpha = isWarning ? 1.0 : 0.5;
       ctx.beginPath();
+      ctx.arc(dp.x, dp.y, (isWarning ? 4 : 2) / z, 0, Math.PI * 2);
+      ctx.fill();
+      if (isWarning) {
+        ctx.strokeStyle = "#fca5a5";
+        ctx.lineWidth = 1 / z;
+        ctx.beginPath();
+        ctx.arc(dp.x, dp.y, 8 / z, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.fillStyle = "#fca5a5";
+        ctx.font = `${Math.max(7, 9 / z)}px sans-serif`;
+        ctx.fillText(debId, dp.x + 6 / z, dp.y - 6 / z);
+      }
+      ctx.globalAlpha = 1.0;
+    }
+
+    if (selectedSatelliteId) {
+      const selSat = satellites.find((s) => s.id === selectedSatelliteId);
+
+      // Historical 90-min trail (solid)
+      const trail = tracks?.[selectedSatelliteId];
