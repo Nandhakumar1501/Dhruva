@@ -438,3 +438,23 @@ export default function GroundTrackMap({
     }
   }, [satellites, satById, onSelectSatellite]);
 
+  return (
+    <div className="relative h-full border border-slate-800 bg-slate-950 overflow-hidden">
+      <div className="absolute top-3 left-3 z-10 flex items-center gap-3">
+        <span className="text-xs font-semibold text-slate-200 tracking-wide">GROUND TRACK — MERCATOR</span>
+        <span className="flex items-center gap-1 text-[10px] text-cyan-400/70"><span className="w-4 h-px bg-cyan-400/60 inline-block" />90m trail</span>
+        <span className="flex items-center gap-1 text-[10px] text-cyan-300"><span className="w-4 h-px border-t border-dashed border-cyan-300 inline-block" />90m predicted</span>
+      </div>
+
+      <div className="absolute top-3 right-3 z-10 flex items-center gap-1">
+        <button
+          className="h-7 w-7 rounded bg-slate-900 border border-slate-700 text-xs text-slate-200 hover:bg-slate-800"
+          onClick={() => setZoom((p) => Math.min(12, p * 1.4))}
+        >+</button>
+        <button
+          className="h-7 w-7 rounded bg-slate-900 border border-slate-700 text-xs text-slate-200 hover:bg-slate-800"
+          onClick={() => { setZoom((p) => Math.max(1, p * 0.7)); if (zoomRef.current <= 1.1) { setPanX(0); setPanY(0); } }}
+        >-</button>
+        <button
+          className="h-7 px-2 rounded bg-slate-900 border border-slate-700 text-[10px] text-slate-200 hover:bg-slate-800"
+          onClick={() => { setZoom(1); setPanX(0); setPanY(0); }}
