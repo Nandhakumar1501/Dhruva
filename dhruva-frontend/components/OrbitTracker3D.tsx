@@ -358,3 +358,23 @@ export default function OrbitTracker3D({
           id: entityId,
           position: Cesium.Cartesian3.fromDegrees(lon, lat, altKm * 1000),
           point: {
+            pixelSize: pixelSize,
+            color: color,
+            outlineColor: isWarn ? Cesium.Color.WHITE : Cesium.Color.TRANSPARENT,
+            outlineWidth: isWarn ? 1 : 0,
+          },
+          properties: { id, type: "debris" },
+        });
+        entitiesRef.current[entityId] = entity;
+      }
+    });
+
+    // Stable selected orbit path (single shared entity) to avoid flicker.
+    const selectedSat = selectedSatelliteId
+      ? satellites.find((s) => s.id === selectedSatelliteId)
+      : null;
+    if (selectedSat?.eci) {
+      const timeBucket = Math.floor(new Date(timestamp).getTime() / 15000);
+      const shouldRecompute =
+        orbitCacheRef.current.satId !== selectedSat.id ||
+        orbitCacheRef.current.bucket !== timeBucket ||
