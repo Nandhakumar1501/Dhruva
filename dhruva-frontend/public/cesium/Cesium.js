@@ -258,3 +258,23 @@ czm_material czm_getMaterial(czm_materialInput materialInput)
     vec3 normalEC = materialInput.tangentToEyeMatrix * normalTangentSpace;
 
     material.normal = normalEC;
+    material.diffuse = vec3(0.01);
+
+    return material;
+}
+`;var oQt=y(x(),1),FR=`uniform vec4 lightColor;
+uniform vec4 darkColor;
+uniform vec2 repeat;
+
+czm_material czm_getMaterial(czm_materialInput materialInput)
+{
+    czm_material material = czm_getDefaultMaterial(materialInput);
+
+    vec2 st = materialInput.st;
+
+    // From Stefan Gustavson's Procedural Textures in GLSL in OpenGL Insights
+    float b = mod(floor(repeat.s * st.s) + floor(repeat.t * st.t), 2.0);  // 0.0 or 1.0
+
+    // Find the distance from the closest separator (region between two colors)
+    float scaledWidth = fract(repeat.s * st.s);
+    scaledWidth = abs(scaledWidth - floor(scaledWidth + 0.5));
