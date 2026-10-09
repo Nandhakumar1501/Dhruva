@@ -78,3 +78,23 @@ export default function Orbit2DView({ sat, deb, satTrail, debTrail }: Props) {
       const x = cx + p.x * SCALE;
       const y = cy - p.y * SCALE;
       ctx.save();
+      ctx.translate(x, y);
+      if (isSat) {
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.moveTo(0, -4);
+        ctx.lineTo(-5, 4);
+        ctx.lineTo(5, 4);
+        ctx.closePath();
+        ctx.fill();
+      } else {
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.arc(0, 0, 4, 0, 2 * Math.PI);
+        ctx.fill();
+      }
+      ctx.restore();
+    };
+
+    drawBody(sat, "#22c55e", true);
+    drawBody(deb, "#ef4444", false);
