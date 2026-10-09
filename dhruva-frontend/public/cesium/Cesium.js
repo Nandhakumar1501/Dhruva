@@ -1518,3 +1518,23 @@ const czm_raySegment czm_fullRaySegment = czm_raySegment(0.0, czm_infinity);
     vec2 texelStepSize;
     float normalShadingSmooth;
     float darkness;
+};
+`;var oKt=y(x(),1),eG=`/**
+ * Converts an HSB color (hue, saturation, brightness) to RGB
+ * HSB <-> RGB conversion with minimal branching: {@link http://lolengine.net/blog/2013/07/27/rgb-to-hsv-in-glsl}
+ *
+ * @name czm_HSBToRGB
+ * @glslFunction
+ * 
+ * @param {vec3} hsb The color in HSB.
+ *
+ * @returns {vec3} The color in RGB.
+ *
+ * @example
+ * vec3 hsb = czm_RGBToHSB(rgb);
+ * hsb.z *= 0.1;
+ * rgb = czm_HSBToRGB(hsb);
+ */
+
+const vec4 K_HSB2RGB = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+
