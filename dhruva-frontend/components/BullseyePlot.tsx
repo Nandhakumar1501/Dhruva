@@ -38,3 +38,23 @@ function drawBullseye(
 
   const w = canvas.width;
   const h = canvas.height;
+  const cx = w / 2;
+  const cy = h / 2;
+  const maxR = Math.min(w, h) * 0.42;
+
+  ctx.clearRect(0, 0, w, h);
+  ctx.fillStyle = "#020617";
+  ctx.fillRect(0, 0, w, h);
+
+  ctx.strokeStyle = "#1e293b";
+  ctx.lineWidth = 1;
+  const rings = [0.25, 0.5, 0.75, 1];
+  const ringLabels = ["6h", "12h", "18h", "24h"];
+  rings.forEach((k, idx) => {
+    ctx.beginPath();
+    ctx.arc(cx, cy, maxR * k, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.fillStyle = "#475569";
+    ctx.font = `${Math.max(9, w * 0.018)}px sans-serif`;
+    ctx.fillText(ringLabels[idx], cx + maxR * k + 3, cy - 3);
+  });
