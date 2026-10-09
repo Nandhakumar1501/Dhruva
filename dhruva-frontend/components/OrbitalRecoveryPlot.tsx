@@ -298,3 +298,23 @@ export default function OrbitalRecoveryPlot({ satellite, evaBurn, recBurn }: Pro
           <path
             d={`M 0 ${ORB_CY} A ${ORB_CY} ${ORB_CY} 0 0 1 ${ORB_W} ${ORB_CY}`}
             fill="#1e3a5f" stroke="#1d4ed8" strokeWidth={1}
+          />
+          <text x={ORB_CX - 10} y={ORB_CY - 6} fill="#3b82f6" fontSize={8}>Earth</text>
+
+          {/* Nominal orbit arc (dashed) */}
+          <path
+            d={`M ${ORB_CX - nominalArcR} ${ORB_CY}
+                A ${nominalArcR} ${nominalArcR} 0 0 1 ${ORB_CX + nominalArcR} ${ORB_CY}`}
+            fill="none" stroke="#22c55e" strokeWidth={1.5}
+            strokeDasharray="6,4" opacity={0.7}
+          />
+          <text x={ORB_W - 4} y={nomArcY + 3}
+            fill="#22c55e" fontSize={8} textAnchor="end">Nominal</text>
+
+          {/* Actual orbit arc (solid) */}
+          <path
+            d={`M ${ORB_CX - actualArcR} ${ORB_CY}
+                A ${actualArcR} ${actualArcR} 0 0 1 ${ORB_CX + actualArcR} ${ORB_CY}`}
+            fill="none" stroke="#22d3ee" strokeWidth={1.5} opacity={0.85}
+          />
+          <text x={ORB_W - 4} y={satArcY + 3}
