@@ -38,3 +38,23 @@ export default function FuelPage() {
   });
 
   return (
+    <AppShell>
+      <div className="h-full flex flex-col gap-2 min-h-0">
+        <div className="shrink-0 border border-slate-800 bg-slate-950 px-3 py-2">
+          <h2 className="text-xs font-semibold tracking-widest uppercase text-slate-200">Fleet Fuel &amp; ∆v Analysis</h2>
+          <p className="text-[10px] text-slate-500 mt-0.5">Per-satellite propellant budget · Fuel consumed vs collisions avoided</p>
+        </div>
+
+        <div className="grid grid-cols-4 gap-2 shrink-0">
+          {[
+            { label: "Fleet Fuel (planned)", value: `${fleetFuelPct.toFixed(1)}%`, color: "text-emerald-300" },
+            { label: "Total ∆v (m/s)", value: totalDeltaV.toFixed(2), color: "text-cyan-300" },
+            { label: "Collisions Avoided", value: String(collisionsAvoided), color: "text-violet-300" },
+            { label: "Avoided per ∆v", value: avoidancePerDV.toFixed(4), color: "text-amber-300" },
+          ].map(({ label, value, color }) => (
+            <div key={label} className="border border-slate-800 bg-slate-950/80 p-2">
+              <div className="text-[9px] text-slate-500 uppercase tracking-wide">{label}</div>
+              <div className={`text-lg font-bold ${color}`}>{value}</div>
+            </div>
+          ))}
+        </div>
