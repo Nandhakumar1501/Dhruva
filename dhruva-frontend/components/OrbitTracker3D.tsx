@@ -178,3 +178,23 @@ export default function OrbitTracker3D({
             Cesium.ArcGisMapServerImageryProvider.fromUrl(
               "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
             ),
+        }),
+        new Cesium.ProviderViewModel({
+          name: "Esri World Street Map",
+          iconUrl: Cesium.buildModuleUrl("Widgets/Images/ImageryProviders/openStreetMap.png"),
+          tooltip: "Esri World Street Map.",
+          creationFunction: () =>
+            Cesium.ArcGisMapServerImageryProvider.fromUrl(
+              "https://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer"
+            ),
+        }),
+        new Cesium.ProviderViewModel({
+          name: "Esri World Hillshade",
+          iconUrl: Cesium.buildModuleUrl("Widgets/Images/ImageryProviders/ArcGisMapServiceWorldHillshade.png"),
+          tooltip: "Esri World Hillshade – shaded relief terrain.",
+          creationFunction: () =>
+            Cesium.ArcGisMapServerImageryProvider.fromUrl(
+              "https://services.arcgisonline.com/ArcGIS/rest/services/Elevation/World_Hillshade/MapServer"
+            ),
+        }),
+        new Cesium.ProviderViewModel({
