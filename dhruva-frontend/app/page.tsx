@@ -58,3 +58,23 @@ function Dashboard() {
                   className={`px-3 py-0.5 font-semibold tracking-wide transition-colors ${viewMode === "3d" ? "bg-cyan-500 text-slate-950" : "text-slate-400 hover:text-slate-200"}`}
                   onClick={() => setViewMode("3d")}
                 >
+                  3D ORBIT
+                </button>
+              </div>
+            </div>
+            <div className="flex-1 min-h-0">
+              {viewMode === "2d" ? (
+                <GroundTrackMap
+                  satellites={satellites}
+                  selectedSatelliteId={selectedSatelliteId}
+                  onSelectSatellite={setSelectedSatelliteId}
+                  timestamp={snapshot?.timestamp ?? new Date().toISOString()}
+                  groundStations={snapshot?.ground_stations ?? []}
+                  debrisCloud={snapshot?.debris_cloud ?? []}
+                  conjunctions={snapshot?.conjunctions ?? []}
+                  tracks={tracks}
+                />
+              ) : (
+                <OrbitTracker3D
+                  satellites={satellites}
+                  selectedSatelliteId={selectedSatelliteId}
