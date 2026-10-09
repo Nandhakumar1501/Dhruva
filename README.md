@@ -578,3 +578,23 @@ Endpoint:
 Behavior:
 
 - Opens persistent connection.
+- Advances simulation and pushes snapshot payload repeatedly.
+- Payload schema mirrors `GET /api/visualization/snapshot`.
+
+Minimal client test (browser console):
+
+```javascript
+const ws = new WebSocket("ws://localhost:8000/orbit");
+ws.onmessage = (evt) => {
+  const data = JSON.parse(evt.data);
+  console.log(data.timestamp, data.counts);
+};
+```
+
+---
+
+## How to Add Satellite and Debris Data
+
+### Add absolute state vectors directly
+
+Use `POST /api/telemetry` with objects of type `SATELLITE` and/or `DEBRIS`.
