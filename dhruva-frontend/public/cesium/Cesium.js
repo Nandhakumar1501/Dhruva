@@ -98,3 +98,23 @@ void main()
     materialInput.normalEC = normalEC;
     materialInput.tangentToEyeMatrix = tangentToEyeMatrix;
     materialInput.positionToEyeEC = positionToEyeEC;
+    materialInput.st = v_st;
+    czm_material material = czm_getMaterial(materialInput);
+
+#ifdef FLAT
+    out_FragColor = vec4(material.diffuse + material.emission, material.alpha);
+#else
+    out_FragColor = czm_phong(normalize(positionToEyeEC), material, czm_lightDirectionEC);
+#endif
+}
+`;var SDt=y(x(),1),fR=`in vec3 position3DHigh;
+in vec3 position3DLow;
+in vec3 normal;
+in vec3 tangent;
+in vec3 bitangent;
+in vec2 st;
+in float batchId;
+
+out vec3 v_positionEC;
+out vec3 v_normalEC;
+out vec3 v_tangentEC;
