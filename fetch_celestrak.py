@@ -38,3 +38,23 @@ BACKEND_URL = "http://localhost:8000"
 TLE_ENDPOINT = f"{BACKEND_URL}/api/telemetry/tle"
 ST_BASE = "https://www.space-track.org"
 ST_LOGIN = f"{ST_BASE}/ajaxauth/login"
+ST_QUERY = f"{ST_BASE}/basicspacedata/query"
+BATCH_SIZE = 50
+
+# Space-Track query URLs — TLE format
+FEEDS = {
+    "satellites": {
+        "url": f"{ST_QUERY}/class/gp/MEAN_MOTION/>11.25/ECCENTRICITY/<0.25/OBJECT_TYPE/PAYLOAD/orderby/NORAD_CAT_ID/limit/{{limit}}/format/tle",
+        "object_type": "SATELLITE",
+        "label": "Active LEO Satellites",
+    },
+    "cosmos_debris": {
+        "url": f"{ST_QUERY}/class/gp/OBJECT_NAME/COSMOS 2251 DEB/OBJECT_TYPE/DEBRIS/orderby/NORAD_CAT_ID/limit/{{limit}}/format/tle",
+        "object_type": "DEBRIS",
+        "label": "Cosmos 2251 Debris",
+    },
+    "fengyun_debris": {
+        "url": f"{ST_QUERY}/class/gp/OBJECT_NAME/FENGYUN 1C DEB/OBJECT_TYPE/DEBRIS/orderby/NORAD_CAT_ID/limit/{{limit}}/format/tle",
+        "object_type": "DEBRIS",
+        "label": "Fengyun-1C Debris",
+    },
