@@ -998,3 +998,23 @@ const float czm_infinity = 5906376272000.0;  // Distance from the Sun to Pluto i
  *
  * // Example
  * float pi = 1.0 / czm_oneOverPi;
+ */
+const float czm_oneOverPi = 0.3183098861837907;
+`;var Xzt=y(x(),1),gV=`/**
+ * A built-in GLSL floating-point constant for <code>1/2pi</code>.
+ *
+ * @alias czm_oneOverTwoPi
+ * @glslConstant
+ *
+ * @see CesiumMath.ONE_OVER_TWO_PI
+ *
+ * @example
+ * // GLSL declaration
+ * const float czm_oneOverTwoPi = ...;
+ *
+ * // Example
+ * float pi = 2.0 * czm_oneOverTwoPi;
+ */
+const float czm_oneOverTwoPi = 0.15915494309189535;
+`;var Mzt=y(x(),1),bV=`/**
+ * The automatic GLSL constant for {@link Pass#CESIUM_3D_TILE}
