@@ -18,3 +18,23 @@ interface SnapshotContextType {
   status: "connecting" | "live" | "degraded" | "disconnected" | "error";
   selectedSatelliteId: string | null;
   setSelectedSatelliteId: (id: string | null) => void;
+  tracks: Record<string, TrackPoint[]>;
+  metricsHistory: Array<{ timestamp: number; fleetFuelPct: number; totalDeltaVMps: number; collisionsAvoided: number }>;
+  timeWarpX: number;
+  decreaseTimeWarp: () => Promise<void>;
+  increaseTimeWarp: () => Promise<void>;
+}
+
+const SnapshotContext = createContext<SnapshotContextType | null>(null);
+const TRACK_WINDOW_MS = 90 * 60 * 1000;
+const WARP_LEVELS = [1, 2, 10, 25, 100];
+
+export function SnapshotProvider({ children }: { children: React.ReactNode }) {
+  const [snapshot, setSnapshot] = useState<SnapshotPayload | null>(null);
+  const [status, setStatus] = useState<SnapshotContextType["status"]>("connecting");
+  const [selectedSatelliteId, setSelectedSatelliteId] = useState<string | null>(null);
+  const [tracks, setTracks] = useState<Record<string, TrackPoint[]>>({});
+  const [metricsHistory, setMetricsHistory] = useState<SnapshotContextType["metricsHistory"]>([]);
+  const [timeWarpX, setTimeWarpX] = useState(1);
+
+  const wsRef = useRef<WebSocket | null>(null);
