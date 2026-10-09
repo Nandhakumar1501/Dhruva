@@ -38,3 +38,23 @@ export function SnapshotProvider({ children }: { children: React.ReactNode }) {
   const [timeWarpX, setTimeWarpX] = useState(1);
 
   const wsRef = useRef<WebSocket | null>(null);
+  const statusRef = useRef<SnapshotContextType["status"]>("connecting");
+
+  useEffect(() => {
+    statusRef.current = status;
+  }, [status]);
+
+  const ingestSnapshot = useCallback((data: SnapshotPayload) => {
+    setSnapshot(data);
+    setTimeWarpX(data.metrics.time_warp_x ?? 1);
+
+    const now = new Date(data.timestamp).getTime();
+    setTracks((prev) => {
+      const next: Record<string, TrackPoint[]> = { ...prev };
+      for (const sat of data.satellites) {
+        const existing = next[sat.id] ?? [];
+        const merged = [...existing, { lat: sat.lat, lon: sat.lon, timestamp: now }];
+        next[sat.id] = merged.filter((p) => now - p.timestamp <= TRACK_WINDOW_MS);
+      }
+      return next;
+    });
