@@ -2038,3 +2038,23 @@ vec4 czm_computeAtmosphereColor(
 
     vec3 color = (rayleigh + mie) * czm_atmosphereLightIntensity;
 
+    return vec4(color, opacity);
+}
+
+/**
+ * Compute the atmosphere color, applying Rayleigh and Mie scattering. This
+ * builtin uses automatic uniforms so the atmophere settings are synced with the
+ * state of the Scene, even in other contexts like Model.
+ *
+ * @name czm_computeAtmosphereColor
+ * @glslFunction
+ *
+ * @param {czm_ray} primaryRay Ray from the origin to sky fragment to in world coords (low precision)
+ * @param {vec3} lightDirection Light direction from the sun or other light source.
+ * @param {vec3} rayleighColor The Rayleigh scattering color computed by a scattering function
+ * @param {vec3} mieColor The Mie scattering color computed by a scattering function
+ * @param {float} opacity The opacity computed by a scattering function.
+ */
+vec4 czm_computeAtmosphereColor(
+    czm_ray primaryRay,
+    vec3 lightDirection,
