@@ -198,3 +198,23 @@ export default function OrbitalRecoveryPlot({ satellite, evaBurn, recBurn }: Pro
           {/* 10 km station-keeping box */}
           <rect
             x={RTN_CX - BOX_PX} y={RTN_CY - BOX_PX}
+            width={BOX_PX * 2} height={BOX_PX * 2}
+            fill="none" stroke="#0ea5e9" strokeWidth={1}
+            strokeDasharray="5,3" opacity={0.5}
+          />
+          <text x={RTN_CX + BOX_PX + 3} y={RTN_CY - BOX_PX + 10}
+            fill="#0ea5e9" fontSize={8} opacity={0.6}>10 km box</text>
+
+          {/* Axes */}
+          <line x1={RTN_CX} y1={10} x2={RTN_CX} y2={RTN_H - 10}
+            stroke="#334155" strokeWidth={1} />
+          <line x1={10} y1={RTN_CY} x2={RTN_W - 10} y2={RTN_CY}
+            stroke="#334155" strokeWidth={1} />
+          <text x={RTN_CX + 4} y={14} fill="#475569" fontSize={8}>R↑</text>
+          <text x={RTN_W - 18} y={RTN_CY - 4} fill="#475569" fontSize={8}>T→</text>
+
+          {/* Nominal slot */}
+          {(() => {
+            const nx = RTN_CX + nomT * RTN_SCALE;
+            const ny = RTN_CY - nomR * RTN_SCALE;
+            const inBounds =
