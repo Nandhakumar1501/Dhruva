@@ -458,3 +458,23 @@ Response shape (trimmed):
   },
   "blackout_status": [
     {
+      "satellite_id": "SAT-Alpha-01",
+      "in_blackout": false,
+      "estimated_recovery_seconds": null,
+      "estimated_recovery_timestamp": null
+    }
+  ]
+}
+```
+
+### 6) `POST /api/debug/seed`
+
+Reset scenario with synthetic constellation + debris.
+
+Request body:
+
+```json
+{
+  "satellite_count": 50,
+  "debris_count": 20
+}
