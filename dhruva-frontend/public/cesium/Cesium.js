@@ -498,3 +498,23 @@ czm_material czm_getMaterial(czm_materialInput materialInput)
     vec2 range = 0.5 - (lineThickness * 0.05);
     value = min(
         1.0 - smoothstep(range.s, range.s + fuzz, scaledWidth),
+        1.0 - smoothstep(range.t, range.t + fuzz, scaledHeight));
+#endif
+
+    // Edges taken from RimLightingMaterial.glsl
+    // See http://www.fundza.com/rman_shaders/surface/fake_rim/fake_rim1.html
+    float dRim = 1.0 - abs(dot(materialInput.normalEC, normalize(materialInput.positionToEyeEC)));
+    float sRim = smoothstep(0.8, 1.0, dRim);
+    value *= (1.0 - sRim);
+
+    vec4 halfColor;
+    halfColor.rgb = color.rgb * 0.5;
+    halfColor.a = color.a * (1.0 - ((1.0 - cellAlpha) * value));
+    halfColor = czm_gammaCorrect(halfColor);
+    material.diffuse = halfColor.rgb;
+    material.emission = halfColor.rgb;
+    material.alpha = halfColor.a;
+
+    return material;
+}
+`;var bQt=y(x(),1),DR=`uniform sampler2D image;
