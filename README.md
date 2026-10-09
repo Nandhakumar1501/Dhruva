@@ -158,3 +158,23 @@ Post-maneuver Genesis plot showing the **next predicted point of collision** aft
 - Snapshot endpoint: `GET /api/visualization/snapshot`.
 
 Data flow:
+
+1. Objects are ingested (`/api/telemetry`, `/api/telemetry/tle`, or `/api/debug/load_cdm_csv`).
+2. State is propagated using RK4 with central gravity + J2 perturbation.
+3. Conjunction candidates are filtered (`grid` or `kdtree`) and evaluated over a prediction horizon.
+4. Warnings and metrics are exposed through snapshot and stream payloads.
+5. Frontend renders map/3D/orbit/analytics panels from backend output.
+
+---
+
+## Repository Structure
+
+```text
+Project-dhruva/
+├── server.py                    # FastAPI app + websocket stream loop
+├── api/
+│   └── routes.py                # REST API endpoints
+├── engine/
+│   ├── sim_state.py             # Core simulation state and mission logic
+│   ├── conjunction.py           # Grid/KD-tree conjunction filtering and TCA prediction
+│   ├── tle_utils.py             # TLE -> state vector transformation
