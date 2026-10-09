@@ -1858,3 +1858,23 @@ float czm_branchFreeTernary(bool comparison, float a, float b) {
  *
  * @name czm_branchFreeTernary
  * @glslFunction
+ *
+ * @param {bool} comparison A comparison statement
+ * @param {vec2} a Value to return if the comparison is true.
+ * @param {vec2} b Value to return if the comparison is false.
+ *
+ * @returns {vec2} equivalent of comparison ? a : b
+ */
+vec2 czm_branchFreeTernary(bool comparison, vec2 a, vec2 b) {
+    float useA = float(comparison);
+    return a * useA + b * (1.0 - useA);
+}
+
+/**
+ * Branchless ternary operator to be used when it's inexpensive to explicitly
+ * evaluate both possibilities for a vec3 expression.
+ *
+ * @name czm_branchFreeTernary
+ * @glslFunction
+ *
+ * @param {bool} comparison A comparison statement
