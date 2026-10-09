@@ -798,3 +798,23 @@ czm_material czm_getMaterial(czm_materialInput materialInput)
     normalTangentSpace = mix(vec3(0.0, 0.0, 50.0), normalTangentSpace, specularMapValue);
 
     normalTangentSpace = normalize(normalTangentSpace);
+
+    // get ratios for alignment of the new normal vector with a vector perpendicular to the tangent plane
+    float tsPerturbationRatio = clamp(dot(normalTangentSpace, vec3(0.0, 0.0, 1.0)), 0.0, 1.0);
+
+    // fade out water effect as specular map value decreases
+    material.alpha = mix(blendColor.a, baseWaterColor.a, specularMapValue) * specularMapValue;
+
+    // base color is a blend of the water and non-water color based on the value from the specular map
+    // may need a uniform blend factor to better control this
+    material.diffuse = mix(blendColor.rgb, baseWaterColor.rgb, specularMapValue);
+
+    // diffuse highlights are based on how perturbed the normal is
+    material.diffuse += (0.1 * tsPerturbationRatio);
+
+    material.diffuse = material.diffuse;
+
+    material.normal = normalize(materialInput.tangentToEyeMatrix * normalTangentSpace);
+
+    material.specular = specularIntensity;
+    material.shininess = 10.0;
