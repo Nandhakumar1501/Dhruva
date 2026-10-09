@@ -418,3 +418,23 @@ export default function GroundTrackMap({
 
     const z = zoomRef.current;
     const ox = panXRef.current;
+    const oy = panYRef.current;
+    const canvasX = (rawX - target.width / 2) / z + target.width / 2 - ox;
+    const canvasY = (rawY - target.height / 2) / z + target.height / 2 - oy;
+
+    let bestId: string | null = null;
+    let best = Number.POSITIVE_INFINITY;
+    for (const sat of satellites) {
+      const pt = mercatorXY(sat.lat, sat.lon, target.width, target.height);
+      const d = Math.hypot(pt.x - canvasX, pt.y - canvasY);
+      if (d < best) {
+        best = d;
+        bestId = sat.id;
+      }
+    }
+
+    if (bestId && best < 20 / z && satById.has(bestId)) {
+      onSelectSatellite(bestId);
+    }
+  }, [satellites, satById, onSelectSatellite]);
+
