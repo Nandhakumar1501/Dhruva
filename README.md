@@ -618,3 +618,23 @@ Use this for high-volume performance testing and warning pipeline validation.
 
 ---
 
+## Testing Guide
+
+### A) Basic health and startup
+
+1. Start backend (`docker` or local).
+2. Verify `GET /`.
+3. Start frontend and open `http://localhost:3000`.
+
+### B) Seed and snapshot validation
+
+1. `POST /api/debug/seed` with baseline counts.
+2. `GET /api/visualization/snapshot`.
+3. Verify:
+   - `counts.satellites`
+   - `counts.debris`
+   - `metrics` fields present
+   - `blackout_status` array populated
+
+### C) Maneuver validation test
+
