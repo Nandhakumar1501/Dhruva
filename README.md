@@ -218,3 +218,23 @@ Open:
 ## Backend Setup
 
 ### Option A: Docker (recommended)
+
+```bash
+docker build -t dhruva-cdm . && docker run --rm -p 8000:8000 -p 3000:3000 dhruva-cdm
+```
+
+Notes:
+
+- The Dockerfile builds and runs both the FastAPI backend (port 8000) and Next.js frontend (port 3000) in a single container.
+- The Dockerfile installs `uvicorn[standard]` to include WebSocket support libraries.
+- If port `8000` or `3000` is busy, stop the processes using them before running.
+
+Health check:
+
+```bash
+curl http://localhost:8000/
+```
+
+Expected response:
+
+```json
