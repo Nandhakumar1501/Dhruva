@@ -158,3 +158,23 @@ export function SnapshotProvider({ children }: { children: React.ReactNode }) {
     return () => {
       mounted = false;
       window.clearInterval(poll);
+       if (reconnectTimer !== null) {
+        window.clearTimeout(reconnectTimer);
+      }
+      wsRef.current?.close();
+    };
+  }, [ingestSnapshot]);
+
+  const value = useMemo<SnapshotContextType>(
+    () => ({
+      snapshot,
+      status,
+      selectedSatelliteId,
+      setSelectedSatelliteId,
+      tracks,
+      metricsHistory,
+      timeWarpX,
+      decreaseTimeWarp,
+      increaseTimeWarp,
+    }),
+    [snapshot, status, selectedSatelliteId, tracks, metricsHistory, timeWarpX, decreaseTimeWarp, increaseTimeWarp]
