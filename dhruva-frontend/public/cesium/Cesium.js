@@ -358,3 +358,23 @@ czm_material czm_getMaterial(czm_materialInput materialInput)
         int idxMid = (idxBelow + idxAbove) / 2;
         float heightTex = getHeight(idxMid, invTexSize);
 
+        if (height > heightTex) {
+            idxBelow = idxMid;
+            heightBelow = heightTex;
+        } else {
+            idxAbove = idxMid;
+            heightAbove = heightTex;
+        }
+    }
+
+    float lerper = heightBelow == heightAbove ? 1.0 : (height - heightBelow) / (heightAbove - heightBelow);
+    vec2 colorUv = vec2(invTexSize * (float(idxBelow) + 0.5 + lerper), 0.5);
+    vec4 color = texture(colors, colorUv);
+
+    // undo preumultiplied alpha
+    if (color.a > 0.0) 
+    {
+        color.rgb /= color.a;
+    }
+    
+    color.rgb = czm_gammaCorrect(color.rgb);
