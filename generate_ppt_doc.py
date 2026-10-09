@@ -478,3 +478,23 @@ add_table(doc,
         ["2D Mercator Ground Track",
          "Real-time satellite positions (cyan), debris cloud (red), 90-min historical trail + 90-min predicted trajectory (dashed), solar terminator line, ground station overlays (IIT Delhi Node, ISTRAC, Goldstone)"],
         ["3D Cesium Globe",
+         "Full-constellation 3D render — polar view, horizon view, flat-Earth spread — with live blackout flagging and per-satellite telemetry panel (fuel mass, altitude, longitude, drift-from-slot)"],
+        ["Conjunction Bullseye Radar",
+         "Polar radar plot per satellite: debris approach vector encoded as angle, TCA as radial distance, colour-coded risk rings (1 km / 2 km / 5 km). Expandable modal with full debris threat list."],
+        ["Fleet Fuel & ΔV Analytics",
+         "Per-satellite propellant gauges for all 50 satellites, cumulative ΔV consumed vs. collisions avoided (rolling chart), uptime score, avoidance efficiency metric"],
+        ["Maneuver Timeline (Gantt)",
+         "Scheduled burns, executed burns (green), cooldown windows (teal), rejected commands (red) per satellite across simulation timeline — full scheduling situational awareness"],
+        ["CDM Alerts + Burn Logs",
+         "Active conjunction warnings sorted by miss distance and TCA; complete audit trail of all AUTO-EVA-*, AUTO-REC-*, and operator-initiated burns with status codes"],
+    ],
+    col_widths=[Inches(2.0), Inches(4.4)]
+)
+
+section_heading(doc, "Graveyard Lifecycle (automated)")
+code_block(doc, "NOMINAL  →  GRAVEYARD CANDIDATE  →  GRAVEYARD MANEUVER SCHEDULED  →  GRAVEYARD")
+note(doc, "Trigger: fuel drops below 5% of initial propellant mass. Disposal route: above GEO (>36,000 km) for high-altitude missions; below ISS altitude (<400 km, re-entry decay) for LEO missions.")
+doc.add_page_break()
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  SLIDE 9
