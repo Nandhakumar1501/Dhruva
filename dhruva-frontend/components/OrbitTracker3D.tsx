@@ -338,3 +338,23 @@ export default function OrbitTracker3D({
       }
     });
 
+    // Render Debris (static positions, only update warning state)
+    debrisCloud.forEach((deb) => {
+      const [id, lat, lon, altKm] = deb;
+      const entityId = `deb_${id}`;
+      activeIds.add(entityId);
+
+      const isWarn = warningIds.has(id);
+      const color = isWarn ? Cesium.Color.fromCssColorString("#ef4444") : Cesium.Color.fromCssColorString("#f87171").withAlpha(0.6);
+      const pixelSize = isWarn ? 8 : 4;
+
+      if (entitiesRef.current[entityId]) {
+        // Only update color/size, not position (reduces jitter from constant updates)
+        const entity = entitiesRef.current[entityId];
+        entity.point.color = color;
+        entity.point.pixelSize = pixelSize;
+      } else {
+        const entity = viewer.entities.add({
+          id: entityId,
+          position: Cesium.Cartesian3.fromDegrees(lon, lat, altKm * 1000),
+          point: {
