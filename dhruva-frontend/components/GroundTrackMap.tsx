@@ -238,3 +238,23 @@ export default function GroundTrackMap({
           const cosH = -Math.tan(latRad) * Math.tan(sunDecl);
           let lonT = cosH <= -1 ? sunLonDeg + side * 180 : cosH >= 1 ? sunLonDeg : sunLonDeg + side * Math.acos(cosH) * 180 / Math.PI;
           lonT = ((lonT + 180) % 360 + 360) % 360 - 180;
+          const p = mercatorXY(latDeg, lonT, width, height);
+          pts.push([p.x, p.y]);
+        }
+        if (pts.length < 2) continue;
+        const edgeX = side > 0 ? width : 0;
+        ctx.beginPath();
+        ctx.moveTo(pts[0][0], pts[0][1]);
+        for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+        ctx.lineTo(edgeX, pts[pts.length - 1][1]);
+        ctx.lineTo(edgeX, pts[0][1]);
+        ctx.closePath();
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1.0;
+    }
+
+    for (const gs of groundStations) {
+      const p = mercatorXY(gs.lat, gs.lon, width, height);
+      ctx.fillStyle = "#f59e0b";
+      ctx.beginPath();
