@@ -238,3 +238,23 @@ export default function OrbitalRecoveryPlot({ satellite, evaBurn, recBurn }: Pro
                   y={(RTN_CY + ny) / 2 - 4}
                   fill="#f59e0b" fontSize={8}
                 >
+                  {satellite.drift_km.toFixed(1)} km
+                </text>
+              </g>
+            );
+          })()}
+
+          {/* EVA burn vector */}
+          {evaRT && (
+            <Arrow
+              x1={RTN_CX} y1={RTN_CY}
+              x2={RTN_CX + evaRT.T * EVA_SCALE * RTN_SCALE}
+              y2={RTN_CY - evaRT.R * EVA_SCALE * RTN_SCALE}
+              color="#f87171" label="EVA"
+            />
+          )}
+
+          {/* REC burn vector */}
+          {recRT && (
+            <Arrow
+              x1={RTN_CX} y1={RTN_CY}
