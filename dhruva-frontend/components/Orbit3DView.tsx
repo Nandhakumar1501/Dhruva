@@ -118,3 +118,5 @@ export default function Orbit3DView({
       <OrbitControls enablePan={false} minDistance={10} maxDistance={80} />
     </Canvas>
   );
+}
+
