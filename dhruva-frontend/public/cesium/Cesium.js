@@ -1898,3 +1898,23 @@ vec3 czm_branchFreeTernary(bool comparison, vec3 a, vec3 b) {
  * @param {bool} comparison A comparison statement
  * @param {vec3} a Value to return if the comparison is true.
  * @param {vec3} b Value to return if the comparison is false.
+ *
+ * @returns {vec3} equivalent of comparison ? a : b
+ */
+vec4 czm_branchFreeTernary(bool comparison, vec4 a, vec4 b) {
+    float useA = float(comparison);
+    return a * useA + b * (1.0 - useA);
+}
+`;var WKt=y(x(),1),fG=`
+vec4 czm_cascadeColor(vec4 weights)
+{
+    return vec4(1.0, 0.0, 0.0, 1.0) * weights.x +
+           vec4(0.0, 1.0, 0.0, 1.0) * weights.y +
+           vec4(0.0, 0.0, 1.0, 1.0) * weights.z +
+           vec4(1.0, 0.0, 1.0, 1.0) * weights.w;
+}
+`;var FKt=y(x(),1),pG=`
+uniform vec4 shadowMap_cascadeDistances;
+
+float czm_cascadeDistance(vec4 weights)
+{
