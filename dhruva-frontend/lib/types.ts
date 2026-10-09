@@ -58,3 +58,23 @@ export interface SnapshotPayload {
   satellites: SatelliteSnapshot[];
   debris_cloud: DebrisTuple[];
   conjunctions: ConjunctionItem[];
+  maneuvers: ManeuverItem[];
+  ground_stations?: GroundStationSnapshot[];
+  burn_logs?: BurnLogEntry[];
+  blackout_status?: BlackoutStatusItem[];
+  counts?: {
+    satellites: number;
+    debris: number;
+    conjunction_warnings: number;
+    graveyard?: number;
+  };
+  metrics: {
+    fleet_fuel_pct: number;
+    fleet_fuel_planned_pct?: number;
+    collisions_avoided: number;
+    total_delta_v_mps: number;
+    uptime_pct?: number;
+    uptime_score?: number;
+    outage_sat_seconds?: number;
+    avoidance_per_delta_v?: number;
+    time_warp_x?: number;
