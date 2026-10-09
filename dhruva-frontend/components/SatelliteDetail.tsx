@@ -78,3 +78,12 @@ export default function SatelliteDetail({ satellite }: SatelliteDetailProps) {
         <div className="bg-slate-900 border border-slate-800 p-2">
           <div className="text-slate-500 text-[10px]">Latitude</div>
           <div className="text-sm font-mono text-slate-300">{satellite.lat.toFixed(3)}&deg;</div>
+        </div>
+        <div className="bg-slate-900 border border-slate-800 p-2">
+          <div className="text-slate-500 text-[10px]">Longitude</div>
+          <div className="text-sm font-mono text-slate-300">{satellite.lon.toFixed(3)}&deg;</div>
+        </div>
+      </div>
+    </div>
+  );
+}
