@@ -158,3 +158,7 @@ export default function StationKeepingPage() {
           )}
         </div>
 
+      </div>
+    </AppShell>
+  );
+}
