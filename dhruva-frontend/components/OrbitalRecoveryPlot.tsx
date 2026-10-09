@@ -118,3 +118,23 @@ export default function OrbitalRecoveryPlot({ satellite, evaBurn, recBurn }: Pro
 
   // ── RTN panel constants ──────────────────────────────────────────────────
   const RTN_W = 260;
+  const RTN_H = 260;
+  const RTN_CX = RTN_W / 2;
+  const RTN_CY = RTN_H / 2;
+  const RTN_SCALE = 10; // px per km  (shows ±13 km)
+  const BOX_KM = 10;
+  const BOX_PX = BOX_KM * RTN_SCALE;
+
+  // Nominal slot offset in RTN: mostly tangential (T), small radial (R)
+  const altDelta = satellite.altitude_km - (satellite.nominal?.altitude_km ?? satellite.altitude_km);
+  const tangentialDrift = Math.sqrt(Math.max(0, satellite.drift_km ** 2 - altDelta ** 2));
+  const nomR = -altDelta;        // radial offset (positive = higher orbit)
+  const nomT = -tangentialDrift; // tangential offset (behind in orbit)
+
+  // Burn vectors projected to RT plane (magnified for visibility)
+  const EVA_SCALE = 600; // km/s → km for display
+  const evaRT = evaBurn && rtn
+    ? toRTN(evaBurn.delta_v_kmps, rtn.r_hat, rtn.t_hat, rtn.n_hat)
+    : null;
+  const recRT = recBurn && rtn
+    ? toRTN(recBurn.delta_v_kmps, rtn.r_hat, rtn.t_hat, rtn.n_hat)
