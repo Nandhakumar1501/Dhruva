@@ -218,3 +218,23 @@ def build_router(state: SimulationState) -> APIRouter:
     async def debug_load_cdm_csv(payload: CdmCsvLoadRequest) -> dict[str, Any]:
         csv_file = Path(payload.csv_path)
         if not csv_file.is_absolute():
+            csv_file = Path.cwd() / csv_file
+        if not csv_file.exists():
+            raise HTTPException(status_code=404, detail=f"CSV not found: {csv_file}")
+
+        sat_list = list(state.satellites.values())
+        if not sat_list:
+            raise HTTPException(status_code=422, detail="No satellites available to anchor RTN conversion")
+
+        if payload.replace_existing:
+            state.debris.clear()
+
+        loaded = 0
+        skipped = 0
+
+        with csv_file.open("r", encoding="utf-8", newline="") as f:
+            reader = csv.DictReader(f)
+            for row_idx, row in enumerate(reader, start=1):
+                if loaded >= payload.max_rows:
+                    break
+
