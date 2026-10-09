@@ -198,3 +198,23 @@ export default function GroundTrackMap({
     ctx.strokeStyle = "#0f1d3d";
     ctx.lineWidth = 1 / z;
     for (let lon = -180; lon <= 180; lon += 30) {
+      const x = ((lon + 180) / 360) * width;
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, height);
+      ctx.stroke();
+    }
+    for (let lat = -60; lat <= 60; lat += 30) {
+      const { y } = mercatorXY(lat, 0, width, height);
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(width, y);
+      ctx.stroke();
+    }
+
+    // Compute accurate sub-solar point accounting for solar declination
+    {
+      const jd = julianDate(new Date(timestamp));
+      const T = (jd - 2451545.0) / 36525.0;
+      const M_rad = (((357.52911 + 35999.05029 * T) % 360 + 360) % 360) * Math.PI / 180;
+      const L0 = ((280.46646 + 36000.76983 * T) % 360 + 360) % 360;
