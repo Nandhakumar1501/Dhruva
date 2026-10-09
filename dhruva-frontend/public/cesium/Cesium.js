@@ -678,3 +678,23 @@ czm_material czm_getMaterial(czm_materialInput materialInput)
     float b = step(0.5 - halfInteriorWidth, st.t);
     b *= 1.0 - step(0.5 + halfInteriorWidth, st.t);
 
+    // Find the distance from the closest separator (region between two colors)
+    float d1 = abs(st.t - (0.5 - halfInteriorWidth));
+    float d2 = abs(st.t - (0.5 + halfInteriorWidth));
+    float dist = min(d1, d2);
+
+    vec4 currentColor = mix(outlineColor, color, b);
+    vec4 outColor = czm_antialias(outlineColor, color, currentColor, dist);
+    outColor = czm_gammaCorrect(outColor);
+
+    material.diffuse = outColor.rgb;
+    material.alpha = outColor.a;
+
+    return material;
+}
+`;var RQt=y(x(),1),OR=`uniform vec4 color;
+uniform vec4 rimColor;
+uniform float width;
+
+czm_material czm_getMaterial(czm_materialInput materialInput)
+{
