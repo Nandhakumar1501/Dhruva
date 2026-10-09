@@ -298,3 +298,23 @@ Request body:
       "v": { "x": 0.0, "y": 7.6, "z": 0.2 }
     },
     {
+      "id": "DEB-CUSTOM-001",
+      "type": "DEBRIS",
+      "r": { "x": 6878.5, "y": 1.0, "z": -0.1 },
+      "v": { "x": 0.0, "y": 7.59, "z": 0.2 }
+    }
+  ]
+}
+```
+
+Response:
+
+```json
+{
+  "status": "ACK",
+  "processed_count": 2,
+  "active_cdm_warnings": 0
+}
+```
+
+### 2) `POST /api/telemetry/tle`
