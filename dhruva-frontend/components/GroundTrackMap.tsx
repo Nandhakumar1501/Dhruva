@@ -158,3 +158,23 @@ export default function GroundTrackMap({
     snapshotTimeRef.current = performance.now();
   }, [satellites]);
 
+  useEffect(() => {
+    const img = new Image();
+    img.src = "/assets/world-map-mercator.png";
+    img.onload = () => {
+      mapImageRef.current = img;
+    };
+  }, []);
+
+  const drawFrame = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const width = canvas.width;
+    const height = canvas.height;
+    const z = zoomRef.current;
+    const ox = panXRef.current;
+    const oy = panYRef.current;
+
