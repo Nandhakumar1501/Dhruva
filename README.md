@@ -398,3 +398,23 @@ Request body:
 ```
 
 Response:
+
+```json
+{
+  "status": "STEP_COMPLETE",
+  "new_timestamp": "2026-03-21T05:45:00+00:00",
+  "collisions_detected": 0,
+  "maneuvers_executed": 1
+}
+```
+
+### 5) `GET /api/visualization/snapshot`
+
+Read full state payload for visualization and analysis.
+
+Response shape (trimmed):
+
+```json
+{
+  "timestamp": "2026-03-21T05:45:00+00:00",
+  "satellites": [
