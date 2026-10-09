@@ -1098,3 +1098,23 @@ const float czm_passGaussianSplats = 11.0;
  * @see czm_pass
  */
 const float czm_passGlobe = 2.0;
+`;var oHt=y(x(),1),ZV=`/**
+ * The automatic GLSL constant for {@link Pass#OPAQUE}
+ *
+ * @name czm_passOpaque
+ * @glslConstant
+ *
+ * @see czm_pass
+ */
+const float czm_passOpaque = 8.0;
+`;var sHt=y(x(),1),RV=`/**
+ * The automatic GLSL constant for {@link Pass#OVERLAY}
+ *
+ * @name czm_passOverlay
+ * @glslConstant
+ *
+ * @see czm_pass
+ */
+const float czm_passOverlay = 12.0;
+`;var cHt=y(x(),1),VV=`/**
+ * The automatic GLSL constant for {@link Pass#TERRAIN_CLASSIFICATION}
