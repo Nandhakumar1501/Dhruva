@@ -78,3 +78,23 @@ while(True):
     distance = np.sqrt(dx * dx + dy * dy) 
     print(distance)
 
+    if predicted_distance < 50 and not maneuver_started:
+        print("CDM Warning: Close Approach")
+        burn_point.set_data([x], [y])
+        v = state[3:6]
+        v_mag = np.linalg.norm(v)
+        v_unit = v / v_mag 
+        delta_v = 0.1
+        delta_v_vector = v_unit * delta_v 
+        state[3:6] = state[3:6] + delta_v_vector 
+        maneuver_started = True 
+ 
+    x_list.append(x)
+    y_list.append(y)
+    x_list_debris.append(debris_x)
+    y_list_debris.append(debris_y)
+    
+    satellite.set_data([x], [y])
+    debris.set_data([debris_x], [debris_y])
+
+    trail.set_data(x_list, y_list)
