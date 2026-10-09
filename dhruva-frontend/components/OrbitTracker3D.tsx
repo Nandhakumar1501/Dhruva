@@ -58,3 +58,23 @@ function computeOrbitEllipseCesium(
   const r = [eci.x, eci.y, eci.z];
   const v = [eci.vx, eci.vy, eci.vz];
   const rMag = mag(r);
+  const vSq = v[0] * v[0] + v[1] * v[1] + v[2] * v[2];
+
+  const energy = vSq / 2 - MU / rMag;
+  if (energy >= 0) return [];
+  const a = -MU / (2 * energy);
+
+  const h = cross(r, v);
+  const hMag = mag(h);
+  if (hMag < 1e-10) return [];
+
+  const rdotv = r[0] * v[0] + r[1] * v[1] + r[2] * v[2];
+  const eVec = [
+    (vSq / MU - 1 / rMag) * r[0] - (rdotv / MU) * v[0],
+    (vSq / MU - 1 / rMag) * r[1] - (rdotv / MU) * v[1],
+    (vSq / MU - 1 / rMag) * r[2] - (rdotv / MU) * v[2],
+  ];
+  const e = mag(eVec);
+
+  let P: number[];
+  if (e > 1e-8) {
