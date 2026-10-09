@@ -178,3 +178,23 @@ export default function OrbitalRecoveryPlot({ satellite, evaBurn, recBurn }: Pro
         <div className="text-[9px] text-slate-500 font-medium uppercase tracking-wider">
           RTN Frame — Station-Keeping Box
         </div>
+        <svg width={RTN_W} height={RTN_H} className="bg-slate-900 border border-slate-800">
+          {/* Grid lines */}
+          {[-10, -5, 0, 5, 10].map((km) => (
+            <g key={km}>
+              <line
+                x1={RTN_CX + km * RTN_SCALE} y1={0}
+                x2={RTN_CX + km * RTN_SCALE} y2={RTN_H}
+                stroke="#1e293b" strokeWidth={1}
+              />
+              <line
+                x1={0} y1={RTN_CY + km * RTN_SCALE}
+                x2={RTN_W} y2={RTN_CY + km * RTN_SCALE}
+                stroke="#1e293b" strokeWidth={1}
+              />
+            </g>
+          ))}
+
+          {/* 10 km station-keeping box */}
+          <rect
+            x={RTN_CX - BOX_PX} y={RTN_CY - BOX_PX}
