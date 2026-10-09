@@ -538,3 +538,23 @@ czm_material czm_getMaterial(czm_materialInput materialInput)
 }
 `;var xQt=y(x(),1),vR=`uniform vec4 color;
 
+float getPointOnLine(vec2 p0, vec2 p1, float x)
+{
+    float slope = (p0.y - p1.y) / (p0.x - p1.x);
+    return slope * (x - p0.x) + p0.y;
+}
+
+czm_material czm_getMaterial(czm_materialInput materialInput)
+{
+    czm_material material = czm_getDefaultMaterial(materialInput);
+
+    vec2 st = materialInput.st;
+
+#if (__VERSION__ == 300 || defined(GL_OES_standard_derivatives))
+    float base = 1.0 - abs(fwidth(st.s)) * 10.0 * czm_pixelRatio;
+#else
+     // If no derivatives available (IE 10?), 2.5% of the line will be the arrow head
+    float base = 0.975;
+#endif
+
+    vec2 center = vec2(1.0, 0.5);
