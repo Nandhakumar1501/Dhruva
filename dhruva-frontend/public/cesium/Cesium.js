@@ -1178,3 +1178,23 @@ const float czm_piOverFour = 0.7853981633974483;
 `;var bHt=y(x(),1),FV=`/**
  * A built-in GLSL floating-point constant for <code>pi/6</code>.
  *
+ * @alias czm_piOverSix
+ * @glslConstant
+ *
+ * @see CesiumMath.PI_OVER_SIX
+ *
+ * @example
+ * // GLSL declaration
+ * const float czm_piOverSix = ...;
+ *
+ * // Example
+ * float pi = 6.0 * czm_piOverSix;
+ */
+const float czm_piOverSix = 0.5235987755982988;
+`;var xHt=y(x(),1),wV=`/**
+ * A built-in GLSL floating-point constant for <code>pi/3</code>.
+ *
+ * @alias czm_piOverThree
+ * @glslConstant
+ *
+ * @see CesiumMath.PI_OVER_THREE
