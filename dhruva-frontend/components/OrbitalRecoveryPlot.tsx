@@ -278,3 +278,23 @@ export default function OrbitalRecoveryPlot({ satellite, evaBurn, recBurn }: Pro
             {satellite.status}
           </text>
         </svg>
+
+        {/* Legend */}
+        <div className="flex gap-3 text-[8px] text-slate-500">
+          <span><span style={{ color: "#22d3ee" }}>●</span> Satellite</span>
+          <span><span style={{ color: "#22c55e" }}>◆</span> Nominal Slot</span>
+          <span><span style={{ color: "#f87171" }}>→</span> EVA Burn</span>
+          <span><span style={{ color: "#4ade80" }}>→</span> REC Burn</span>
+        </div>
+      </div>
+
+      {/* ── RIGHT: Orbital Ring View ─────────────────────────────────────── */}
+      <div className="flex flex-col items-center gap-1 flex-1">
+        <div className="text-[9px] text-slate-500 font-medium uppercase tracking-wider">
+          Orbital Cross-Section — Actual vs Nominal
+        </div>
+        <svg width={ORB_W} height={ORB_H} className="bg-slate-900 border border-slate-800">
+          {/* Earth arc at bottom */}
+          <path
+            d={`M 0 ${ORB_CY} A ${ORB_CY} ${ORB_CY} 0 0 1 ${ORB_W} ${ORB_CY}`}
+            fill="#1e3a5f" stroke="#1d4ed8" strokeWidth={1}
