@@ -98,3 +98,23 @@ export default function Orbit3DView({
 
           {showEncounter && (
             <>
+              <Line
+                points={[satPos, conjSatPos]}
+                color="#fde047"
+                lineWidth={3}
+                dashed={false}
+              />
+              <Line
+                points={[debPos, conjDebPos]}
+                color="#f97316"
+                lineWidth={3}
+                dashed={true}
+              />
+            </>
+          )}
+        </>
+      )}
+
+      <OrbitControls enablePan={false} minDistance={10} maxDistance={80} />
+    </Canvas>
+  );
