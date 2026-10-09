@@ -658,3 +658,23 @@ czm_material czm_getMaterial(czm_materialInput materialInput)
     fragColor.a = clamp(0.0, 1.0, glow) * color.a;
     fragColor = czm_gammaCorrect(fragColor);
 
+    material.emission = fragColor.rgb;
+    material.alpha = fragColor.a;
+
+    return material;
+}
+`;var _Qt=y(x(),1),QR=`uniform vec4 color;
+uniform vec4 outlineColor;
+uniform float outlineWidth;
+
+in float v_width;
+
+czm_material czm_getMaterial(czm_materialInput materialInput)
+{
+    czm_material material = czm_getDefaultMaterial(materialInput);
+
+    vec2 st = materialInput.st;
+    float halfInteriorWidth =  0.5 * (v_width - outlineWidth) / v_width;
+    float b = step(0.5 - halfInteriorWidth, st.t);
+    b *= 1.0 - step(0.5 + halfInteriorWidth, st.t);
+
