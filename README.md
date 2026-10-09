@@ -478,3 +478,23 @@ Request body:
   "satellite_count": 50,
   "debris_count": 20
 }
+```
+
+Limits:
+
+- `satellite_count`: `1..200`
+- `debris_count`: `1..20000`
+
+Response:
+
+```json
+{
+  "status": "SEEDED",
+  "satellites": 50,
+  "debris": 20,
+  "active_cdm_warnings": 4
+}
+```
+
+### 7) `POST /api/debug/load_cdm_csv`
+
