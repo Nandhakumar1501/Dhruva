@@ -138,3 +138,10 @@ export default function FuelPage() {
                   <div className={`text-base font-bold ${color}`}>{value}</div>
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </AppShell>
+  );
+}
