@@ -538,3 +538,23 @@ Important interpretation note:
 
 Response:
 
+```json
+{
+  "time_warp_x": 1
+}
+```
+
+### 9) `POST /api/sim/timewarp`
+
+Request body:
+
+```json
+{
+  "multiplier": 10
+}
+```
+
+Allowed multipliers:
+
+- `1`, `2`, `10`, `25`, `100`
+
