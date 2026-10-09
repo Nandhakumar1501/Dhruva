@@ -138,3 +138,23 @@ export default function StationKeepingPage() {
                         m.delta_v_kmps.x ** 2 +
                         m.delta_v_kmps.y ** 2 +
                         m.delta_v_kmps.z ** 2
+                      ) * 1000).toFixed(2)}
+                    </td>
+                    <td className="py-1 px-1 text-center">
+                      <span className={
+                        m.executed
+                          ? "text-emerald-400"
+                          : m.rejected
+                            ? "text-red-400"
+                            : "text-amber-300"
+                      }>
+                        {m.executed ? "Executed" : m.rejected ? "Rejected" : "Pending"}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+
