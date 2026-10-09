@@ -58,3 +58,23 @@ export default function FuelPage() {
             </div>
           ))}
         </div>
+
+        <div className="flex gap-2 flex-1 min-h-0">
+          {/* Per-satellite fuel gauges */}
+          <div className="w-80 shrink-0 border border-slate-800 bg-slate-950 p-3 flex flex-col gap-2 min-h-0">
+            <div className="text-[10px] text-slate-400 font-semibold uppercase tracking-wide shrink-0">
+              Per-Satellite Propellant Budget ({satellites.length} satellites)
+            </div>
+            <div className="flex-1 overflow-auto space-y-1.5">
+              {sortedSats.map((sat) => {
+                const fuelKg = sat.planned_fuel_kg ?? sat.fuel_kg;
+                const pct = Math.max(0, Math.min(100, (fuelKg / INITIAL_FUEL_KG) * 100));
+                return (
+                  <div key={sat.id} className="flex items-center gap-2">
+                    <div className="w-20 shrink-0 text-[10px] font-mono text-slate-400 truncate" title={sat.id}>
+                      {sat.id.replace("SAT-Alpha-", "A-")}
+                    </div>
+                    <div className="flex-1 h-2 bg-slate-800 overflow-hidden">
+                      <div
+                        className={`h-full transition-all duration-500 ${sat.in_graveyard_orbit ? "bg-slate-600" : fuelColor(pct)}`}
+                        style={{ width: `${pct}%` }}
