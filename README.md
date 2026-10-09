@@ -658,3 +658,23 @@ Use this for high-volume performance testing and warning pipeline validation.
 3. Confirm frontend bullseye/warning panels change live.
 
 ---
+
+## Physics Model Summary
+
+Implemented in `physics.py`:
+
+- Two-body central gravity:
+  - `a = -(MU / |r|^3) * r`
+- J2 perturbation term:
+  - Earth oblateness correction applied component-wise to acceleration.
+- Numerical integration:
+  - RK4 (`rk4_step`) for state propagation.
+- Fuel estimation:
+  - Tsiolkovsky equation for burn propellant mass usage.
+- Orbital period utility:
+  - `T = 2 * pi * sqrt(a^3 / MU)`.
+
+Units:
+
+- Position: km
+- Velocity: km/s
