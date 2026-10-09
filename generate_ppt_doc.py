@@ -318,3 +318,23 @@ add_table(doc,
         ["Closed-loop autonomous avoidance",
          "CRITICAL events auto-generate evasion + paired recovery burns. No human in the loop required."],
         ["Full operational constraint model",
+         "LOS blackout gating, thermal cooldown (600 s), command latency (10 s min), Tsiolkovsky fuel validation — all enforced before a burn is accepted."],
+        ["WebSocket-streamed, sub-tick warning latency",
+         "Risk state reaches the operator display within one simulation tick — not the next poll interval. Eliminates stale-state entirely."],
+        ["End-of-life graveyard routing",
+         "Satellites below 5% fuel are auto-flagged and routed to graveyard orbit — the IADC-compliant disposal lifecycle, fully automated."],
+    ],
+    col_widths=[Inches(2.4), Inches(4.0)]
+)
+
+punchline(doc, '"ESA\'s SST cost €100M+ to build. Dhruva CDM is open-source, dockerised, and running in under 60 seconds."')
+doc.add_page_break()
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  SLIDE 4
+# ══════════════════════════════════════════════════════════════════════════════
+slide_label(doc, 4, "Physics Engine — The Scientific Core")
+punchline(doc, '"Rigorous Astrodynamics — Every Number Has a Citation"')
+
+section_heading(doc, "1. Two-Body Gravitational Acceleration")
+code_block(doc, "a_grav = -(μ / |r|³) · r      where μ = 398,600.4418 km³/s²")
