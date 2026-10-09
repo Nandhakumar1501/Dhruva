@@ -1318,3 +1318,23 @@ const float czm_threePiOver2 = 4.71238898038469;
  * @alias czm_twoPi
  * @glslConstant
  *
+ * @see CesiumMath.TWO_PI
+ *
+ * @example
+ * // GLSL declaration
+ * const float czm_twoPi = ...;
+ *
+ * // Example
+ * float pi = czm_twoPi / 2.0;
+ */
+const float czm_twoPi = 6.283185307179586;
+`;var MHt=y(x(),1),QV=`/**
+ * The maximum latitude, in radians, both North and South, supported by a Web Mercator
+ * (EPSG:3857) projection.  Technically, the Mercator projection is defined
+ * for any latitude up to (but not including) 90 degrees, but it makes sense
+ * to cut it off sooner because it grows exponentially with increasing latitude.
+ * The logic behind this particular cutoff value, which is the one used by
+ * Google Maps, Bing Maps, and Esri, is that it makes the projection
+ * square.  That is, the rectangle is equal in the X and Y directions.
+ *
+ * The constant value is computed as follows:
