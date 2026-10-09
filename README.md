@@ -58,3 +58,23 @@ The platform has two primary execution modes:
 
 ## Screenshots
 
+### 1. Ground Track — 2D Map Dashboard
+![Ground Track Dashboard](screenshots/1.png)
+
+Main dashboard displaying the real-time ground track of the constellation on a 2D Mercator map. Shows satellite positions, ground station overlays (e.g., Goldstone Tracking, IIT Delhi Ground Node, ISTRAC Bengaluru), telemetry summary (link quality, velocity), constellation contents, and active blackout status for each satellite.
+
+---
+
+### 2. Dashboard with Maneuver Timeline
+![Dashboard with Maneuver Timeline](screenshots/2.png)
+
+Extended dashboard view showing the ground track alongside the **Maneuver Timeline** panel at the bottom, which visualizes scheduled and executed burns across the simulation stream for each satellite in the fleet.
+
+---
+
+### 3. 3D Orbit Tracker — Polar View (Cesium)
+![3D Orbit Tracker Polar View](screenshots/3.png)
+
+Worldwide 3D perspective of the constellation using the Cesium globe renderer, viewed from a polar angle. Satellites and their orbital trails are rendered on the Earth's surface, with constellation health and blackout status displayed on the right panel.
+
+---
