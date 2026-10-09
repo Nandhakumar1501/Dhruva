@@ -98,3 +98,23 @@ export default function FuelPage() {
               <div className="text-[10px] text-slate-300 font-semibold uppercase tracking-wide">∆v Consumed vs Collisions Avoided (rolling history)</div>
               <div className="flex gap-3 text-[9px] text-slate-500">
                 <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-cyan-400 inline-block" />∆v (m/s)</span>
+                <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-emerald-400 inline-block" />Collisions Avoided</span>
+              </div>
+            </div>
+            <div className="flex-1 min-h-0">
+              <svg viewBox="0 0 600 200" className="w-full h-full" preserveAspectRatio="none">
+                <line x1="10" y1="180" x2="590" y2="180" stroke="#1e293b" strokeWidth="1" />
+                <line x1="10" y1="10" x2="10" y2="180" stroke="#1e293b" strokeWidth="1" />
+                {points.length > 1 && (
+                  <polyline
+                    fill="none"
+                    stroke="#22d3ee"
+                    strokeWidth="2"
+                    points={points.map((p, i) => `${(i / (points.length - 1)) * 570 + 10},${170 - (p.totalDeltaVMps / maxDeltaV) * 155}`).join(" ")}
+                  />
+                )}
+                {points.length > 1 && (
+                  <polyline
+                    fill="none"
+                    stroke="#22c55e"
+                    strokeWidth="2"
