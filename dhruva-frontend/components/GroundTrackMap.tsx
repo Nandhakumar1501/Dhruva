@@ -98,3 +98,23 @@ function mercatorXY(lat: number, lon: number, width: number, height: number) {
 function lerp(a: number, b: number, t: number): number {
   return a + (b - a) * t;
 }
+
+function lerpAngle(a: number, b: number, t: number): number {
+  let diff = b - a;
+  if (diff > 180) diff -= 360;
+  if (diff < -180) diff += 360;
+  return a + diff * t;
+}
+
+interface SatPos {
+  lat: number;
+  lon: number;
+}
+
+export default function GroundTrackMap({
+  satellites,
+  selectedSatelliteId,
+  onSelectSatellite,
+  timestamp,
+  groundStations,
+  debrisCloud,
