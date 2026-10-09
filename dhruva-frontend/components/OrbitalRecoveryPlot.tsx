@@ -58,3 +58,23 @@ function toRTN(
   n_hat: { x: number; y: number; z: number }
 ) {
   return {
+    R: dot3(vec, r_hat),
+    T: dot3(vec, t_hat),
+    N: dot3(vec, n_hat),
+  };
+}
+
+// Arrow helper for SVG
+function Arrow({
+  x1, y1, x2, y2, color, label, dashed,
+}: {
+  x1: number; y1: number; x2: number; y2: number;
+  color: string; label?: string; dashed?: boolean;
+}) {
+  const dx = x2 - x1;
+  const dy = y2 - y1;
+  const len = Math.sqrt(dx * dx + dy * dy);
+  if (len < 2) return null;
+  const ux = dx / len;
+  const uy = dy / len;
+  const hx = x2 - ux * 8;
