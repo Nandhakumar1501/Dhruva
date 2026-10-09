@@ -378,3 +378,23 @@ export default function OrbitTracker3D({
       const shouldRecompute =
         orbitCacheRef.current.satId !== selectedSat.id ||
         orbitCacheRef.current.bucket !== timeBucket ||
+        orbitCacheRef.current.positions === null;
+
+      if (shouldRecompute) {
+        const points = computeOrbitEllipseCesium(selectedSat.eci, timestamp, 220);
+        orbitCacheRef.current = {
+          satId: selectedSat.id,
+          bucket: timeBucket,
+          positions: points.map((p) => new Cesium.Cartesian3(p.x, p.y, p.z)),
+        };
+      }
+
+      if (!selectedOrbitEntityRef.current) {
+        selectedOrbitEntityRef.current = viewer.entities.add({
+          id: "__selected_orbit_path__",
+          polyline: {
+            positions: orbitCacheRef.current.positions,
+            width: 2,
+            material: Cesium.Color.fromCssColorString("#22d3ee").withAlpha(0.75),
+            clampToGround: false,
+          },
