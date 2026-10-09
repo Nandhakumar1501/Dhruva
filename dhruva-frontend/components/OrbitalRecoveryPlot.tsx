@@ -158,3 +158,23 @@ export default function OrbitalRecoveryPlot({ satellite, evaBurn, recBurn }: Pro
 
   function orbitY(radius_km: number) {
     return ORB_CY - (radius_km - RE) * ORB_SCALE;
+  }
+
+  // Arc radius in pixels for the orbit ring (horizontal arc at top of panel)
+  const actualArcR = actualRadius * ORB_SCALE;
+  const nominalArcR = nominalRadius * ORB_SCALE;
+
+  // Satellite position on the arc: at the top (angle = -π/2 from center)
+  const satArcX = ORB_CX;
+  const satArcY = ORB_CY - actualArcR;
+  const nomArcX = ORB_CX;
+  const nomArcY = ORB_CY - nominalArcR;
+
+  return (
+    <div className="flex gap-3 bg-slate-950 border border-slate-800 p-3">
+
+      {/* ── LEFT: RTN Frame View ─────────────────────────────────────────── */}
+      <div className="flex flex-col items-center gap-1">
+        <div className="text-[9px] text-slate-500 font-medium uppercase tracking-wider">
+          RTN Frame — Station-Keeping Box
+        </div>
