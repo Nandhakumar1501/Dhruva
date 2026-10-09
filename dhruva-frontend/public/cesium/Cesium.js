@@ -318,3 +318,23 @@ float getHeight(int idx, float invTexSize)
 {
     vec2 uv = vec2((float(idx) + 0.5) * invTexSize, 0.5);
 #ifdef OES_texture_float
+    return texture(heights, uv).x;
+#else
+    return czm_unpackFloat(texture(heights, uv));
+#endif
+}
+
+czm_material czm_getMaterial(czm_materialInput materialInput)
+{
+    czm_material material = czm_getDefaultMaterial(materialInput);
+
+    float height = materialInput.height;
+    float invTexSize = 1.0 / float(heightsDimensions.x);
+
+    float minHeight = getHeight(0, invTexSize);
+    float maxHeight = getHeight(heightsDimensions.x - 1, invTexSize);
+
+    // early-out when outside the height range
+    if (height < minHeight || height > maxHeight) {
+        material.diffuse = vec3(0.0);
+        material.alpha = 0.0;
