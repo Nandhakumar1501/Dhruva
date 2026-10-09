@@ -38,3 +38,23 @@ max_trail = 200
 
 def predict_closest_approach(state, debris_state):
     test_state = state.copy()
+    test_debris = debris_state.copy()
+
+    min_distance = 1e9 
+    collision_point = None 
+
+    for i in range(200):
+        test_state = rk4_step(test_state, dt)
+        test_debris = rk4_step(test_debris, dt)
+
+        dx = test_state[0] - test_debris[0]
+        dy = test_state[1] - test_debris[1]
+
+        distance = np.sqrt(dx * dx + dy * dy)
+        if distance < min_distance:
+            min_distance = distance
+            collision_point = (test_state[0], test_state[1])
+
+    return min_distance, collision_point
+
+
