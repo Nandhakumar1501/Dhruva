@@ -1218,3 +1218,23 @@ const float czm_piOverThree = 1.0471975511965976;
  * @example
  * // GLSL declaration
  * const float czm_piOverTwo = ...;
+ *
+ * // Example
+ * float pi = 2.0 * czm_piOverTwo;
+ */
+const float czm_piOverTwo = 1.5707963267948966;
+`;var SHt=y(x(),1),YV=`/**
+ * A built-in GLSL floating-point constant for converting degrees to radians.
+ *
+ * @alias czm_radiansPerDegree
+ * @glslConstant
+ *
+ * @see CesiumMath.RADIANS_PER_DEGREE
+ *
+ * @example
+ * // GLSL declaration
+ * const float czm_radiansPerDegree = ...;
+ *
+ * // Example
+ * float rad = czm_radiansPerDegree * deg;
+ */
