@@ -98,3 +98,23 @@ export function SnapshotProvider({ children }: { children: React.ReactNode }) {
     await changeTimeWarp(1);
   }, [changeTimeWarp]);
 
+  useEffect(() => {
+    let mounted = true;
+    let reconnectTimer: number | null = null;
+
+    const initialLoad = async () => {
+      try {
+        const data = await fetchSnapshot();
+        if (!mounted) return;
+        ingestSnapshot(data);
+        setStatus("degraded");
+      } catch {
+        if (mounted) setStatus("degraded");
+      }
+    };
+
+    initialLoad();
+
+    const connectWebSocket = () => {
+      if (!mounted) return;
+      const ws = createOrbitSocket((data) => {
