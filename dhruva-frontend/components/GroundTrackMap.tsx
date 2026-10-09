@@ -118,3 +118,23 @@ export default function GroundTrackMap({
   timestamp,
   groundStations,
   debrisCloud,
+  conjunctions,
+  tracks,
+}: GroundTrackMapProps) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const mapImageRef = useRef<HTMLImageElement | null>(null);
+  const rafRef = useRef<number>(0);
+
+  const prevPositionsRef = useRef<Record<string, SatPos>>({});
+  const currPositionsRef = useRef<Record<string, SatPos>>({});
+  const snapshotTimeRef = useRef(0);
+
+  const [zoom, setZoom] = useState(1);
+  const [panX, setPanX] = useState(0);
+  const [panY, setPanY] = useState(0);
+  const isDraggingRef = useRef(false);
+  const dragStartRef = useRef({ x: 0, y: 0 });
+  const panStartRef = useRef({ x: 0, y: 0 });
+
+  const zoomRef = useRef(zoom);
+  const panXRef = useRef(panX);
