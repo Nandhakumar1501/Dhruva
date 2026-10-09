@@ -278,3 +278,23 @@ Default URL: `http://localhost:3000`
 ---
 
 ## API Reference
+
+Base URL: `http://localhost:8000`
+
+### 1) `POST /api/telemetry`
+
+Ingest absolute Cartesian state vectors.
+
+Request body:
+
+```json
+{
+  "timestamp": "2026-03-21T05:30:00Z",
+  "objects": [
+    {
+      "id": "SAT-CUSTOM-001",
+      "type": "SATELLITE",
+      "r": { "x": 6878.0, "y": 0.0, "z": 0.0 },
+      "v": { "x": 0.0, "y": 7.6, "z": 0.2 }
+    },
+    {
