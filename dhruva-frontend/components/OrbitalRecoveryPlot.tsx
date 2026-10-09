@@ -98,3 +98,23 @@ function Arrow({
           fill={color} fontSize={9} textAnchor="middle">{label}</text>
       )}
     </g>
+  );
+}
+
+export default function OrbitalRecoveryPlot({ satellite, evaBurn, recBurn }: Props) {
+  const eci = satellite.eci;
+
+  const rtn = useMemo(() => {
+    if (!eci) return null;
+    const r = { x: eci.x, y: eci.y, z: eci.z };
+    const v = { x: eci.vx, y: eci.vy, z: eci.vz };
+    const r_hat = norm3(r);
+    const h = cross3(r, v);
+    const n_hat = norm3(h);
+    const t_cross = cross3(n_hat, r_hat);
+    const t_hat = norm3(t_cross);
+    return { r_hat, t_hat, n_hat };
+  }, [eci]);
+
+  // ── RTN panel constants ──────────────────────────────────────────────────
+  const RTN_W = 260;
