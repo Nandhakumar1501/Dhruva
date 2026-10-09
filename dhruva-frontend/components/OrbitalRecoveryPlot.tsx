@@ -38,3 +38,23 @@ function cross3(
   };
 }
 
+function dot3(
+  a: { x: number; y: number; z: number },
+  b: { x: number; y: number; z: number }
+) {
+  return a.x * b.x + a.y * b.y + a.z * b.z;
+}
+
+function norm3(v: { x: number; y: number; z: number }) {
+  const m = mag3(v);
+  return { x: v.x / m, y: v.y / m, z: v.z / m };
+}
+
+/** Project ECI vector onto satellite RTN basis → [R, T, N] in km */
+function toRTN(
+  vec: { x: number; y: number; z: number },
+  r_hat: { x: number; y: number; z: number },
+  t_hat: { x: number; y: number; z: number },
+  n_hat: { x: number; y: number; z: number }
+) {
+  return {
