@@ -58,3 +58,23 @@ export default function ManeuverTimeline({ maneuvers, nowIso }: TimelineProps) {
         <div className="flex-1 relative h-4 border-b border-slate-800">
           {ticks.map((t) => (
             <div key={t.label} className="absolute top-0 -translate-x-1/2" style={{ left: `${t.p}%` }}>
+              <span className="text-[9px] text-slate-500 font-mono">{t.label}</span>
+              <div className="w-px h-1 bg-slate-700 mx-auto mt-px" />
+            </div>
+          ))}
+          <div className="absolute top-0 bottom-0 w-px bg-cyan-500 z-10" style={{ left: `${nowPct}%` }} />
+        </div>
+        <div className="w-14 shrink-0" />
+      </div>
+
+      <div className="flex-1 overflow-auto">
+        {sorted.length === 0 && (
+          <div className="text-slate-600 text-center py-3">No maneuvers in window</div>
+        )}
+        {sorted.map((m, idx) => {
+          const burnMs = new Date(m.burn_time).getTime();
+          const burnP = pct(burnMs);
+          const coolP = (COOLDOWN_S * 1000 / (windowEnd - windowStart)) * 100;
+          const burnWidth = Math.max(1, (30 * 1000 / (windowEnd - windowStart)) * 100);
+
+          const burnColor = m.executed ? "bg-emerald-500" : m.rejected ? "bg-red-500" : "bg-blue-500";
