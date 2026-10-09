@@ -18,3 +18,23 @@ function formatEta(seconds: number | null): string {
 
 export default function BlackoutPanel({
   blackoutStatus,
+  selectedSatelliteId,
+  onSelectSatellite,
+}: BlackoutPanelProps) {
+  const active = blackoutStatus
+    .filter((b) => b.in_blackout)
+    .sort((a, b) => {
+      const aSec = a.estimated_recovery_seconds ?? Number.POSITIVE_INFINITY;
+      const bSec = b.estimated_recovery_seconds ?? Number.POSITIVE_INFINITY;
+      return aSec - bSec;
+    })
+    .slice(0, 12);
+
+  return (
+    <div className="h-full border border-slate-800 bg-slate-950 p-3 flex flex-col gap-2">
+      <div className="flex items-center justify-between">
+        <h3 className="text-sm font-semibold">Blackout Status</h3>
+        <span className="text-[10px] text-red-300 border border-red-500/50 px-2 py-0.5">{active.length} active</span>
+      </div>
+
+      <div className="overflow-auto pr-1 space-y-1">
