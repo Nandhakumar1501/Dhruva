@@ -418,3 +418,23 @@ bullet(doc, "Generates AUTO-EVA-* burn (velocity-direction impulse, auto-calcula
 bullet(doc, "Immediately pairs it with AUTO-REC-* recovery burn to restore original orbital plane after conjunction window passes.", bold_lead="Immediately pairs it with AUTO-REC-*")
 bullet(doc, "Full audit trail written to burn logs — every burn timestamped, satellite identified, ΔV recorded, status marked.", bold_lead="Full audit trail")
 
+section_heading(doc, "Live Demo Result")
+bullet(doc, "15 burns executed (AUTO-EVA, AUTO-REC, operator EVASION, operator RECOVERY).")
+bullet(doc, "1 burn correctly rejected — EVASION-01 for SAT-Alpha-01 at 15.17 m/s — LOS constraint violated.")
+bullet(doc, "The rejection proves the system is safe-by-default, not just happy-path correct.")
+doc.add_page_break()
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  SLIDE 7
+# ══════════════════════════════════════════════════════════════════════════════
+slide_label(doc, 7, "System Architecture")
+punchline(doc, '"Service-Oriented, Streaming, Production-Grade — From Day One"')
+
+code_block(doc,
+"""┌──────────────────────────────────────────────────────────────┐
+│           OPERATOR FRONTEND  (React / Next.js)               │
+│  2D Map  │  3D Cesium  │  Bullseye  │  Analytics  │  CDM     │
+└───────────────────────┬──────────────────────────────────────┘
+                        │  WebSocket /orbit  (live stream)
+                        │  REST /api/*       (commands)
+┌───────────────────────▼──────────────────────────────────────┐
