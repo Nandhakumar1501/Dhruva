@@ -38,3 +38,23 @@ export default function Header({
         <div className="text-[10px] text-slate-500 font-mono uppercase tracking-widest hidden sm:block">Autonomous Constellation Manager</div>
       </div>
 
+      <div className="flex items-center gap-2">
+        <div className="text-[11px] text-slate-400 font-mono hidden lg:block tabular-nums">
+          {timestamp ? new Date(timestamp).toUTCString().replace("GMT", "UTC") : "-- UTC"}
+        </div>
+
+        <div className="h-5 w-px bg-slate-700 hidden lg:block" />
+
+        <div className="inline-flex items-center border border-slate-700 bg-slate-900/80 text-xs">
+          <button className="px-2 py-1 hover:bg-slate-800 text-slate-400 hover:text-slate-200 transition-colors" onClick={onDecreaseTimeWarp}>◀◀</button>
+          <span className="px-2.5 py-1 text-cyan-300 font-bold border-x border-slate-700 tabular-nums min-w-[3ch] text-center">{timeWarpX}×</span>
+          <button className="px-2 py-1 hover:bg-slate-800 text-slate-400 hover:text-slate-200 transition-colors" onClick={onIncreaseTimeWarp}>▶▶</button>
+        </div>
+
+        <div className={`flex items-center gap-1.5 px-2 py-0.5 border text-[10px] font-semibold ${statusTextClass}`}>
+          <span className={`w-1.5 h-1.5 rounded-full inline-block ${statusDotClass} ${isLive ? "animate-pulse" : ""}`} />
+          {statusLabel}
+        </div>
+
+        <div className="px-2 py-0.5 border border-slate-700/60 bg-slate-900/60 text-[10px] text-slate-400 tracking-wide hidden sm:block">
+          NSH 2026
