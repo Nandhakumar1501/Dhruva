@@ -178,3 +178,23 @@ def ingest_feed(session: requests.Session, key: str, limit: int) -> int:
             }
             for name, line1, line2 in batch
         ]
+        if post_batch(objects):
+            total += len(objects)
+            print(f"  Ingested {total}/{len(tles)}", end="\r")
+
+    print(f"  Done — {total} objects loaded        ")
+    return total
+
+
+def check_backend() -> bool:
+    try:
+        requests.get(f"{BACKEND_URL}/", timeout=5)
+        return True
+    except requests.RequestException:
+        return False
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Ingest Space-Track TLE data into Dhruva CDM")
+    parser.add_argument("--satellites-only", action="store_true")
+    parser.add_argument("--debris-only", action="store_true")
