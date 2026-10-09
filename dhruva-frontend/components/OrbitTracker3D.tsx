@@ -398,3 +398,23 @@ export default function OrbitTracker3D({
             material: Cesium.Color.fromCssColorString("#22d3ee").withAlpha(0.75),
             clampToGround: false,
           },
+        });
+      } else if (selectedOrbitEntityRef.current.polyline) {
+        selectedOrbitEntityRef.current.polyline.positions = orbitCacheRef.current.positions;
+      }
+      activeIds.add("__selected_orbit_path__");
+    } else if (selectedOrbitEntityRef.current) {
+      viewer.entities.remove(selectedOrbitEntityRef.current);
+      selectedOrbitEntityRef.current = null;
+      orbitCacheRef.current = { satId: null, bucket: -1, positions: null };
+    }
+
+    // Blackout zones using Cesium Geometry + Appearance primitives.
+    const blackoutSatIds = blackoutStatus
+      .filter((b) => b.in_blackout)
+      .map((b) => b.satellite_id)
+      .sort();
+    const blackoutKey = blackoutSatIds.join("|");
+    if (blackoutKey !== blackoutPrimitiveKeyRef.current) {
+      if (blackoutPrimitiveRef.current) {
+        viewer.scene.primitives.remove(blackoutPrimitiveRef.current);
