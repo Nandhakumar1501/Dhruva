@@ -58,3 +58,23 @@ export default function AnalyticsPage() {
                       .join(" ")}
                   />
                 )}
+              </svg>
+            </div>
+          </div>
+
+          <div className="border border-slate-800 bg-slate-950 p-3 flex flex-col">
+            <div className="flex items-center justify-between mb-2">
+              <div className="text-xs font-semibold text-slate-200">Current Conjunctions (CDMs)</div>
+              <div className="text-[10px] text-slate-400">
+                Total: {conjunctions.length} • Critical:{" "}
+                {conjunctions.filter((c) => c.risk_level === "CRITICAL").length} • Warning:{" "}
+                {conjunctions.filter((c) => c.risk_level === "WARNING").length}
+              </div>
+            </div>
+            <div className="flex-1 min-h-0 overflow-auto">
+              {conjunctions.length === 0 ? (
+                <div className="text-xs text-slate-500">No active conjunctions.</div>
+              ) : (
+                <table className="w-full text-[10px]">
+                  <thead>
+                    <tr className="text-slate-500 border-b border-slate-800">
