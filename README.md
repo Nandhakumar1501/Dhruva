@@ -598,3 +598,23 @@ ws.onmessage = (evt) => {
 ### Add absolute state vectors directly
 
 Use `POST /api/telemetry` with objects of type `SATELLITE` and/or `DEBRIS`.
+
+Use this when you already have Cartesian ECI-like state vectors:
+
+- Position in km: `x, y, z`
+- Velocity in km/s: `vx, vy, vz`
+
+### Add catalog data via TLE
+
+Use `POST /api/telemetry/tle` with valid TLE lines and timestamp.
+
+Use this when you have NORAD/CelesTrak style inputs and want backend conversion handled automatically.
+
+### Add large synthetic stress datasets
+
+Use `POST /api/debug/load_cdm_csv` for CDM-style relative fields in `test_data/debris_data.csv`.
+
+Use this for high-volume performance testing and warning pipeline validation.
+
+---
+
