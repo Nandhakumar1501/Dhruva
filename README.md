@@ -518,3 +518,23 @@ Limits:
 Response:
 
 ```json
+{
+  "status": "LOADED",
+  "source_csv": "C:\\Users\\...\\test_data\\debris_data.csv",
+  "loaded": 10000,
+  "skipped": 0,
+  "debris_total": 10020,
+  "active_cdm_warnings": 9,
+  "note": "CDM relative RTN fields were converted to ECI-like states using mission-anchored satellites."
+}
+```
+
+Important interpretation note:
+
+- This CSV path is excellent for load/performance and pipeline testing.
+- It contains relative encounter features, not absolute truth ephemerides for each object.
+
+### 8) `GET /api/sim/timewarp`
+
+Response:
+
