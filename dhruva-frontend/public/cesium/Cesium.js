@@ -1458,3 +1458,23 @@ struct czm_modelMaterial {
  *
  * @see {@link CustomShader}
  * @see {@link Model}
+ *
+ * @property {vec3} positionMC The position of the vertex in model coordinates
+ * @property {float} pointSize A custom value for gl_PointSize. This is only used for point primitives. 
+ */
+struct czm_modelVertexOutput {
+  vec3 positionMC;
+  float pointSize;
+};
+`;var qHt=y(x(),1),jV=`/**
+ * DOC_TBA
+ *
+ * @name czm_ray
+ * @glslStruct
+ */
+struct czm_ray
+{
+    vec3 origin;
+    vec3 direction;
+};
+`;var eKt=y(x(),1),qV=`/**
