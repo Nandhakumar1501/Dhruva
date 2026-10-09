@@ -658,3 +658,17 @@ notes_list = [
      "Let it sound procedurally rigorous. Judges from ISRO / DRDO will recognise this as flight-software thinking."),
     ("Slide 11 — Lead with the Rejected Burn",
      "Open Slide 11 with: 'The most important result isn't a burn that executed — it's the one we correctly rejected.' "
+     "This flips the frame from feature showcase to safety assurance."),
+    ("Slide 12 — Close with the Tagline",
+     "The Sanskrit meaning of Dhruva landing at the very end of the presentation is a strong, "
+     "memorable close. Deliver it slowly. Don't rush the Thank You slide after it."),
+]
+
+for title, content in notes_list:
+    section_heading(doc, title)
+    body(doc, content)
+
+# ── Save ──────────────────────────────────────────────────────────────────────
+out_path = r"C:\Users\Jeevan Kumar M\Desktop\Project-dhruva\Dhruva_CDM_PPT_Content.docx"
+doc.save(out_path)
+print("Saved: " + out_path)
