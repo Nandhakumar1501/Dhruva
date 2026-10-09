@@ -78,3 +78,23 @@ def slide_label(doc, number: int, title: str):
     p  = doc.add_paragraph()
     p.paragraph_format.space_before = Pt(18)
     p.paragraph_format.space_after  = Pt(0)
+    r  = p.add_run(f"  SLIDE {number}  ")
+    r.bold            = True
+    r.font.size       = Pt(10)
+    r.font.color.rgb  = WHITE
+    # Shade the paragraph background via XML shading on the paragraph itself
+    pPr  = p._p.get_or_add_pPr()
+    shd  = OxmlElement("w:shd")
+    shd.set(qn("w:val"),   "clear")
+    shd.set(qn("w:color"), "auto")
+    shd.set(qn("w:fill"),  "0A1F44")
+    pPr.append(shd)
+
+    # Title
+    pt = doc.add_paragraph()
+    pt.paragraph_format.space_before = Pt(4)
+    pt.paragraph_format.space_after  = Pt(6)
+    rt = pt.add_run(title)
+    rt.bold           = True
+    rt.font.size      = Pt(16)
+    rt.font.color.rgb = GOLD
