@@ -38,3 +38,23 @@ class TleObject(BaseModel):
     tle_line1: str
     tle_line2: str
     timestamp: datetime
+
+
+class TleTelemetryRequest(BaseModel):
+    objects: list[TleObject]
+
+
+class ManeuverItem(BaseModel):
+    burn_id: str
+    burnTime: datetime
+    deltaV_vector: VecModel
+
+
+class ManeuverRequest(BaseModel):
+    satelliteId: str
+    maneuver_sequence: list[ManeuverItem]
+
+
+class StepRequest(BaseModel):
+    step_seconds: int = Field(gt=0)
+
