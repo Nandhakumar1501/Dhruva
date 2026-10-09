@@ -338,3 +338,23 @@ czm_material czm_getMaterial(czm_materialInput materialInput)
     if (height < minHeight || height > maxHeight) {
         material.diffuse = vec3(0.0);
         material.alpha = 0.0;
+        return material;
+    }
+
+    // Binary search to find heights above and below.
+    int idxBelow = 0;
+    int idxAbove = heightsDimensions.x;
+    float heightBelow = minHeight;
+    float heightAbove = maxHeight;
+
+    // while loop not allowed, so use for loop with max iterations.
+    // maxIterations of 16 supports a texture size up to 65536 (2^16).
+    const int maxIterations = 16;
+    for (int i = 0; i < maxIterations; i++) {
+        if (idxBelow >= idxAbove - 1) {
+            break;
+        }
+
+        int idxMid = (idxBelow + idxAbove) / 2;
+        float heightTex = getHeight(idxMid, invTexSize);
+
