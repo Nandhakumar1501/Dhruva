@@ -198,3 +198,23 @@ export default function BullseyePlot({ selectedSatelliteId, conjunctions }: Bull
             className="relative bg-slate-950 border border-slate-700 shadow-2xl flex flex-col"
             style={{ width: "min(90vw, 700px)", height: "min(85vh, 660px)" }}
             onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-4 py-3 border-b border-slate-800">
+              <div>
+                <div className="text-sm font-semibold text-slate-100">Conjunction Bullseye - Extended View</div>
+                <div className="text-[11px] text-slate-400">
+                  {selectedSatelliteId ?? "No satellite"} - {filtered.length} conjunction{filtered.length !== 1 ? "s" : ""}
+                </div>
+              </div>
+              <button
+                className="text-xs text-slate-400 hover:text-slate-100 border border-slate-700 px-3 py-1 bg-slate-900 hover:bg-slate-800"
+                onClick={() => { setExpanded(false); setTooltip(null); }}
+              >
+                Close
+              </button>
+            </div>
+
+            <div className="flex flex-1 min-h-0">
+              <div className="flex-1 p-3 relative">
+                <canvas
+                  ref={expandedCanvasRef}
