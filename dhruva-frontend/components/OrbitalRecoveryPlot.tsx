@@ -218,3 +218,23 @@ export default function OrbitalRecoveryPlot({ satellite, evaBurn, recBurn }: Pro
             const nx = RTN_CX + nomT * RTN_SCALE;
             const ny = RTN_CY - nomR * RTN_SCALE;
             const inBounds =
+              Math.abs(nx - RTN_CX) < RTN_W / 2 - 5 &&
+              Math.abs(ny - RTN_CY) < RTN_H / 2 - 5;
+            if (!inBounds) return null;
+            return (
+              <g>
+                {/* Drift line */}
+                <line x1={RTN_CX} y1={RTN_CY} x2={nx} y2={ny}
+                  stroke="#f59e0b" strokeWidth={1} strokeDasharray="4,3" opacity={0.7} />
+                {/* Nominal slot diamond */}
+                <polygon
+                  points={`${nx},${ny - 7} ${nx + 6},${ny} ${nx},${ny + 7} ${nx - 6},${ny}`}
+                  fill="none" stroke="#22c55e" strokeWidth={1.5} opacity={0.8}
+                />
+                <text x={nx + 9} y={ny + 3} fill="#22c55e" fontSize={8}>Nominal</text>
+                {/* Drift label */}
+                <text
+                  x={(RTN_CX + nx) / 2 + 5}
+                  y={(RTN_CY + ny) / 2 - 4}
+                  fill="#f59e0b" fontSize={8}
+                >
