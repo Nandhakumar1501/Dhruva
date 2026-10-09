@@ -38,3 +38,23 @@ def add_hr(doc):
     p   = doc.add_paragraph()
     pPr = p._p.get_or_add_pPr()
     pb  = OxmlElement("w:pBdr")
+    bot = OxmlElement("w:bottom")
+    bot.set(qn("w:val"),   "single")
+    bot.set(qn("w:sz"),    "6")
+    bot.set(qn("w:space"), "1")
+    bot.set(qn("w:color"), "1A6BD0")
+    pb.append(bot)
+    pPr.append(pb)
+    p.paragraph_format.space_before = Pt(2)
+    p.paragraph_format.space_after  = Pt(2)
+
+
+def doc_title(doc, text):
+    """Cover / section title."""
+    p  = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p.paragraph_format.space_before = Pt(18)
+    p.paragraph_format.space_after  = Pt(4)
+    run = p.add_run(text)
+    run.bold      = True
+    run.font.size = Pt(26)
