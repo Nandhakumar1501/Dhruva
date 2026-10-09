@@ -578,3 +578,23 @@ add_table(doc,
         ["Total ΔV consumed (fleet)",        "124.11 m/s"],
         ["Fleet uptime",                     "92.74%"],
         ["Uptime score",                     "80.42"],
+        ["Outage satellite-seconds",         "18,206 s"],
+        ["Total burns logged",               "16 (15 executed / 1 correctly rejected)"],
+        ["Active CDM warnings (live sample)","3 SAFE — 7.636 km (TCA 1080 s), 14.582 km (TCA 1800 s), 36.157 km (TCA 60 s)"],
+        ["Graveyard satellites",             "0 — propellant budgeting maintained entire 50-satellite fleet above EOL threshold"],
+        ["Max simultaneous blackouts",       "12 satellites (tracked and surfaced to operator simultaneously)"],
+    ],
+    col_widths=[Inches(3.0), Inches(3.4)]
+)
+
+section_heading(doc, "The Genesis Story (Origin Proof-of-Concept)")
+bullet(doc, "Stage 1: 2D simulation — predicted collision point identified on look-ahead horizon. Satellite (green) and debris (red) on separate tracks.", bold_lead="Stage 1:")
+bullet(doc, "Stage 2: Orbits converged, predicted collision point migrated toward satellite position — threshold crossed — evasion burn scheduled.", bold_lead="Stage 2:")
+bullet(doc, "Stage 3: Post-burn trajectory confirmed diverged from debris track — closed-loop autonomy validated in the very first prototype.", bold_lead="Stage 3:")
+
+section_heading(doc, "The Rejected Burn — Why It Matters")
+body(doc,
+     "EVASION-01 for SAT-Alpha-01 (15.17 m/s) was rejected by the LOS/cooldown validation gate. "
+     "This is not a failure — it is proof that the system is safe-by-default. A burn that would violate "
+     "an operational constraint is rejected with a reason code, not silently ignored. That is production-grade behaviour.")
+doc.add_page_break()
