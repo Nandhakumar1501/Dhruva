@@ -278,3 +278,23 @@ export default function OrbitTracker3D({
     viewer.clock.currentTime = simJulian.clone();
     viewer.clock.shouldAnimate = false;
 
+    const activeIds = new Set<string>();
+
+    const warningIds = new Set(
+      conjunctions
+        .filter((c) => c.risk_level === "CRITICAL" || c.risk_level === "WARNING")
+        .map((c) => c.debris_id)
+    );
+
+    // Render Satellites using SampledPositionProperty for smooth interpolation
+    satellites.forEach((sat) => {
+      const entityId = `sat_${sat.id}`;
+      activeIds.add(entityId);
+
+      const isSelected = selectedSatelliteId === sat.id;
+      const color = isSelected ? Cesium.Color.fromCssColorString("#22c55e") : Cesium.Color.fromCssColorString("#60a5fa");
+      const pos = Cesium.Cartesian3.fromDegrees(sat.lon, sat.lat, sat.altitude_km * 1000);
+
+      if (entitiesRef.current[entityId]) {
+        const entity = entitiesRef.current[entityId];
+        // Add new sample to the existing SampledPositionProperty
