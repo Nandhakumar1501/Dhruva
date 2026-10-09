@@ -98,3 +98,23 @@ def parse_tles(text: str) -> list[tuple[str, str, str]]:
             norad_id = lines[i][2:7].strip()
             tles.append((f"OBJECT-{norad_id}", lines[i], lines[i + 1]))
             i += 2
+        else:
+            i += 1
+    return tles
+
+
+def tle_epoch_to_datetime(line1: str) -> datetime:
+    """Extract the TLE epoch from line 1 and return it as a UTC datetime."""
+    epoch_str = line1[18:32].strip()
+    yy = int(epoch_str[0:2])
+    year = 2000 + yy if yy < 57 else 1900 + yy
+    day_frac = float(epoch_str[2:])
+    return datetime(year, 1, 1, tzinfo=timezone.utc) + timedelta(days=day_frac - 1)
+
+
+def is_fresh(line1: str, max_age_days: int = 30) -> bool:
+    """Return True if the TLE epoch is within max_age_days of today."""
+    try:
+        epoch = tle_epoch_to_datetime(line1)
+        return (datetime.now(timezone.utc) - epoch).days <= max_age_days
+    except Exception:
