@@ -638,3 +638,23 @@ p = doc.add_paragraph()
 r = p.add_run("PRESENTER DELIVERY NOTES")
 r.bold = True; r.font.size = Pt(14); r.font.color.rgb = NAVY
 add_hr(doc)
+
+notes_list = [
+    ("Slide 1 — Open Hard",
+     "Quote the fragment count (500,000+) and let it land before moving on. Do not rush past it. "
+     "Let the judges absorb the scale of the problem before you offer the solution."),
+    ("Slide 3 — Say the Comparison Line Out Loud",
+     '"ESA\'s SST cost over a hundred million euros. This runs in 60 seconds on a laptop." '
+     "Pause after saying it. It will land."),
+    ("Slide 4 — On Physics Depth",
+     "You don't need to derive the math. Just say: "
+     '"We implemented this from scratch — not a library call. Every equation is in physics.py and cites Vallado 2013." '
+     "That alone impresses an ISRO judge."),
+    ("Slide 5 — The O(N²) Line",
+     "Say the number: 4 million pairs per tick. Then explain how the pipeline reduces it. "
+     "Concrete numbers always beat abstract complexity notation for a general audience."),
+    ("Slide 6 — Walk the Gauntlet Like a Checklist",
+     "Read through the 4 gates slowly — Latency, Cooldown, LOS, Fuel. "
+     "Let it sound procedurally rigorous. Judges from ISRO / DRDO will recognise this as flight-software thinking."),
+    ("Slide 11 — Lead with the Rejected Burn",
+     "Open Slide 11 with: 'The most important result isn't a burn that executed — it's the one we correctly rejected.' "
