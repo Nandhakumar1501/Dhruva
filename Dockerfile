@@ -38,3 +38,5 @@ EXPOSE 3000
 
 # Create startup script
 RUN printf '#!/bin/bash\necho "FastAPI backend running at PORT : 8000 and NextJs frontend running at PORT : 3000"\npython3 -m uvicorn server:app --host 0.0.0.0 --port 8000 &\ncd /app/dhruva-frontend && npm start -- -p 3000 &\nwait\n' > /app/start.sh && chmod +x /app/start.sh
+
+CMD ["/app/start.sh"]
