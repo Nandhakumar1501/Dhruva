@@ -18,3 +18,23 @@ debris, = ax.plot([], [], 'r^')
 collision_marker, = ax.plot([], [], 'yo', markersize=8)
 trail, = ax.plot([], [], 'green')
 debris_trail, = ax.plot([], [], 'red')
+burn_point, = ax.plot([], [], 'mo', markersize=6)
+
+maneuver_started = False
+
+state = np.array([6778, 0, 0, 0, 7.67, 0])
+debris_state = np.array([6780, 0, 0, 0, -7.66, 0])
+
+
+x_list = []
+y_list = []
+
+x_list_debris = []
+y_list_debris = []
+
+dt = 20
+steps = 200
+max_trail = 200
+
+def predict_closest_approach(state, debris_state):
+    test_state = state.copy()
