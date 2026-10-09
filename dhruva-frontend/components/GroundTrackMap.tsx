@@ -38,3 +38,23 @@ function gmstRad(ts: string): number {
 
 function propagateStep(r: number[], v: number[], dt: number): [number[], number[]] {
   const accel = (rr: number[]) => {
+    const mag3 = Math.pow(rr[0] * rr[0] + rr[1] * rr[1] + rr[2] * rr[2], 1.5);
+    const f = -MU / mag3;
+    return [f * rr[0], f * rr[1], f * rr[2]];
+  };
+  const k1a = accel(r);
+  const r2 = r.map((x, i) => x + v[i] * dt / 2);
+  const v2 = v.map((x, i) => x + k1a[i] * dt / 2);
+  const k2a = accel(r2);
+  const r3 = r.map((x, i) => x + v2[i] * dt / 2);
+  const v3 = v.map((x, i) => x + k2a[i] * dt / 2);
+  const k3a = accel(r3);
+  const r4 = r.map((x, i) => x + v3[i] * dt);
+  const v4 = v.map((x, i) => x + k3a[i] * dt);
+  const k4a = accel(r4);
+  const newR = r.map((x, i) => x + (dt / 6) * (v[i] + 2 * v2[i] + 2 * v3[i] + v4[i]));
+  const newV = v.map((x, i) => x + (dt / 6) * (k1a[i] + 2 * k2a[i] + 2 * k3a[i] + k4a[i]));
+  return [newR, newV];
+}
+
+function computeForwardTrack(
