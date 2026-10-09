@@ -58,3 +58,23 @@ export default function Orbit2DView({ sat, deb, satTrail, debTrail }: Props) {
 
     const drawTrail = (trail: Vec2[], color: string) => {
       if (!trail.length) return;
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1;
+      ctx.setLineDash([]);
+      ctx.beginPath();
+      trail.forEach((p, idx) => {
+        const x = cx + p.x * SCALE;
+        const y = cy - p.y * SCALE;
+        if (idx === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+    };
+
+    drawTrail(satTrail, "#38bdf8");
+    drawTrail(debTrail, "#f97373");
+
+    const drawBody = (p: Vec2, color: string, isSat: boolean) => {
+      const x = cx + p.x * SCALE;
+      const y = cy - p.y * SCALE;
+      ctx.save();
