@@ -78,3 +78,23 @@ export default function AnalyticsPage() {
                 <table className="w-full text-[10px]">
                   <thead>
                     <tr className="text-slate-500 border-b border-slate-800">
+                      <th className="text-left py-1.5 px-1 font-medium">Sat</th>
+                      <th className="text-left py-1.5 px-1 font-medium">Debris</th>
+                      <th className="text-right py-1.5 px-1 font-medium">TCA (s)</th>
+                      <th className="text-right py-1.5 px-1 font-medium">Miss (km)</th>
+                      <th className="text-center py-1.5 px-1 font-medium">Risk</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {conjunctions.map((c, idx) => (
+                      <tr key={`${c.satellite_id}-${c.debris_id}-${idx}`} className="border-b border-slate-800/50 hover:bg-slate-900/50">
+                        <td className="py-1.5 px-1 text-slate-300">{c.satellite_id}</td>
+                        <td className="py-1.5 px-1 text-slate-400">{c.debris_id}</td>
+                        <td className="py-1.5 px-1 text-right font-mono text-slate-300">{c.tca_seconds.toFixed(1)}</td>
+                        <td className="py-1.5 px-1 text-right font-mono text-cyan-300">{c.miss_distance_km.toFixed(3)}</td>
+                        <td className="py-1.5 px-1 text-center">
+                          <span
+                            className={
+                              c.risk_level === "CRITICAL"
+                                ? "text-red-400"
+                                : c.risk_level === "WARNING"
