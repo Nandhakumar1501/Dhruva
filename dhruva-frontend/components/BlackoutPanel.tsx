@@ -58,3 +58,9 @@ export default function BlackoutPanel({
             <div className="text-[10px] text-slate-500">
               LOS restore ETA: {item.estimated_recovery_timestamp ? new Date(item.estimated_recovery_timestamp).toUTCString() : "unknown"}
             </div>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
