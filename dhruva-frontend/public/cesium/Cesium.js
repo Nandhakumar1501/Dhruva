@@ -2178,3 +2178,23 @@ void czm_computeScattering(
 
     // Return empty colors if no intersection with the atmosphere geometry.
     if (primaryRayAtmosphereIntersect == czm_emptyRaySegment) {
+        return;
+    }
+
+    // To deal with smaller values of PRIMARY_STEPS (e.g. 4)
+    // we implement a split strategy: sky or horizon.
+    // For performance reasons, instead of a if/else branch
+    // a soft choice is implemented through a weight 0.0 <= w_stop_gt_lprl <= 1.0
+    float x = 1e-7 * primaryRayAtmosphereIntersect.stop / length(primaryRayLength);
+    // Value close to 0.0: close to the horizon
+    // Value close to 1.0: above in the sky
+    float w_stop_gt_lprl = 0.5 * (1.0 + czm_approximateTanh(x));
+
+    // The ray should start from the first intersection with the outer atmopshere, or from the camera position, if it is inside the atmosphere.
+    float start_0 = primaryRayAtmosphereIntersect.start;
+    primaryRayAtmosphereIntersect.start = max(primaryRayAtmosphereIntersect.start, 0.0);
+    // The ray should end at the exit from the atmosphere or at the distance to the vertex, whichever is smaller.
+    primaryRayAtmosphereIntersect.stop = min(primaryRayAtmosphereIntersect.stop, length(primaryRayLength));
+
+    // For the number of ray steps, distinguish inside or outside atmosphere (outer space)
+    // (1) from outer space we have to use more ray steps to get a realistic rendering
