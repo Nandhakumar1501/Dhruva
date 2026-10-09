@@ -718,3 +718,23 @@ czm_material czm_getMaterial(czm_materialInput materialInput)
 czm_material czm_getMaterial(czm_materialInput materialInput)
 {
     czm_material material = czm_getDefaultMaterial(materialInput);
+    vec4 rampColor = texture(image, vec2(materialInput.slope / (czm_pi / 2.0), 0.5));
+    rampColor = czm_gammaCorrect(rampColor);
+    material.diffuse = rampColor.rgb;
+    material.alpha = rampColor.a;
+    return material;
+}
+`;var WQt=y(x(),1),HR=`uniform vec4 evenColor;
+uniform vec4 oddColor;
+uniform float offset;
+uniform float repeat;
+uniform bool horizontal;
+
+czm_material czm_getMaterial(czm_materialInput materialInput)
+{
+    czm_material material = czm_getDefaultMaterial(materialInput);
+
+    // Based on the Stripes Fragment Shader in the Orange Book (11.1.2)
+    float coord = mix(materialInput.st.s, materialInput.st.t, float(horizontal));
+    float value = fract((coord - offset) * (repeat * 0.5));
+    float dist = min(value, min(abs(value - 0.5), 1.0 - value));
