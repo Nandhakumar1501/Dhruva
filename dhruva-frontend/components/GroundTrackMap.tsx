@@ -78,3 +78,23 @@ function computeForwardTrack(
     const ze = r[2];
     const rr = Math.sqrt(xe * xe + ye * ye + ze * ze);
     pts.push({
+      lat: Math.asin(Math.max(-1, Math.min(1, ze / rr))) * 180 / Math.PI,
+      lon: Math.atan2(ye, xe) * 180 / Math.PI,
+    });
+    if (i < totalSteps) [r, v] = propagateStep(r, v, stepSeconds);
+  }
+  return pts;
+}
+
+function mercatorXY(lat: number, lon: number, width: number, height: number) {
+  const clampedLat = Math.max(-85, Math.min(85, lat));
+  const x = ((lon + 180) / 360) * width;
+  const latRad = (clampedLat * Math.PI) / 180;
+  const mercY = Math.log(Math.tan(Math.PI / 4 + latRad / 2));
+  const y = height / 2 - (height * mercY) / (2 * Math.PI);
+  return { x, y };
+}
+
+function lerp(a: number, b: number, t: number): number {
+  return a + (b - a) * t;
+}
