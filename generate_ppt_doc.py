@@ -238,3 +238,23 @@ def add_table(doc, headers, rows, col_widths=None):
                 r.font.color.rgb = BLACK
     # column widths
     if col_widths:
+        for i, w in enumerate(col_widths):
+            for row in t.rows:
+                row.cells[i].width = w
+    doc.add_paragraph()   # spacer
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  COVER PAGE
+# ══════════════════════════════════════════════════════════════════════════════
+doc_title(doc, "DHRUVA CDM")
+doc_subtitle(doc, "Autonomous Constellation Management & Conjunction Decision Support Platform")
+doc_subtitle(doc, "Hackathon Presentation — Slide Content Document")
+add_hr(doc)
+note(doc, "Stack: Python · FastAPI · React · Next.js · WebSocket · physics.py")
+note(doc, "Repository: github.com/jeevankumar-m/project-dhruva")
+note(doc, "Demo Video: https://youtu.be/fs9eEaVNgIA")
+note(doc, "Version 1.0.0  |  © 2026 Dhruva CDM Project")
+doc.add_page_break()
+
+# ══════════════════════════════════════════════════════════════════════════════
