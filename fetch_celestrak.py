@@ -218,3 +218,19 @@ def main():
 
     total = 0
 
+    if not args.debris_only:
+        total += ingest_feed(session, "satellites", args.limit)
+
+    if not args.satellites_only:
+        total += ingest_feed(session, "cosmos_debris", args.limit)
+        total += ingest_feed(session, "fengyun_debris", args.limit)
+        total += ingest_feed(session, "iridium_debris", args.limit)
+
+    session.get(f"{ST_BASE}/ajaxauth/logout")
+
+    print(f"\nTotal objects ingested: {total}")
+    print("Open http://localhost:3000 to see them on the globe.")
+
+
+if __name__ == "__main__":
+    main()
