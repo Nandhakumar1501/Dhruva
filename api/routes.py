@@ -118,3 +118,23 @@ def build_router(state: SimulationState) -> APIRouter:
             processed += 1
 
         state.current_time = payload.timestamp
+        state.conjunctions = state.conjunctions
+
+        return {
+            "status": "ACK",
+            "processed_count": processed,
+            "active_cdm_warnings": len(state.conjunctions),
+        }
+
+    @router.post("/telemetry/tle")
+    async def telemetry_tle(payload: TleTelemetryRequest) -> dict[str, Any]:
+        """
+        Ingest TLEs, propagate with SGP4, convert TEME->GCRS (ECI-like),
+        and ingest as state vectors (km, km/s).
+        """
+        processed = 0
+
+        # Keep simulation time aligned with the last ingested object timestamp.
+        last_ts: datetime | None = None
+        for obj in payload.objects:
+            try:
