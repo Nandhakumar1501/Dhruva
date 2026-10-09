@@ -1778,3 +1778,23 @@ vec3 czm_applyHSBShift(vec3 rgb, vec3 hsbShift, bool ignoreBlackPixels) {
     // Hue cycles around so no clamp is needed.
     hsb.x += hsbShift.x; // hue
     hsb.y = clamp(hsb.y + hsbShift.y, 0.0, 1.0); // saturation
+
+    // brightness
+    //
+    // Some shaders such as atmosphere-related effects need to leave black
+    // pixels unchanged
+    if (ignoreBlackPixels) {
+        hsb.z = hsb.z > czm_epsilon7 ? hsb.z + hsbShift.z : 0.0;
+    } else {
+        hsb.z = hsb.z + hsbShift.z;
+    }
+    hsb.z = clamp(hsb.z, 0.0, 1.0);
+
+    // Convert shifted hsb back to rgb
+    return czm_HSBToRGB(hsb);
+}
+`;var SKt=y(x(),1),dG=`/**
+ * Approximately computes spherical coordinates given a normal.
+ * Uses approximate inverse trigonometry for speed and consistency,
+ * since inverse trigonometry can differ from vendor-to-vendor and when compared with the CPU.
+ *
