@@ -318,3 +318,23 @@ Response:
 ```
 
 ### 2) `POST /api/telemetry/tle`
+
+Ingest TLE objects. Backend performs SGP4 + TEME to GCRS conversion and stores resulting state vectors.
+
+Request body:
+
+```json
+{
+  "objects": [
+    {
+      "id": "TLE-ISS-25544",
+      "object_type": "SATELLITE",
+      "tle_line1": "1 25544U 98067A   26079.87218434  .00009590  00000+0  18573-3 0  9990",
+      "tle_line2": "2 25544  51.6346  17.0785 0006366 213.2716 146.7873 15.48402839558062",
+      "timestamp": "2026-03-21T05:34:37Z"
+    }
+  ]
+}
+```
+
+Response:
