@@ -398,3 +398,23 @@ slide_label(doc, 6, "Autonomous Maneuver Planning & Validation")
 punchline(doc, '"No Burn Flies Without Passing a 4-Gate Safety Gauntlet"')
 
 section_heading(doc, "Validation Gate Sequence")
+code_block(doc,
+"""[Command Received]
+      ↓
+[1] Command Latency Check    → Burn epoch must be ≥ 10 s in the future (uplink time)
+      ↓
+[2] Thermal Cooldown Gate    → Minimum 600 s between consecutive burns (thruster protection)
+      ↓
+[3] Ground Station LOS       → Satellite must be visible to a ground station at burn epoch
+                               (IIT Delhi Ground Node | ISTRAC Bengaluru | Goldstone Tracking)
+      ↓
+[4] Fuel Feasibility         → Tsiolkovsky check: |Δv| achievable with remaining propellant
+      ↓
+[SCHEDULED ✓  /  REJECTED ✗  with reason code]""")
+
+section_heading(doc, "Autonomous CRITICAL Response")
+bullet(doc, "Conjunction engine detects miss distance < 1 km → threshold crossed.", bold_lead="Conjunction engine detects")
+bullet(doc, "Generates AUTO-EVA-* burn (velocity-direction impulse, auto-calculated magnitude).", bold_lead="Generates AUTO-EVA-*")
+bullet(doc, "Immediately pairs it with AUTO-REC-* recovery burn to restore original orbital plane after conjunction window passes.", bold_lead="Immediately pairs it with AUTO-REC-*")
+bullet(doc, "Full audit trail written to burn logs — every burn timestamped, satellite identified, ΔV recorded, status marked.", bold_lead="Full audit trail")
+
