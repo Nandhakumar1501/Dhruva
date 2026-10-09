@@ -38,3 +38,23 @@ export default function SatelliteDetail({ satellite }: SatelliteDetailProps) {
           <div className="text-slate-500 text-[10px]">Fuel remaining (planned)</div>
           <div className={`text-base font-bold ${fuelColor}`}>{plannedFuelKg.toFixed(2)} kg</div>
         </div>
+        <div className="bg-slate-900 border border-slate-800 p-2">
+          <div className="text-slate-500 text-[10px]">Fuel %</div>
+          <div className={`text-base font-bold ${fuelColor}`}>{fuelPct.toFixed(1)}%</div>
+        </div>
+        <div className="bg-slate-900 border border-slate-800 p-2">
+          <div className="text-slate-500 text-[10px]">Current mass (planned)</div>
+          <div className="text-base font-bold text-slate-200">{totalMass.toFixed(2)} kg</div>
+        </div>
+        <div className="bg-slate-900 border border-slate-800 p-2">
+          <div className="text-slate-500 text-[10px]">Dry mass</div>
+          <div className="text-base font-bold text-slate-400">{DRY_MASS_KG} kg</div>
+        </div>
+      </div>
+
+      <div className="bg-slate-900 border border-slate-800 p-2 text-xs">
+        <div className="flex items-center justify-between mb-1">
+          <div className="text-slate-500 text-[10px]">Reserved for queued burns</div>
+          <div className="text-[10px] text-slate-300">{reservedFuelKg.toFixed(2)} kg</div>
+        </div>
+        <div className="text-slate-500 text-[10px] mb-1">Fuel gauge</div>
