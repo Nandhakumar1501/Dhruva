@@ -18,3 +18,23 @@ section.right_margin  = Inches(1.15)
 # ── Colour palette ────────────────────────────────────────────────────────────
 NAVY   = RGBColor(0x0A, 0x1F, 0x44)   # deep navy  – headings
 BLUE   = RGBColor(0x1A, 0x6B, 0xD0)   # accent blue – subheads / bullets
+GOLD   = RGBColor(0xD4, 0xA0, 0x17)   # gold        – slide titles
+BLACK  = RGBColor(0x1A, 0x1A, 0x1A)   # near-black  – body text
+GREY   = RGBColor(0x55, 0x55, 0x55)   # grey        – notes / captions
+WHITE  = RGBColor(0xFF, 0xFF, 0xFF)
+
+
+def set_cell_bg(cell, hex_color: str):
+    tc   = cell._tc
+    tcPr = tc.get_or_add_tcPr()
+    shd  = OxmlElement("w:shd")
+    shd.set(qn("w:val"),   "clear")
+    shd.set(qn("w:color"), "auto")
+    shd.set(qn("w:fill"),  hex_color)
+    tcPr.append(shd)
+
+
+def add_hr(doc):
+    p   = doc.add_paragraph()
+    pPr = p._p.get_or_add_pPr()
+    pb  = OxmlElement("w:pBdr")
