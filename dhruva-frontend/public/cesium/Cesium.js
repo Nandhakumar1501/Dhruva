@@ -1078,3 +1078,23 @@ const float czm_passCompute = 1.0;
  * @glslConstant
  *
  * @see czm_pass
+ */
+const float czm_passEnvironment = 0.0;
+`;var eHt=y(x(),1),IV=`/**
+ * The automatic GLSL constant for {@link Pass#GAUSSIAN_SPLATS}
+ *
+ * @name czm_passGaussianSplats
+ * @glslConstant
+ *
+ * @see czm_pass
+ */
+const float czm_passGaussianSplats = 11.0;
+`;var nHt=y(x(),1),_V=`/**
+ * The automatic GLSL constant for {@link Pass#GLOBE}
+ *
+ * @name czm_passGlobe
+ * @glslConstant
+ *
+ * @see czm_pass
+ */
+const float czm_passGlobe = 2.0;
