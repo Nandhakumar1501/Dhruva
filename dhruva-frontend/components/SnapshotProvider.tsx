@@ -118,3 +118,23 @@ export function SnapshotProvider({ children }: { children: React.ReactNode }) {
     const connectWebSocket = () => {
       if (!mounted) return;
       const ws = createOrbitSocket((data) => {
+        if (!mounted) return;
+        setStatus("live");
+        ingestSnapshot(data);
+      });
+
+      ws.onopen = () => {
+        if (mounted) setStatus("live");
+      };
+
+      ws.onclose = () => {
+        if (!mounted) return;
+        setStatus("degraded");
+        reconnectTimer = window.setTimeout(connectWebSocket, 500);
+      };
+
+      ws.onerror = () => {
+        if (!mounted) return;
+        setStatus("error");
+      };
+
