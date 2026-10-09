@@ -438,3 +438,23 @@ code_block(doc,
                         │  WebSocket /orbit  (live stream)
                         │  REST /api/*       (commands)
 ┌───────────────────────▼──────────────────────────────────────┐
+│           FASTAPI BACKEND  (server.py)                       │
+│  api/routes.py  │  engine/sim_state.py   │  physics.py       │
+│                 │  engine/conjunction.py  (Grid / KD-Tree)   │
+└──────────────────────────────────────────────────────────────┘
+      INPUT:  TLE Data  |  Cartesian Telemetry  |  CDM CSV""")
+
+section_heading(doc, "Key Architectural Decisions")
+bullet(doc, "WebSocket over REST polling: eliminates stale-state and synchronisation artifacts. Warning state reaches the UI within a single simulation tick (sub-second).", bold_lead="WebSocket over REST polling:")
+bullet(doc, "Dual execution modes: Live stream (spatial grid, UI-optimised) vs. Step/Batch (KD-tree, throughput-optimised). One backend, two operating profiles.", bold_lead="Dual execution modes:")
+bullet(doc, "TLE → SGP4 → ECI pipeline: ingests real NORAD/CelesTrak catalog data; backend handles frame transformation automatically (TEME → GCRS).", bold_lead="TLE → SGP4 → ECI pipeline:")
+bullet(doc, "Time-warp 1×–100×: compress orbital mechanics for rapid scenario rehearsal and stress testing.", bold_lead="Time-warp 1×–100×:")
+bullet(doc, "Single-container Docker deploy: backend (port 8000) + frontend (port 3000) in one image. Zero-dependency setup for evaluators.", bold_lead="Single-container Docker deploy:")
+
+section_heading(doc, "Module Responsibilities")
+add_table(doc,
+    ["Module", "Responsibility"],
+    [
+        ["server.py",           "FastAPI bootstrap, CORS, SimulationState instantiation, WebSocket /orbit endpoint"],
+        ["api/routes.py",       "All REST endpoints: telemetry ingest, TLE ingest, maneuver scheduling, step, snapshot, seed, time-warp, CDM CSV loader"],
+        ["engine/sim_state.py", "Operational core: sim time, state vectors, maneuver queues, conjunction warnings, blackout tracking, graveyard logic, objective metrics"],
