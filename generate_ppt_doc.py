@@ -178,3 +178,23 @@ def code_block(doc, text):
 
 
 def punchline(doc, text):
+    p = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p.paragraph_format.space_before = Pt(8)
+    p.paragraph_format.space_after  = Pt(8)
+    p.paragraph_format.left_indent  = Inches(0.3)
+    pPr = p._p.get_or_add_pPr()
+    shd = OxmlElement("w:shd")
+    shd.set(qn("w:val"),   "clear")
+    shd.set(qn("w:color"), "auto")
+    shd.set(qn("w:fill"),  "EBF3FB")
+    pPr.append(shd)
+    r = p.add_run(text)
+    r.bold           = True
+    r.italic         = True
+    r.font.size      = Pt(11)
+    r.font.color.rgb = NAVY
+
+
+def note(doc, text):
+    p = doc.add_paragraph()
